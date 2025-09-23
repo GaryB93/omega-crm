@@ -1,0 +1,36 @@
+#customersContainer {
+  flex-grow: 2;
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#customerSearch {
+  height: 100px;
+}
+
+#searchResultsHeader {
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr 1.5fr 1fr;
+  border-bottom: 1px solid white;
+  margin-bottom: 20px;
+}
+
+#searchResults {
+  flex-grow: 1;
+}
+
+#customerFunctions {
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: space-around;
+
+  button:nth-of-type(1) {
+    width: 150px;
+  }
+
+  button:nth-of-type(2) {
+    width: 200px;
+  }
+}
