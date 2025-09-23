@@ -1,0 +1,19 @@
+#customerPane {
+  padding: 0px 20px;
+  border-left: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#clearBtn {
+  margin-bottom: 20px;
+}
+
+#customerInfo span {
+  display: block;
+}
+
+#customerInfo span:nth-of-type(even) {
+  margin-bottom: 20px;
+}

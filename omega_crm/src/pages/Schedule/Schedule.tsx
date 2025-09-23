@@ -1,10 +1,14 @@
 import ScheduleTabs from "./ScheduleTabs/ScheduleTabs";
+import CustomerPane from "./CustomerPane/CustomerPane";
 import './Schedule.css';
 
 function Schedule () {
   return (
-    <div id="scheduleContainer">
-      <ScheduleTabs/>
+    <div id="scheduleMainContainer">
+      <div id="schedule">
+        <ScheduleTabs/>
+      </div>
+      <CustomerPane/>
     </div>
   )
 }
