@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router';
 import './App.css';
 import Login from './pages/Login/Login';
 import DashboardLayout from './pages/Dashboard/Dashboard';
+import Schedule from './pages/Schedule/Schedule';
 
 function App() {
 

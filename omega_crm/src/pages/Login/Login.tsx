@@ -8,6 +8,7 @@ function Login() {
   const [loginFailed, setLoginFailed] = useState(false);
 
   return (
+    <div id="loginContainer">
       <form className='loginForm'>
         <h1>Omega CRM</h1>
         {loginFailed && <LoginErrMsg/>}
@@ -21,6 +22,7 @@ function Login() {
         </div>
         <button type='submit'>Login</button>
       </form>
+    </div>
   )
 }
 
