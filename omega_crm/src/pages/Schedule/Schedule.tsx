@@ -1,6 +1,11 @@
+import ScheduleTabs from "./ScheduleTabs/ScheduleTabs";
+import './Schedule.css';
+
 function Schedule () {
   return (
-    <h2>This is the schedule</h2>
+    <div id="scheduleContainer">
+      <ScheduleTabs/>
+    </div>
   )
 }
 
