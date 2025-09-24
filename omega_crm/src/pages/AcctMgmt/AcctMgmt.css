@@ -1,0 +1,27 @@
+#accountsContainer {
+  flex-grow: 2;
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#userSearch {
+  height: 100px;
+}
+
+#searchResultsHeader {
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr 1.5fr 1fr;
+  border-bottom: 1px solid white;
+  margin-bottom: 20px;
+}
+
+#searchResults {
+  flex-grow: 1;
+}
+
+#userFunctions {
+  padding-bottom: 20px;
+  display: flex;
+}

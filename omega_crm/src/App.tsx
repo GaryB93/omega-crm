@@ -5,6 +5,7 @@ import Login from './pages/Login/Login';
 import DashboardLayout from './pages/Dashboard/Dashboard';
 import Schedule from './pages/Schedule/Schedule';
 import Customers from './pages/Customers/Customers';
+import AcctMgmt from './pages/AcctMgmt/AcctMgmt';
 
 function App() {
 
@@ -17,7 +18,7 @@ function App() {
       <Route element={<DashboardLayout />} >
         <Route path="schedule" element={<Schedule />} />
         <Route path="customers" element={<Customers />} />
-        {/* <Route path="acctmgmt" element={<AccountManagement />} /> */}
+        <Route path="acctmgmt" element={<AcctMgmt />} />
       </Route>
     </Routes>
   )
