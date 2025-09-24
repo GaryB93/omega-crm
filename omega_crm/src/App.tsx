@@ -6,24 +6,24 @@ import DashboardLayout from './pages/Dashboard/Dashboard';
 import Schedule from './pages/Schedule/Schedule';
 import Customers from './pages/Customers/Customers';
 import AcctMgmt from './pages/AcctMgmt/AcctMgmt';
-import ProtectedRoutes from './utils/ProtectedRoutes';
+import ProtectedRoutes from './components/ProtectedRoutes';
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <Routes>
       <Route path="/" element={<Login />} />
       
-      <Route element={<ProtectedRoutes isLoggedIn={isLoggedIn}/>}>
-        <Route element={<DashboardLayout />} >
+      <Route element={<ProtectedRoutes isLoggedIn={isLoggedIn}/>} >
+        <Route element={<DashboardLayout setIsLoggedIn={setIsLoggedIn}/>} >
           <Route path="schedule" element={<Schedule />} />
           <Route path="customers" element={<Customers />} />
           <Route path="acctmgmt" element={<AcctMgmt />} />
-      </Route>
-      
         </Route>
+      </Route>
+
     </Routes>
   )
 }

@@ -1,7 +1,12 @@
 import { NavLink } from "react-router";
 import './Nav.css';
 
-function Nav () {
+function Nav ({ setIsLoggedIn }: { setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>> }) {
+
+  const handleClick = () => {
+    setIsLoggedIn(false);
+  }
+
   return (
     <div id="nav">
       <h1>Omega CRM</h1>
@@ -11,7 +16,7 @@ function Nav () {
           <NavLink to="/customers">Customers</NavLink>
           <NavLink to="/acctmgmt">Account Mangaement</NavLink>
         </div>
-        <button id="logoutButton">Logout</button>
+        <button id="logoutButton" onClick={handleClick}>Logout</button>
       </div>
     </div>
   )
