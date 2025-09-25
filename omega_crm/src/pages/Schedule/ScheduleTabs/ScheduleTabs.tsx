@@ -1,20 +1,19 @@
 import './ScheduleTabs.css';
 import ScheduleTab from '../ScheduleTab/ScheduleTab';
+import { useSchedules, type Schedule } from '../../../reducers/scheduleReducer';
 
-interface ScheduleTabsProps {
-  schedules: Array<{scheduleID: number, scheduleName: string}>;
-}
+function ScheduleTabs ({ schedules, selectedId }: { schedules: Array<Schedule>; selectedId: number}) {
 
-function ScheduleTabs ({ schedules }: ScheduleTabsProps) {
-
-  const schedulesList = schedules.map((schedule) => 
-    <ScheduleTab key={schedule.scheduleID} schedule={schedule}/>
-  );
+  const scheduleTabs = schedules.map((schedule) => {
+    return (
+      <ScheduleTab key={schedule.scheduleID} schedule={schedule} selectedId={selectedId} />
+    )
+  })
 
   return (
     <div id="scheduleTabsContainer">
       <div id="tabsContainer">
-        {schedulesList}
+        {scheduleTabs}
       </div>
       <div id="addScheduleContainer">
         <button>Add Schedule +</button>

@@ -1,23 +1,22 @@
 import { useContext } from "react";
-import { ScheduleContext } from "../../../context/scheduleContext";
-import { ScheduleDispatchContext } from "../../../context/scheduleContext";
+import { ScheduleDispatchContext } from "../../../reducers/scheduleReducer";
+
 import './ScheduleTab.css';
 
 interface ScheduleTabProps {
   schedule: {
     scheduleID: number;
     scheduleName: string;
-  }
+  };
+  selectedId: number;
 }
 
-function ScheduleTab({ schedule }: ScheduleTabProps) {
+function ScheduleTab({ schedule, selectedId }: ScheduleTabProps) {
 
-  const selectedSchedule = useContext(ScheduleContext);
-  const setSelectedSchedule = useContext(ScheduleDispatchContext);
+  const dispatch = useContext(ScheduleDispatchContext);
 
   return (
-    <button className={schedule.scheduleID == selectedSchedule ? "selected" : "notSelected"}
-      onClick={()=>setSelectedSchedule(schedule.scheduleID)}>
+    <button className={schedule.scheduleID == selectedId ? "selected" : "notSelected"}>
         {schedule.scheduleName}
     </button>
   )

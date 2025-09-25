@@ -3,28 +3,18 @@ import CustomerPane from "./CustomerPane/CustomerPane";
 import DateSelection from "./DateSelection/DateSelection";
 import './Schedule.css';
 import ScheduleGrid from "./ScheduleGrid/ScheduleGrid";
+import { useSchedules } from "../../reducers/scheduleReducer";
 
 function Schedule () {
 
-  const schedules = [
-    {
-      scheduleID: 1,
-      scheduleName: "Store 1"
-    },
-    {
-      scheduleID: 2,
-      scheduleName: "Store 2"
-    },
-    {
-      scheduleID: 3,
-      scheduleName: "Store 3"
-    }
-  ]
+  const scheduleState = useSchedules();
+  const schedules = scheduleState.schedules;
+  const selectedScheduleId = scheduleState.selectedSchedule;
   
   return (
     <div id="scheduleMainContainer">
       <div id="schedule">
-        <ScheduleTabs schedules={schedules} />
+        <ScheduleTabs schedules={schedules} selectedId={selectedScheduleId} />
         <DateSelection />
         <ScheduleGrid />
       </div>
