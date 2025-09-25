@@ -18,7 +18,7 @@ function Schedule () {
         <DateSelection />
         <ScheduleGrid />
       </div>
-      <CustomerPane/>
+      <CustomerPane />
     </div>
   )
 }
