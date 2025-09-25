@@ -1,24 +1,15 @@
 import './Customers.css';
 import CustomerInfo from './CustomerInfo/CustomerInfo';
+import { useCustomers, useCustomerDispatch } from '../../reducers/customersReducer';
 
 function Customers () {
-  const customers = [
-    {
-      firstName: "John",
-      lastName: "Smith",
-      phone: "111-111-1111",
-      reminder: true
-    },
-    {
-      firstName: "John",
-      lastName: "Smith",
-      phone: "111-111-1111",
-      reminder: true
-    }
-  ]
+
+  const customerState = useCustomers();
+  const customers = customerState.customers;
+  
 
   const customerList = customers.map(customer =>
-    <CustomerInfo {...customer}/>
+    <CustomerInfo key={customer.id} {...customer}/>
   )
 
   return (

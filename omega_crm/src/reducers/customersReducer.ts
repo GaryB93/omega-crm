@@ -50,6 +50,12 @@ export function customerReducer(customerState: CustomerState,
           selectedCustomerID: undefined
         }
       }
+      case 'added': {
+        return {
+          ...customerState,
+          customers: [...customerState.customers, action.customer]
+        }
+      }
       default: {
         throw Error('Unknown action: ' + action.type);
       }

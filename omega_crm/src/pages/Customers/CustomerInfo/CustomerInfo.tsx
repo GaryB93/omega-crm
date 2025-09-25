@@ -4,7 +4,7 @@ export interface Customer {
   firstName: string;
   lastName: string;
   phone: string;
-  reminder: boolean;
+  textReminder: boolean;
 }
 
 function CustomerInfo (customerObj: Customer) {
@@ -13,7 +13,7 @@ function CustomerInfo (customerObj: Customer) {
       <span>{customerObj.firstName}</span>
       <span>{customerObj.lastName}</span>
       <span>{customerObj.phone}</span>
-      <span>Yes</span>
+      <span>{customerObj.textReminder ? "Yes" : "No"}</span>
       <button>Edit</button>
     </div>
   )
