@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { ScheduleDispatchContext } from "../../../reducers/scheduleReducer";
+import { useScheduleDispatch } from "../../../reducers/scheduleReducer";
 
 import './ScheduleTab.css';
 
@@ -13,10 +12,18 @@ interface ScheduleTabProps {
 
 function ScheduleTab({ schedule, selectedId }: ScheduleTabProps) {
 
-  const dispatch = useContext(ScheduleDispatchContext);
+  const dispatch = useScheduleDispatch();
+
+  const handleClick = (scheduleID: number) => {
+    dispatch({
+      type: "selected",
+      id: scheduleID
+    });
+  }
 
   return (
-    <button className={schedule.scheduleID == selectedId ? "selected" : "notSelected"}>
+    <button className={schedule.scheduleID == selectedId ? "selected" : "notSelected"}
+      onClick={()=>handleClick(schedule.scheduleID)}>
         {schedule.scheduleName}
     </button>
   )

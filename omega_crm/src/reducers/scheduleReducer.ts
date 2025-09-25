@@ -59,3 +59,7 @@ export function scheduleReducer(scheduleState: ScheduleState,
 export function useSchedules() {
   return useContext(ScheduleContext);
 }
+
+export function useScheduleDispatch() {
+  return useContext(ScheduleDispatchContext);
+}

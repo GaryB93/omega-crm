@@ -1,6 +1,6 @@
 import './ScheduleTabs.css';
 import ScheduleTab from '../ScheduleTab/ScheduleTab';
-import { useSchedules, type Schedule } from '../../../reducers/scheduleReducer';
+import { type Schedule } from '../../../reducers/scheduleReducer';
 
 function ScheduleTabs ({ schedules, selectedId }: { schedules: Array<Schedule>; selectedId: number}) {
 
