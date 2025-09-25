@@ -1,13 +1,28 @@
 import { Outlet } from "react-router";
+import { useState } from "react";
 import './Dashboard.css';
 import Nav from "./Nav/Nav";
+import { ScheduleContext } from "../../context/scheduleContext";
+import { ScheduleDispatchContext } from "../../context/scheduleContext";
 
-function DashboardLayout ({ setIsLoggedIn }: { setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>> }) {
+interface DashboardLayoutProps {
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+function DashboardLayout ({ setIsLoggedIn }: DashboardLayoutProps) {
+
+  const [ selectedSchedule, setSelectedSchedule ] = useState(1);
+  // const [ selectedCustomer, setSelectedCustomer ] = useState(null);
+
   return (
-    <div id="dashboardContainer">
-      <Nav setIsLoggedIn={setIsLoggedIn} />
-      <Outlet />
-    </div>
+    <ScheduleContext.Provider value={selectedSchedule}>
+      <ScheduleDispatchContext.Provider value={setSelectedSchedule}>
+        <div id="dashboardContainer">
+          <Nav setIsLoggedIn={setIsLoggedIn} />
+          <Outlet />
+        </div>
+      </ScheduleDispatchContext.Provider>
+    </ScheduleContext.Provider>
   )
 }
 

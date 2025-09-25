@@ -1,12 +1,20 @@
 import './ScheduleTabs.css';
+import ScheduleTab from '../ScheduleTab/ScheduleTab';
 
-function ScheduleTabs () {
+interface ScheduleTabsProps {
+  schedules: Array<{scheduleID: number, scheduleName: string}>;
+}
+
+function ScheduleTabs ({ schedules }: ScheduleTabsProps) {
+
+  const schedulesList = schedules.map((schedule) => 
+    <ScheduleTab key={schedule.scheduleID} schedule={schedule}/>
+  );
+
   return (
     <div id="scheduleTabsContainer">
       <div id="tabsContainer">
-        <button>Store 1</button>
-        <button>Store 2</button>
-        <button>Store 3</button>
+        {schedulesList}
       </div>
       <div id="addScheduleContainer">
         <button>Add Schedule +</button>
