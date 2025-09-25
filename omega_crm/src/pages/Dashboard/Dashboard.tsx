@@ -1,4 +1,5 @@
 import { Outlet } from "react-router";
+import { useState } from "react";
 import './Dashboard.css';
 import Nav from "./Nav/Nav";
 import ScheduleProvider from "../../contextProviders/ScheduleProvider";
@@ -10,12 +11,15 @@ interface DashboardLayoutProps {
 
 function DashboardLayout ({ setIsLoggedIn }: DashboardLayoutProps) {
 
+  // FIX ME: change to use the current date upon loading initially
+  const [ date, setDate ] = useState("2025-09-24");
+
   return (
     <ScheduleProvider>
       <CustomerProvider>
         <div id="dashboardContainer">
           <Nav setIsLoggedIn={setIsLoggedIn} />
-          <Outlet />
+          <Outlet context={[ date, setDate ]}/>
         </div>
       </CustomerProvider>
     </ScheduleProvider>

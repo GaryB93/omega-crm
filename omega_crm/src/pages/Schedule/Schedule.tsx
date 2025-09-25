@@ -1,9 +1,9 @@
 import ScheduleTabs from "./ScheduleTabs/ScheduleTabs";
 import CustomerPane from "./CustomerPane/CustomerPane";
 import DateSelection from "./DateSelection/DateSelection";
-import './Schedule.css';
 import ScheduleGrid from "./ScheduleGrid/ScheduleGrid";
 import { useSchedules } from "../../reducers/scheduleReducer";
+import './Schedule.css';
 
 function Schedule () {
 
