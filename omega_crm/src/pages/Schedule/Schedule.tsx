@@ -3,24 +3,50 @@ import CustomerPane from "./CustomerPane/CustomerPane";
 import DateSelection from "./DateSelection/DateSelection";
 import ScheduleGrid from "./ScheduleGrid/ScheduleGrid";
 import { useSchedules } from "../../reducers/scheduleReducer";
+import Modal from "../../components/Modal/Modal";
+import { useState } from "react";
+import NewSectionModal from "../../modals/NewSectionModal";
+import NewScheduleModal from "../../modals/NewScheduleModal";
 import './Schedule.css';
 
 function Schedule () {
-
+  
   const scheduleState = useSchedules();
   const schedules = scheduleState.schedules;
   const selectedScheduleId = scheduleState.selectedSchedule;
+
+  const [isAddScheduleModalOpen, setIsAddScheduleModalOpen] = useState(false);
+  const closeAddScheduleModal = () => setIsAddScheduleModalOpen(false);
+  const openAddScheduleModal = () => setIsAddScheduleModalOpen(true);
   
+  const [isAddSectionModallOpen, setIsAddSectionModallOpen] = useState(false);
+  const closeAddSectionModal = () => setIsAddSectionModallOpen(false);
+  const openAddSectionModal = () => setIsAddSectionModallOpen(true);
+
   return (
     <div id="scheduleMainContainer">
       <div id="schedule">
-        <ScheduleTabs schedules={schedules} selectedId={selectedScheduleId} />
+        <ScheduleTabs 
+          schedules={schedules}
+          selectedId={selectedScheduleId}
+          openAddScheduleModal={openAddScheduleModal}
+        />
         <DateSelection />
-        <ScheduleGrid />
+        <ScheduleGrid 
+          openAddSectionModal={openAddSectionModal}
+        />
       </div>
       <CustomerPane />
+
+      <Modal show={isAddScheduleModalOpen} onClose={closeAddScheduleModal}>
+        <NewScheduleModal />
+      </Modal>
+
+      <Modal show={isAddSectionModallOpen} onClose={closeAddSectionModal}>
+        <NewSectionModal />
+      </Modal>
     </div>
-  )
+  );
 }
 
 export default Schedule;

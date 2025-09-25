@@ -72,6 +72,11 @@
   grid-row: 21 / 23;
 }
 
+#addSectionBtn {
+  grid-row: 24;
+  grid-column: 8;
+}
+
 #createApptBtn {
   grid-row: 24;
   grid-column: 10;

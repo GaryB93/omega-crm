@@ -1,6 +1,10 @@
 import './ScheduleGrid.css';
 
-function ScheduleGrid () {
+interface ScheduleGridProps {
+  openAddSectionModal: () => void;
+}
+
+function ScheduleGrid ({ openAddSectionModal }: ScheduleGridProps) {
 
   return (
     <div id="scheduleGrid">
@@ -16,6 +20,7 @@ function ScheduleGrid () {
       <p id="three" className="times">3:00PM</p>
       <p id="four" className="times">4:00PM</p>
       <p id="five" className="times">5:00PM</p>
+      <button id="addSectionBtn" onClick={openAddSectionModal}>Add Section</button>
       <button id="createApptBtn">Create Appt</button>
     </div>
   )

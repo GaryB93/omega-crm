@@ -17,11 +17,11 @@ function Customers () {
       <h2>Customer Search</h2>
       <form id="customerSearch">
         <label htmlFor="firstName">First Name:</label>
-        <input type="text"></input>
+        <input type="text" id="firstName"></input>
         <label htmlFor="lastName">Last Name:</label>
-        <input type="text"></input>
+        <input type="text" id="lastName"></input>
         <label htmlFor="phone">Phone Number:</label>
-        <input type="text"></input>
+        <input type="text" id="phone"></input>
         <button type="submit">Search</button>
       </form>
       <div id="searchResults">
