@@ -4,6 +4,7 @@ import './Dashboard.css';
 import Nav from "./Nav/Nav";
 import ScheduleProvider from "../../contextProviders/ScheduleProvider";
 import CustomerProvider from "../../contextProviders/CustomerProvider";
+import getCurrentDate from "../../utils/getCurrentDate";
 
 interface DashboardLayoutProps {
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
@@ -11,8 +12,7 @@ interface DashboardLayoutProps {
 
 function DashboardLayout ({ setIsLoggedIn }: DashboardLayoutProps) {
 
-  // FIX ME: change to use the current date upon loading initially
-  const [ date, setDate ] = useState("2025-09-24");
+  const [ date, setDate ] = useState(getCurrentDate());
 
   return (
     <ScheduleProvider>
