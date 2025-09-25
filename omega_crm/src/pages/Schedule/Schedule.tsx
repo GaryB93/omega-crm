@@ -7,6 +7,7 @@ import Modal from "../../components/Modal/Modal";
 import { useState } from "react";
 import NewSectionModal from "../../modals/NewSectionModal";
 import NewScheduleModal from "../../modals/NewScheduleModal";
+import NewApptModal from "../../modals/NewApptModal";
 import './Schedule.css';
 
 function Schedule () {
@@ -23,6 +24,10 @@ function Schedule () {
   const closeAddSectionModal = () => setIsAddSectionModallOpen(false);
   const openAddSectionModal = () => setIsAddSectionModallOpen(true);
 
+  const [isAddApptModalOpen, setIsAddApptModalOpen] = useState(false);
+  const closeAddApptModal = () => setIsAddApptModalOpen(false);
+  const openAddApptModal = () => setIsAddApptModalOpen(true);
+
   return (
     <div id="scheduleMainContainer">
       <div id="schedule">
@@ -34,6 +39,7 @@ function Schedule () {
         <DateSelection />
         <ScheduleGrid 
           openAddSectionModal={openAddSectionModal}
+          openAddApptModal={openAddApptModal}
         />
       </div>
       <CustomerPane />
@@ -44,6 +50,10 @@ function Schedule () {
 
       <Modal show={isAddSectionModallOpen} onClose={closeAddSectionModal}>
         <NewSectionModal />
+      </Modal>
+
+      <Modal show={isAddApptModalOpen} onClose={closeAddApptModal}>
+        <NewApptModal />
       </Modal>
     </div>
   );
