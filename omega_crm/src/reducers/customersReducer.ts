@@ -37,7 +37,7 @@ export const CustomerContext = createContext(initialCustomers);
 export const CustomerDispatchContext = createContext();
 
 export function customerReducer(customerState: CustomerState,
-  action: { type: string; id: number; customer?: Customer}) {
+  action: { type: string; id?: number; customer?: Customer}) {
     switch (action.type) {
       case 'selected': {
         return {...customerState,
