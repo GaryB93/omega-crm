@@ -7,10 +7,13 @@ import Schedule from './pages/Schedule/Schedule';
 import Customers from './pages/Customers/Customers';
 import AcctMgmt from './pages/AcctMgmt/AcctMgmt';
 import ProtectedRoutes from './components/ProtectedRoutes';
+import userAPI from './api/userAPI';
 
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+  userAPI.login();
 
   return (
     <Routes>
