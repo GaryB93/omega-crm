@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from'cors';
-import db from './omega_crm_model.js';
 import userRouter from './routes/userRouter.js';
 import customerRouter from './routes/customerRouter.js';
+import scheduleRouter from './routes/scheduleRouter.js';
 
 const app = express();
 const port = 3000;
@@ -14,6 +14,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use('/api/user', userRouter);
 app.use('/api/customer', customerRouter);
+app.use('/schedule', scheduleRouter);
 
 app.use((req, res) => {
   console.log("Backend express server failed to send a response from other paths, sending 404");
@@ -31,5 +32,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Omega CRM server listening on port ${port}`);
 });
