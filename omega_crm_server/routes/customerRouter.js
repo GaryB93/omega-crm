@@ -17,4 +17,18 @@ customerRouter.post('/create',
   }
 )
 
+customerRouter.put('/',
+  customerController.editCustomer,
+  (req, res) => {
+    res.status(200).send(res.locals.customer);
+  }
+)
+
+customerRouter.delete('/',
+  customerController.deleteCustomer,
+  (req, res) => {
+    res.status(200).send(res.locals.message);
+  }
+)
+
 export default customerRouter;

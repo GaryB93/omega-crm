@@ -54,7 +54,12 @@ customerController.getCustomers = (req, res, next) => {
 }
 
 customerController.createCustomer = (req, res, next) => {
-  const params = [ req.body.firstname, req.body.lastname, req.body.phone, req.body.textReminder ];
+  const params = [
+    req.body.firstname,
+    req.body.lastname,
+    req.body.phone,
+    req.body.textReminder
+  ];
   const query = "INSERT INTO customers (firstname, lastname, phone, textreminder) VALUES ($1, $2, $3, $4) RETURNING *;";
 
   db.query(query, params)
@@ -71,6 +76,54 @@ customerController.createCustomer = (req, res, next) => {
       };
       return next(errorObj);
     });
+}
+
+customerController.editCustomer = (req, res, next) => {
+  const params = [
+    req.body.id,
+    req.body.firstName,
+    req.body.lastName,
+    req.body.phone,
+    req.body.textReminder
+  ];
+  const query = "UPDATE customers SET firstname = $2, lastname = $3, phone = $4, textreminder = $5 WHERE id = $1 RETURNING *;";
+
+  db.query(query, params)
+    .then(data => {
+      res.locals.customer = data.rows[0];
+      return next();
+    })
+    .catch((err) => {
+      const errorObj = {
+        log: "customerController.editCustomer middleware error",
+        status: 501,
+        message: "Customer edit failed",
+      }
+      return next(errorObj);
+    });
+}
+
+customerController.deleteCustomer = (req, res, next) => {
+  const params = [req.query.id];
+  const query = "DELETE FROM customers WHERE id = $1 RETURNING (firstname, lastname);";
+
+  db.query(query, params)
+    .then(data => {
+      if (data.rows[0]) {
+        const customerDeleted = data.rows[0].row;
+        res.locals.message = customerDeleted;
+        return next();
+      }
+      res.locals.message = "Customer not found, delete failed.";
+      return next();
+    })
+    .catch((err) => {
+      const errorObj = {
+        log: "customerController.deleteCustomer middleware error",
+        status: 501,
+        message: "Customer delete failed",
+      }
+    })
 }
 
 export default customerController;
