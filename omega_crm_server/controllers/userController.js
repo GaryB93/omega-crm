@@ -7,31 +7,30 @@ userController.loginUser = (req, res, next) => {
   const query = "SELECT * FROM users WHERE username = $1 AND password = $2";
 
   db.query(query, params)
-  .then(data => {
-    let user = data.rows[0];
-    if (user) {
-      user = {
-        id: user.id,
-        firstname: user.firstname,
-        lastname: user.lastname,
-        schedule: user.schedule,
-        role: user.role,
+    .then(data => {
+      let user = data.rows[0];
+      if (user) {
+        user = {
+          id: user.id,
+          irstname: user.firstname,
+          lastname: user.lastname,
+          schedule: user.schedule,
+          role: user.role,
+        }
+        res.locals.user = user;
+      } else {
+        res.locals.user = undefined;
       }
-      res.locals.user = user;
-    }
-    else {
-      res.locals.user = undefined;
-    }
-    return next();
-  })
-  .catch((err) => {
-    const errorObj = {
-      log: "userController.loginUser middleware error",
-      status: 501,
-      message: "User login failed",
-    };
-    return next(err);
-  });
+      return next();
+    })
+    .catch((err) => {
+      const errorObj = {
+        log: "userController.loginUser middleware error",
+        status: 501,
+        message: "User login failed",
+      };
+      return next(errorObj);
+    });
 }
 
 userController.verifyUsername = (req, res, next) => {
@@ -45,18 +44,18 @@ userController.verifyUsername = (req, res, next) => {
       return next();
     })
     .catch((err) => {
-    const errorObj = {
-      log: "userController.verifyUsername middleware error",
-      status: 501,
-      message: "User verification failed",
-    };
-    return next(err);
-  });
+      const errorObj = {
+        log: "userController.verifyUsername middleware error",
+        status: 501,
+        message: "User verification failed",
+      };
+      return next(errorObj);
+    });
 }
 
 userController.createUser = (req, res, next) => {
   if (res.locals.status == "usernameExists") {
-    res.locals.message = "Username already exists";
+    res.locals.message = "Username already exists.";
     return next();
   }
   
@@ -70,12 +69,12 @@ userController.createUser = (req, res, next) => {
     req.body.phone
   ];
   
-  const query = "INSERT INTO users (firstname, lastname, username, password, schedule, role, phone) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;";
+  const query = "INSERT INTO users (firstname, lastname, username, password, schedule, role, phone) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id, firstname, lastname, schedule, role, phone;";
 
   db.query(query, params)
     .then(data => {
-      console.log(data.rows[0]);
-      res.locals.message = "User successfully created";
+      const [ userObj ] = data.rows;
+      res.locals.user = userObj;
       return next();
     })
     .catch((err) => {
@@ -84,8 +83,8 @@ userController.createUser = (req, res, next) => {
         status: 501,
         message: "User create failed",
       };
-      return next(err);
-  });
+      return next(errorObj);
+    });
 }
 
 userController.deleteUser = (req, res, next) => {
@@ -103,13 +102,13 @@ userController.deleteUser = (req, res, next) => {
       return next();
     })
     .catch((err) => {
-    const errorObj = {
-      log: "userController.deleteUser middleware error",
-      status: 501,
-      message: "User delete failed",
-    };
-    return next(err);
-  });
+      const errorObj = {
+        log: "userController.deleteUser middleware error",
+        status: 501,
+        message: "User delete failed",
+      };
+      return next(errorObj);
+    });
 }
 
 userController.editUser = (req, res, next) => {
@@ -135,12 +134,11 @@ userController.editUser = (req, res, next) => {
         status: 501,
         message: "User edit failed",
       };
-      return next(err);
-  });
+      return next(errorObj);
+    });
 }
 
 userController.getUsers = (req, res, next) => {
-  // const query = "SELECT * FROM users";
   const query = "SELECT id, firstname, lastname, schedule, role, phone FROM users";
 
   db.query(query)
@@ -151,6 +149,14 @@ userController.getUsers = (req, res, next) => {
       }
       res.locals.users = undefined;
       return next();
+    })
+    .catch((err) => {
+      const errorObj = {
+        log: "userController.getUser middleware error",
+        status: 501,
+        message: "User retrieval failed",
+      };
+      return next(errorObj);
     });
 }
 

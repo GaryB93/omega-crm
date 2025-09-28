@@ -2,6 +2,7 @@ import express from 'express';
 import cors from'cors';
 import db from './omega_crm_model.js';
 import userRouter from './routes/userRouter.js';
+import customerRouter from './routes/customerRouter.js';
 
 const app = express();
 const port = 3000;
@@ -11,15 +12,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.get('/', (req, res) => {
-  const queryString = 'SELECT * FROM customers;';
-
-  db.query(queryString).then((data) => 
-  console.log(data.rows));
-  res.send('Hello world!');
-});
-
 app.use('/api/user', userRouter);
+app.use('/api/customer', customerRouter);
 
 app.use((req, res) => {
   console.log("Backend express server failed to send a response from other paths, sending 404");
