@@ -1,0 +1,157 @@
+import db from "../omega_crm_model.js";
+
+const userController = {};
+
+userController.loginUser = (req, res, next) => {
+  const params = [ req.body.username, req.body.password ];
+  const query = "SELECT * FROM users WHERE username = $1 AND password = $2";
+
+  db.query(query, params)
+  .then(data => {
+    let user = data.rows[0];
+    if (user) {
+      user = {
+        id: user.id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        schedule: user.schedule,
+        role: user.role,
+      }
+      res.locals.user = user;
+    }
+    else {
+      res.locals.user = undefined;
+    }
+    return next();
+  })
+  .catch((err) => {
+    const errorObj = {
+      log: "userController.loginUser middleware error",
+      status: 501,
+      message: "User login failed",
+    };
+    return next(err);
+  });
+}
+
+userController.verifyUsername = (req, res, next) => {
+  const params = [ req.body.username ];
+  const query = "SELECT * FROM users WHERE username = $1";
+
+  db.query(query, params)
+    .then(data => {
+      const userFound = data.rows[0];
+      res.locals.status = userFound ? "usernameExists" : "validUsername";
+      return next();
+    })
+    .catch((err) => {
+    const errorObj = {
+      log: "userController.verifyUsername middleware error",
+      status: 501,
+      message: "User verification failed",
+    };
+    return next(err);
+  });
+}
+
+userController.createUser = (req, res, next) => {
+  if (res.locals.status == "usernameExists") {
+    res.locals.message = "Username already exists";
+    return next();
+  }
+  
+  const params = [
+    req.body.firstName,
+    req.body.lastName,
+    req.body.username,
+    req.body.password,
+    req.body.schedule,
+    req.body.role,
+    req.body.phone
+  ];
+  
+  const query = "INSERT INTO users (firstname, lastname, username, password, schedule, role, phone) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;";
+
+  db.query(query, params)
+    .then(data => {
+      console.log(data.rows[0]);
+      res.locals.message = "User successfully created";
+      return next();
+    })
+    .catch((err) => {
+      const errorObj = {
+        log: "userController.createUser middleware error",
+        status: 501,
+        message: "User create failed",
+      };
+      return next(err);
+  });
+}
+
+userController.deleteUser = (req, res, next) => {
+  const params = [ req.params.id ];
+  const query = "DELETE FROM users WHERE id = $1 RETURNING (firstname, lastname);";
+
+  db.query(query, params)
+    .then(data => {
+      if (data.rows[0]) {
+        const userDeleted = data.rows[0].row;
+        res.locals.message = userDeleted;
+        return next();
+      }
+      res.locals.message = "User not found, delete failed.";
+      return next();
+    })
+    .catch((err) => {
+    const errorObj = {
+      log: "userController.deleteUser middleware error",
+      status: 501,
+      message: "User delete failed",
+    };
+    return next(err);
+  });
+}
+
+userController.editUser = (req, res, next) => {
+  const params = [
+    req.body.firstName,
+    req.body.lastName,
+    req.body.schedule,
+    req.body.role,
+    req.body.phone,
+    req.body.id
+  ];
+
+  const query = "UPDATE users SET firstname = $1, lastname = $2, schedule = $3, role = $4, phone = $5 WHERE id = $6 RETURNING id, firstname, lastname, schedule, role, phone;";
+
+  db.query(query, params)
+    .then(data => {
+      res.locals.user = data.rows[0];
+      return next();
+    })
+    .catch((err) => {
+      const errorObj = {
+        log: "userController.editUser middleware error",
+        status: 501,
+        message: "User edit failed",
+      };
+      return next(err);
+  });
+}
+
+userController.getUsers = (req, res, next) => {
+  // const query = "SELECT * FROM users";
+  const query = "SELECT id, firstname, lastname, schedule, role, phone FROM users";
+
+  db.query(query)
+    .then(data => {
+      if (data.rows) {
+        res.locals.users = data.rows;
+        return next();
+      }
+      res.locals.users = undefined;
+      return next();
+    });
+}
+
+export default userController;
