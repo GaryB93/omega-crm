@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use('/api/user', userRouter);
 app.use('/api/customer', customerRouter);
-app.use('/schedule', scheduleRouter);
+app.use('/api/schedule', scheduleRouter);
 
 app.use((req, res) => {
   console.log("Backend express server failed to send a response from other paths, sending 404");
