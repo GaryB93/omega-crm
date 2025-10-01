@@ -3,6 +3,7 @@ import cors from'cors';
 import userRouter from './routes/userRouter.js';
 import customerRouter from './routes/customerRouter.js';
 import scheduleRouter from './routes/scheduleRouter.js';
+import appointmentRouter from './routes/appointmentRouter.js';
 
 const app = express();
 const port = 3000;
@@ -15,6 +16,7 @@ app.use(express.urlencoded({extended: true}));
 app.use('/api/user', userRouter);
 app.use('/api/customer', customerRouter);
 app.use('/api/schedule', scheduleRouter);
+app.use('/api/appointment', appointmentRouter);
 
 app.use((req, res) => {
   console.log("Backend express server failed to send a response from other paths, sending 404");

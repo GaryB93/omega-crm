@@ -1,16 +1,19 @@
 import express from 'express';
 import scheduleController from '../controllers/scheduleController.js';
 import sectionController from '../controllers/sectionController.js';
+import appointmentController from '../controllers/appointmentController.js';
 
 const scheduleRouter = express.Router();
 
 scheduleRouter.get('/',
   scheduleController.getSchedules,
   sectionController.getSections,
+  appointmentController.getAppointments,
   (req, res) => {
     const result = {
       schedules: res.locals.schedules,
       sections: res.locals.sections,
+      appointments: res.locals.appointments,
     };
     res.status(200).send(result);
   }
