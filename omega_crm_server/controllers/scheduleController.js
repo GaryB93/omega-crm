@@ -24,7 +24,7 @@ scheduleController.addSchedule = (req, res, next) => {
   const params = [ req.body.name ];
   const query = "INSERT INTO schedules (name) VALUES ($1) RETURNING *;";
 
-  db.query(query)
+  db.query(query, params)
     .then(data => {
       res.locals.newSchedule = data.rows[0];
       return next();

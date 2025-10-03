@@ -4,8 +4,8 @@ import './ScheduleTab.css';
 
 interface ScheduleTabProps {
   schedule: {
-    scheduleID: number;
-    scheduleName: string;
+    id: number;
+    name: string;
   };
   selectedId: number;
 }
@@ -22,9 +22,9 @@ function ScheduleTab({ schedule, selectedId }: ScheduleTabProps) {
   }
 
   return (
-    <button className={schedule.scheduleID == selectedId ? "selected" : "notSelected"}
-      onClick={()=>handleClick(schedule.scheduleID)}>
-        {schedule.scheduleName}
+    <button className={schedule.id == selectedId ? "selected" : "notSelected"}
+      onClick={()=>handleClick(schedule.id)}>
+        {schedule.name}
     </button>
   )
 }

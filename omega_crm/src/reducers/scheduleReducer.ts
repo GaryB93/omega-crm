@@ -1,8 +1,8 @@
 import { createContext, useContext } from "react";
 
 export interface Schedule {
-  scheduleID: number;
-  scheduleName: string;
+  id: number;
+  name: string;
 }
 
 export interface ScheduleState {
@@ -14,16 +14,16 @@ export const initialSchedules = {
   selectedSchedule: 1,
   schedules: [
     {
-      scheduleID: 1,
-      scheduleName: "Schedule 1"
+      id: 1,
+      name: "Schedule 1"
     },
     {
-      scheduleID: 2,
-      scheduleName: "Schedule 2"
+      id: 2,
+      name: "Schedule 2"
     },
     {
-      scheduleID: 3,
-      scheduleName: "Schedule 3"
+      id: 3,
+      name: "Schedule 3"
     }
   ]
 }
@@ -32,14 +32,14 @@ export const ScheduleContext = createContext(initialSchedules);
 export const ScheduleDispatchContext = createContext();
 
 export function scheduleReducer(scheduleState: ScheduleState, 
-  action: { type: string; id: number; scheduleName?: string}) {
+  action: { type: string; id: number; scheduleName?: string; schedules?: Array<Schedule>}) {
     switch (action.type) {
       case 'added': {
         return {...scheduleState,
           schedules: [...scheduleState.schedules,
             {
-              scheduleID: action.id,
-              scheduleName: action.scheduleName!
+              id: action.id,
+              name: action.scheduleName!
             }
           ]
         }
@@ -48,6 +48,12 @@ export function scheduleReducer(scheduleState: ScheduleState,
         return {
           selectedSchedule: action.id,
           schedules: [...scheduleState.schedules]
+        }
+      }
+      case 'retrieved': {
+        return {
+          ...scheduleState,
+          schedules: action.schedules
         }
       }
       default: {

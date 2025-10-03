@@ -8,18 +8,21 @@ userController.loginUser = (req, res, next) => {
 
   db.query(query, params)
     .then(data => {
-      let user = data.rows[0];
-      if (user) {
+      const userFound = data.rows[0];
+      let user;
+      if (userFound) {
         user = {
-          id: user.id,
-          irstname: user.firstname,
-          lastname: user.lastname,
-          schedule: user.schedule,
-          role: user.role,
+          id: userFound.id,
+          firstname: userFound.firstname,
+          lastname: userFound.lastname,
+          schedule: userFound.schedule,
+          role: userFound.role,
         }
         res.locals.user = user;
       } else {
-        res.locals.user = undefined;
+        res.locals.user = {
+          message: "Invalid login credentials"
+        };
       }
       return next();
     })

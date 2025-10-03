@@ -2,17 +2,19 @@ import ScheduleTabs from "./ScheduleTabs/ScheduleTabs";
 import CustomerPane from "./CustomerPane/CustomerPane";
 import DateSelection from "./DateSelection/DateSelection";
 import ScheduleGrid from "./ScheduleGrid/ScheduleGrid";
-import { useSchedules } from "../../reducers/scheduleReducer";
+import { useSchedules, useScheduleDispatch } from "../../reducers/scheduleReducer";
 import Modal from "../../components/Modal/Modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NewSectionModal from "../../modals/NewSectionModal";
 import NewScheduleModal from "../../modals/NewScheduleModal";
 import NewApptModal from "../../modals/NewApptModal";
+import scheduleAPI from "../../api/scheduleAPI";
 import './Schedule.css';
 
 function Schedule () {
   
   const scheduleState = useSchedules();
+  const scheduleDispatch = useScheduleDispatch();
   const schedules = scheduleState.schedules;
   const selectedScheduleId = scheduleState.selectedSchedule;
 
@@ -27,6 +29,18 @@ function Schedule () {
   const [isAddApptModalOpen, setIsAddApptModalOpen] = useState(false);
   const closeAddApptModal = () => setIsAddApptModalOpen(false);
   const openAddApptModal = () => setIsAddApptModalOpen(true);
+
+  useEffect(() => {
+    scheduleAPI.getSchedules()
+    .then(result => {
+      scheduleDispatch({
+        type: "retrieved",
+        schedules: result.schedules
+      });
+      console.log(result);
+    })
+    .catch(err => console.error(err));
+  }, []);
 
   return (
     <div id="scheduleMainContainer">

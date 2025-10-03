@@ -12,7 +12,7 @@ function ScheduleTabs ({ schedules, selectedId, openAddScheduleModal }: Schedule
 
   const scheduleTabs = schedules.map((schedule) => {
     return (
-      <ScheduleTab key={schedule.scheduleID} schedule={schedule} selectedId={selectedId} />
+      <ScheduleTab key={schedule.id} schedule={schedule} selectedId={selectedId} />
     )
   });
 
