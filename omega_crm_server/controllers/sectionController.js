@@ -4,11 +4,15 @@ const sectionController = {};
 
 sectionController.getSections = (req, res, next) => {
   const params = [0];
-
-  if (req.query.schedule != 0) {
+  
+  if (req.query.schedule == 0) {
+    if (res.locals.schedules[0]) {
+      res.locals.selectedSchedule = res.locals.schedules[0].id;
+      params[0] = res.locals.schedules[0].id;
+    }
+  } else {
+    res.locals.selectedSchedule = Number(req.query.schedule);
     params[0] = req.query.schedule;
-  } else if (res.locals.schedules[0]) {
-    params[0] = res.locals.schedules[0].id;
   }
 
   const query = "SELECT * FROM sections WHERE schedule = $1;";

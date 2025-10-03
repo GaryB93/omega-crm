@@ -31,7 +31,7 @@ export interface ScheduleState {
 }
 
 export const initialSchedules = {
-  selectedSchedule: 1,
+  selectedSchedule: 0,
   schedules: [
     {
       id: 1,

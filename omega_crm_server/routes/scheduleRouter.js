@@ -11,6 +11,7 @@ scheduleRouter.get('/',
   appointmentController.getAppointments,
   (req, res) => {
     const result = {
+      selectedSchedule: res.locals.selectedSchedule,
       schedules: res.locals.schedules,
       sections: res.locals.sections,
       appointments: res.locals.appointments,

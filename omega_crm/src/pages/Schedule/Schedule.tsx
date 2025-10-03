@@ -31,12 +31,11 @@ function Schedule () {
   const openAddApptModal = () => setIsAddApptModalOpen(true);
 
   useEffect(() => {
-    scheduleAPI.getSchedules()
+    scheduleAPI.getSchedules(scheduleState.selectedSchedule)
     .then(result => {
-      console.log(result);
       scheduleDispatch({
         type: "selected",
-        id: result.schedules[0].id,
+        id: result.selectedSchedule,
         schedules: result.schedules,
         sections: result.sections,
       });
