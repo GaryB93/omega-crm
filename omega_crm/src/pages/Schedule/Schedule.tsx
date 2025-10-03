@@ -31,7 +31,7 @@ function Schedule () {
   const openAddApptModal = () => setIsAddApptModalOpen(true);
 
   useEffect(() => {
-    scheduleAPI.getSchedules(scheduleState.selectedSchedule)
+    scheduleAPI.getSchedules(scheduleState.selectedSchedule, scheduleState.date)
     .then(result => {
       scheduleDispatch({
         type: "selected",

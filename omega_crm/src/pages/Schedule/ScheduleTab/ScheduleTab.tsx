@@ -1,4 +1,4 @@
-import { useScheduleDispatch } from "../../../reducers/scheduleReducer";
+import { useSchedules, useScheduleDispatch } from "../../../reducers/scheduleReducer";
 import scheduleAPI from "../../../api/scheduleAPI";
 
 import './ScheduleTab.css';
@@ -13,10 +13,11 @@ interface ScheduleTabProps {
 
 function ScheduleTab({ schedule, selectedId }: ScheduleTabProps) {
 
+  const scheduleState = useSchedules();
   const scheduleDispatch = useScheduleDispatch();
 
   const handleClick = (scheduleID: number) => {
-    scheduleAPI.getSchedules(scheduleID)
+    scheduleAPI.getSchedules(scheduleID, scheduleState.date)
     .then(result => {
       scheduleDispatch({
         type: "selected",

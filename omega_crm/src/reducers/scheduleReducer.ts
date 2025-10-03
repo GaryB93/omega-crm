@@ -1,4 +1,5 @@
 import { createContext, useContext } from "react";
+import getCurrentDate from "../utils/getCurrentDate";
 
 export interface Schedule {
   id: number;
@@ -18,6 +19,7 @@ export interface Appointment {
 export interface Action {
   type: string;
   id?: number;
+  date?: Date;
   scheduleName?: string;
   schedules?: Array<Schedule>;
   sections?: Array<Section>;
@@ -25,13 +27,15 @@ export interface Action {
 
 export interface ScheduleState {
   selectedSchedule: number;
+  date: string;
   schedules: Array<Schedule>;
   sections: Array<Section>;
-  appointments: Array<Appointment>;
+  // appointments: Array<Appointment>;
 }
 
 export const initialSchedules = {
   selectedSchedule: 0,
+  date: getCurrentDate(),
   schedules: [
     {
       id: 1,
@@ -71,14 +75,22 @@ export function scheduleReducer(scheduleState: ScheduleState,
               id: action.id,
               name: action.scheduleName!
             }
-          ]
+          ],
+          sections: [...scheduleState.sections]
         }
       }
       case 'selected': {
-        return {
+        return {...scheduleState,
           selectedSchedule: action.id,
           schedules: action.schedules,
           sections: action.sections
+        }
+      }
+      case 'changeDate': {
+        return {...scheduleState,
+          date: action.date,
+          schedules: [...scheduleState.schedules],
+          sections: [...scheduleState.sections],
         }
       }
       default: {
