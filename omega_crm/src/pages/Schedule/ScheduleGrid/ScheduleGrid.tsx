@@ -13,7 +13,7 @@ function ScheduleGrid ({ openAddSectionModal, openAddApptModal }: ScheduleGridPr
   let i = 0;
   const sections = schedules.sections.map(section => {
     i++;
-    return <h5 style={{gridColumn: `${i + 1} / ${i + 2}`}}>{section.name}</h5>
+    return <h5 key={section.id} style={{gridColumn: `${i + 1} / ${i + 2}`}}>{section.name}</h5>
   });
 
   return (
