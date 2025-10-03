@@ -1,3 +1,4 @@
+import { useSchedules } from '../../../reducers/scheduleReducer';
 import './ScheduleGrid.css';
 
 interface ScheduleGridProps {
@@ -7,8 +8,16 @@ interface ScheduleGridProps {
 
 function ScheduleGrid ({ openAddSectionModal, openAddApptModal }: ScheduleGridProps) {
 
+  const schedules = useSchedules();
+  
+  let i = 0;
+  const sections = schedules.sections.map(section => {
+    i++;
+    return <h5 style={{gridColumn: `${i + 1} / ${i + 2}`}}>{section.name}</h5>
+  });
+
   return (
-    <div id="scheduleGrid">
+    <div id="scheduleGrid" style={{gridTemplateColumns: `repeat(${sections.length + 1}, 1fr)`}}>
       <h3>Schedule Name</h3>
       <h4>Day(Date)</h4>
       <p id="eight" className="times">8:00AM</p>
@@ -21,8 +30,9 @@ function ScheduleGrid ({ openAddSectionModal, openAddApptModal }: ScheduleGridPr
       <p id="three" className="times">3:00PM</p>
       <p id="four" className="times">4:00PM</p>
       <p id="five" className="times">5:00PM</p>
-      <button id="addSectionBtn" onClick={openAddSectionModal}>Add Section</button>
-      <button id="createApptBtn" onClick={openAddApptModal}>Create Appt</button>
+      {sections}
+      <button id="addSectionBtn" onClick={openAddSectionModal} style={{gridColumn: `${sections.length}`}}>Add Section</button>
+      <button id="createApptBtn" onClick={openAddApptModal} style={{gridColumn: `${sections.length + 1}`}}>Create Appt</button>
     </div>
   )
 }

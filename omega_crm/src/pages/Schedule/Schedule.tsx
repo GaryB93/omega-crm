@@ -35,7 +35,9 @@ function Schedule () {
     .then(result => {
       scheduleDispatch({
         type: "retrieved",
-        schedules: result.schedules
+        schedules: result.schedules,
+        sections: result.sections,
+        
       });
       console.log(result);
     })

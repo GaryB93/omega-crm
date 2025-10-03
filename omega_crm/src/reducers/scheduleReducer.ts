@@ -5,9 +5,29 @@ export interface Schedule {
   name: string;
 }
 
+export interface Section {
+  id: number;
+  name: string;
+}
+
+export interface Appointment {
+  id: number;
+
+}
+
+export interface Action {
+  type: string;
+  id?: number;
+  scheduleName?: string;
+  schedules?: Array<Schedule>;
+  sections?: Array<Section>;
+}
+
 export interface ScheduleState {
   selectedSchedule: number;
-  schedules: Array<Schedule>
+  schedules: Array<Schedule>;
+  sections: Array<Section>;
+  appointments: Array<Appointment>;
 }
 
 export const initialSchedules = {
@@ -25,6 +45,16 @@ export const initialSchedules = {
       id: 3,
       name: "Schedule 3"
     }
+  ],
+  sections: [
+    {
+      id: 1,
+      name: "SectionName",
+    },
+    {
+      id: 2,
+      name: "SectionName2",
+    },
   ]
 }
 
@@ -32,7 +62,7 @@ export const ScheduleContext = createContext(initialSchedules);
 export const ScheduleDispatchContext = createContext();
 
 export function scheduleReducer(scheduleState: ScheduleState, 
-  action: { type: string; id: number; scheduleName?: string; schedules?: Array<Schedule>}) {
+  action: Action) {
     switch (action.type) {
       case 'added': {
         return {...scheduleState,
@@ -53,7 +83,8 @@ export function scheduleReducer(scheduleState: ScheduleState,
       case 'retrieved': {
         return {
           ...scheduleState,
-          schedules: action.schedules
+          schedules: action.schedules,
+          sections: action.sections,
         }
       }
       default: {
