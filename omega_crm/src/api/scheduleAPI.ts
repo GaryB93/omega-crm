@@ -12,8 +12,8 @@ const scheduleAPI = {
     return result;
   },
 
-  addSchedule: async (scheduleName: string) => {
-    let result;
+  addSchedule: async (scheduleName: string): Promise<object> => {
+    let result: object;
     
     await fetch(`${import.meta.env.VITE_SERVER_URL}/api/schedule`, {
       method: "POST",

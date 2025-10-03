@@ -1,6 +1,7 @@
 import { useState } from "react";
 import scheduleAPI from "../api/scheduleAPI";
 import { useScheduleDispatch } from "../reducers/scheduleReducer";
+import './modals.css';
 
 function NewScheduleModal () {
 
@@ -21,11 +22,11 @@ function NewScheduleModal () {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="formModal" onSubmit={handleSubmit}>
       <h3>Add Schedule</h3>
       <label htmlFor="scheduleName">Schedule Name:</label>
       <input type="text" id="scheduleName" value={name} onChange={(e) => setName(e.target.value)} required></input>
-      <button type="submit">Add</button>
+      <button className="submitBtn" type="submit">Add</button>
     </form>
   )
 }
