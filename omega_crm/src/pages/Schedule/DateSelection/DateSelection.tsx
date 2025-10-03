@@ -16,7 +16,7 @@ function DateSelection () {
 
   return (
     <div id="datePickerContainer">
-      <input type="date" id="datepicker" value={scheduleState.date} onChange={(e) => dispatchSchedule({type: "changeDate", date: e.target.value})}></input>
+      <input type="date" id="datepicker" value={scheduleState.date} onChange={(e) => dispatchSchedule({type: "changedDate", date: e.target.value})}></input>
       <button onClick={handleClick}>Apply</button>
     </div>
   )

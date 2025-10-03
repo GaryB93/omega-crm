@@ -4,7 +4,7 @@ const appointmentController = {};
 
 appointmentController.getAppointments = (req, res, next) => {
   const params = new Array(2);
-  params[0] = req.query.schedule ? req.query.schedule : 1;
+  params[0] = res.locals.selectedSchedule; 
   params[1] = req.query.date;
  
   const query = 'SELECT a.id, a.date, a."startTime", a."endTime", a.description, a.section, customers.firstname, customers.lastname, customers.phone, customers.textreminder FROM appointments AS a INNER JOIN customers ON a.customer = customers.id INNER JOIN sections ON a.section = sections.id WHERE sections.schedule = $1 AND a.date = $2;';

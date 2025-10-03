@@ -13,7 +13,15 @@ export interface Section {
 
 export interface Appointment {
   id: number;
-
+  date: string;
+  startTime: string;
+  endTime: string;
+  description: string;
+  section: number;
+  firstname: string;
+  lastname: string;
+  phone: string;
+  textreminder: boolean;
 }
 
 export interface Action {
@@ -23,6 +31,7 @@ export interface Action {
   scheduleName?: string;
   schedules?: Array<Schedule>;
   sections?: Array<Section>;
+  appointments?: Array<Appointment>;
 }
 
 export interface ScheduleState {
@@ -30,7 +39,7 @@ export interface ScheduleState {
   date: string;
   schedules: Array<Schedule>;
   sections: Array<Section>;
-  // appointments: Array<Appointment>;
+  appointments: Array<Appointment>;
 }
 
 export const initialSchedules = {
@@ -59,6 +68,20 @@ export const initialSchedules = {
       id: 2,
       name: "SectionName2",
     },
+  ],
+  appointments: [
+    {
+      id: 1,
+      date: "2025-10-02",
+      startTime: "08:00:00",
+      endTime: "09:00:00",
+      description: "some work done here",
+      section: 1,
+      firstname: "Johnny",
+      lastname: "Boy",
+      phone: "5552224444",
+      textreminder: true,
+    }
   ]
 }
 
@@ -76,21 +99,24 @@ export function scheduleReducer(scheduleState: ScheduleState,
               name: action.scheduleName!
             }
           ],
-          sections: [...scheduleState.sections]
+          sections: [...scheduleState.sections],
+          appointments: [...scheduleState.appointments]
         }
       }
       case 'selected': {
         return {...scheduleState,
           selectedSchedule: action.id,
           schedules: action.schedules,
-          sections: action.sections
+          sections: action.sections,
+          appointments: action.appointments
         }
       }
-      case 'changeDate': {
+      case 'changedDate': {
         return {...scheduleState,
           date: action.date,
           schedules: [...scheduleState.schedules],
           sections: [...scheduleState.sections],
+          appointments: [...scheduleState.appointments]
         }
       }
       default: {

@@ -38,7 +38,11 @@ function Schedule () {
         id: result.selectedSchedule,
         schedules: result.schedules,
         sections: result.sections,
+        appointments: result.appointments
       });
+    })
+    .then(() => {
+      console.log(scheduleState);
     })
     .catch(err => console.error(err));
   }, []);
