@@ -1,8 +1,8 @@
 const scheduleAPI = {
-  getSchedules: async () => {
+  getSchedules: async (scheduleID = 0) => {
     let result;
 
-    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/schedule`, {
+    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/schedule?schedule=${scheduleID}`, {
       method: "GET",
     })
     .then(response => response.json())

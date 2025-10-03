@@ -3,9 +3,9 @@ import db from "../omega_crm_model.js";
 const sectionController = {};
 
 sectionController.getSections = (req, res, next) => {
-  const params = [1];
+  const params = [0];
 
-  if (req.query.schedule) {
+  if (req.query.schedule != 0) {
     params[0] = req.query.schedule;
   } else if (res.locals.schedules[0]) {
     params[0] = res.locals.schedules[0].id;

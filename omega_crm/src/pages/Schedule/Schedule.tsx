@@ -33,13 +33,13 @@ function Schedule () {
   useEffect(() => {
     scheduleAPI.getSchedules()
     .then(result => {
+      console.log(result);
       scheduleDispatch({
-        type: "retrieved",
+        type: "selected",
+        id: result.schedules[0].id,
         schedules: result.schedules,
         sections: result.sections,
-        
       });
-      console.log(result);
     })
     .catch(err => console.error(err));
   }, []);

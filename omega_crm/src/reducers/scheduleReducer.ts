@@ -77,14 +77,8 @@ export function scheduleReducer(scheduleState: ScheduleState,
       case 'selected': {
         return {
           selectedSchedule: action.id,
-          schedules: [...scheduleState.schedules]
-        }
-      }
-      case 'retrieved': {
-        return {
-          ...scheduleState,
           schedules: action.schedules,
-          sections: action.sections,
+          sections: action.sections
         }
       }
       default: {
