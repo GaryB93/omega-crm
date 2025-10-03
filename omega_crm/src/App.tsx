@@ -7,17 +7,14 @@ import Schedule from './pages/Schedule/Schedule';
 import Customers from './pages/Customers/Customers';
 import AcctMgmt from './pages/AcctMgmt/AcctMgmt';
 import ProtectedRoutes from './components/ProtectedRoutes';
-import userAPI from './api/userAPI';
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
-  userAPI.login();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
+      <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn}/>}/>
       
       <Route element={<ProtectedRoutes isLoggedIn={isLoggedIn}/>} >
         <Route element={<DashboardLayout setIsLoggedIn={setIsLoggedIn}/>} >

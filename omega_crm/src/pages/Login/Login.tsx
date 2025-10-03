@@ -3,8 +3,9 @@ import './LoginErrMsg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import LoginErrMsg from './LoginErrMsg';
+import userAPI from '../../api/userAPI';
 
-function Login() {
+function Login({ setIsLoggedIn }: { setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>> }) {
   const navigate = useNavigate();
 
   const [loginFailed, setLoginFailed] = useState(false);
@@ -13,7 +14,16 @@ function Login() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/schedule");
+
+    userAPI.login(username, password)
+      .then(result => {
+        if (result.message) {
+          setLoginFailed(true);
+        } else {
+          setIsLoggedIn(true);
+          navigate("/schedule");
+        }
+      });
   }
 
   return (
@@ -23,13 +33,13 @@ function Login() {
         {loginFailed && <LoginErrMsg/>}
         <div className='inputContainer'>
           <label htmlFor='username'>Username</label>
-          <input type='text' id='username' name="username" value={username} 
-            onChange={(e) => {setUsername(e.target.value)}} />
+          <input type='text' id='username' name="username" value={username}
+            onChange={(e) => {setUsername(e.target.value)}} required />
         </div>
         <div className='inputContainer'>
           <label htmlFor='password'>Password</label>
           <input type='password' id='password' name="password" value={password}
-            onChange={(e) => {setPassword(e.target.value)}} />
+            onChange={(e) => {setPassword(e.target.value)}} required />
         </div>
         <button type='submit'>Login</button>
       </form>
