@@ -9,7 +9,13 @@ function DateSelection () {
   const handleClick = () => {
     scheduleAPI.getSchedules(scheduleState.selectedSchedule, scheduleState.date)
     .then(result => {
-      console.log(result);
+      dispatchSchedule({
+        type: "selected",
+        id: result.selectedSchedule,
+        schedules: result.schedules,
+        sections: result.sections,
+        appointments: result.appointments
+      })
     })
     .catch(err => console.error('Error', err));
   }

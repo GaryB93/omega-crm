@@ -23,7 +23,8 @@ function ScheduleTab({ schedule, selectedId }: ScheduleTabProps) {
         type: "selected",
         id: scheduleID,
         schedules: result.schedules,
-        sections: result.sections
+        sections: result.sections,
+        appointments: result.appointments
       });
     })
     .catch(err => console.error(err));
