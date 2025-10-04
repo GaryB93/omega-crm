@@ -27,7 +27,8 @@ export interface Appointment {
 export interface Action {
   type: string;
   id?: number;
-  date?: Date;
+  name?: string;
+  date?: string;
   scheduleName?: string;
   schedules?: Array<Schedule>;
   sections?: Array<Section>;
@@ -116,6 +117,18 @@ export function scheduleReducer(scheduleState: ScheduleState,
           date: action.date,
           schedules: [...scheduleState.schedules],
           sections: [...scheduleState.sections],
+          appointments: [...scheduleState.appointments]
+        }
+      }
+      case 'addedSection': {
+        return {...scheduleState,
+          schedules: [...scheduleState.schedules],
+          sections: [...scheduleState.sections,
+            {
+              id: action.id,
+              name: action.name
+            }
+          ],
           appointments: [...scheduleState.appointments]
         }
       }

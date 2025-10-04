@@ -27,4 +27,11 @@ scheduleRouter.post('/',
   }
 )
 
+scheduleRouter.post('/section',
+  sectionController.addSection,
+  (req, res) => {
+    res.status(200).send(res.locals.newSection);
+  }
+)
+
 export default scheduleRouter;
