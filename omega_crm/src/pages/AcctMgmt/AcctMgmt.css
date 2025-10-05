@@ -24,4 +24,9 @@
 #userFunctions {
   padding-bottom: 20px;
   display: flex;
+  justify-content: space-around;
+
+  button {
+    width: 100px;
+  }
 }

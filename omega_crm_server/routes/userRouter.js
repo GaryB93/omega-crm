@@ -39,7 +39,7 @@ userRouter.put('/edit',
 userRouter.get('/',
   userController.getUsers,
   (req, res) => {
-    res.send(res.locals.users);
+    res.status(200).send(res.locals.users);
   }
 )
 

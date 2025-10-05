@@ -1,7 +1,7 @@
 const userAPI = {
 
   login: async (username: string, password: string) => {
-    let result: Promise<object>;
+    let result;
     
     await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user/login`, {
       method: "POST",
@@ -19,6 +19,19 @@ const userAPI = {
       .catch(error => console.error('Error:', error));
 
       return result;
+  },
+
+  getUsers: async (formState: {firstname: string; lastname: string; role: string;}) => {
+    let result;
+
+    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user?firstname=${formState.firstname}&lastname=${formState.lastname}&role=${formState.role}`, {
+      method: "GET"
+    })
+    .then(response => response.json())
+    .then(data => result = data)
+    .catch(error => console.error('Error:', error));
+
+    return result;
   }
 
 

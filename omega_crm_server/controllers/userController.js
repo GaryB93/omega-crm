@@ -142,9 +142,43 @@ userController.editUser = (req, res, next) => {
 }
 
 userController.getUsers = (req, res, next) => {
-  const query = "SELECT id, firstname, lastname, schedule, role, phone FROM users";
+  const firstname = req.query.firstname;
+  const lastname = req.query.lastname;
+  const role = req.query.role;
+  const columns = [];
+  const params = [];
 
-  db.query(query)
+  let query = "SELECT id, firstname, lastname, schedule, role, phone FROM users";
+
+  if (firstname != "" || lastname != "" || role != "") {
+    query += " WHERE ";
+
+    if (firstname != "") {
+      columns.push("firstname");
+      params.push(firstname);
+    }
+
+    if (lastname != "") {
+      columns.push("lastname");
+      params.push(lastname);
+    }
+
+    if (role != "") {
+      columns.push("role");
+      params.push(role);
+    }
+  }
+
+  for (let i = 0; i < columns.length; i++) {
+    query = query + `${columns[i]} = $` + (i + 1).toString();
+    if (i != columns.length - 1) {
+      query += " AND "
+    }
+  }
+
+  query += ";";
+
+  db.query(query, params)
     .then(data => {
       if (data.rows) {
         res.locals.users = data.rows;
