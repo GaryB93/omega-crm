@@ -10,7 +10,7 @@ customerRouter.get('/',
   }
 )
 
-customerRouter.post('/create',
+customerRouter.post('/',
   customerController.createCustomer,
   (req, res) => {
     res.status(200).send(res.locals.newCustomer);

@@ -1,20 +1,34 @@
 import './CustomerInfo.css';
+import customerAPI from '../../../api/customerAPI';
+import { useCustomerDispatch } from '../../../reducers/customersReducer';
 
 export interface Customer {
-  firstName: string;
-  lastName: string;
+  id: number;
+  firstname: string;
+  lastname: string;
   phone: string;
   textReminder: boolean;
 }
 
-function CustomerInfo (customerObj: Customer) {
+function CustomerInfo ({ customerObj,  openCustomerInfoModal }: { customerObj: Customer, openCustomerInfoModal: ()=> void}) {
+
+  const customerDispatch = useCustomerDispatch();
+
+  const handleClick = () => {
+    customerDispatch({
+      type: "selected",
+      customer: customerObj
+    });
+    openCustomerInfoModal();
+  }
+
   return (
     <div className="customerInfo">
-      <span>{customerObj.firstName}</span>
-      <span>{customerObj.lastName}</span>
+      <span>{customerObj.firstname}</span>
+      <span>{customerObj.lastname}</span>
       <span>{customerObj.phone}</span>
       <span>{customerObj.textReminder ? "Yes" : "No"}</span>
-      <button>Edit</button>
+      <button onClick={handleClick}>Edit</button>
     </div>
   )
 }

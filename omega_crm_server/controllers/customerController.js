@@ -14,7 +14,7 @@ customerController.getCustomers = (req, res, next) => {
 
   if (fname != "" || lname != "" || phoneNum != "") {
     query += " WHERE ";
-
+    
     if (fname != "") {
       columns.push("firstname");
       params.push(fname);
@@ -27,16 +27,18 @@ customerController.getCustomers = (req, res, next) => {
       columns.push("phone");
       params.push(phoneNum);
     }
-
-    for (let i = 0; i < filters.length; i++) {
-      query = query + `${columns[i]} = $` + (i +1).toString();
-      if (i != filters.length - 1) {
+    
+    for (let i = 0; i < columns.length; i++) {
+      query = query + `${columns[i]} = $` + (i + 1).toString();
+      if (i != columns.length - 1) {
         query += " AND "
       }
     }
   }
   
   query += ";"
+  console.log(query);
+
 
   db.query(query, params)
     .then(data => {
@@ -55,8 +57,8 @@ customerController.getCustomers = (req, res, next) => {
 
 customerController.createCustomer = (req, res, next) => {
   const params = [
-    req.body.firstname,
-    req.body.lastname,
+    req.body.firstName,
+    req.body.lastName,
     req.body.phone,
     req.body.textReminder
   ];

@@ -6,8 +6,7 @@ function CustomerPane () {
   const customerState = useCustomers();
   const dispatch = useCustomerDispatch();
 
-  const selectedCustomerID = customerState.selectedCustomerID;
-  const selectedCustomer = customerState.customers.find((customer => customer.id == selectedCustomerID));
+  const selectedCustomer = customerState.selectedCustomer;
 
   const handleClick = () => {
     dispatch({ type: "clearSelected"});
@@ -18,9 +17,9 @@ function CustomerPane () {
       <div id="customerInfo">
         <h3>Customer Selection</h3>
         <span>First Name:</span>
-        <span>{selectedCustomer ? selectedCustomer.firstName : "..."}</span>
+        <span>{selectedCustomer ? selectedCustomer.firstname : "..."}</span>
         <span>Last Name:</span>
-        <span>{selectedCustomer ? selectedCustomer.lastName : "..."}</span>
+        <span>{selectedCustomer ? selectedCustomer.lastname : "..."}</span>
         <span>Phone:</span>
         <span>{selectedCustomer ? selectedCustomer.phone : "..."}</span>
       </div>
