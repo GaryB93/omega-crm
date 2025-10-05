@@ -52,7 +52,7 @@ export function customerReducer(customerState: CustomerState,
       case 'added': {
         return {
           ...customerState,
-          customers: [...customerState.customers, action.customer]
+          customers: [action.customer, ...customerState.customers]
         }
       }
       case 'retrieved': {

@@ -2,6 +2,7 @@ import customerAPI from '../api/customerAPI';
 import './modals.css';
 import { useState } from 'react';
 import type { Customer } from '../reducers/customersReducer';
+import { useCustomerDispatch } from '../reducers/customersReducer';
 
 function CustomerInfoModal ({ customer }: { customer: Customer}) {
   const [ firstName, setFirstName ] = useState(customer.firstname);
@@ -9,11 +10,16 @@ function CustomerInfoModal ({ customer }: { customer: Customer}) {
   const [ phone, setPhone ] = useState(customer.phone);
   const [ textReminder, setTextReminder ] = useState(customer.textReminder);
 
+  const customerDispatch = useCustomerDispatch();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     customerAPI.saveCustomer(customer.id, firstName, lastName, phone, textReminder)
     .then(response => {
-      console.log(response);
+      customerDispatch({
+        type: "added",
+        customer: response
+      })
     })
     .catch(err => console.error('Error', err));
   }
