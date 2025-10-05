@@ -58,9 +58,8 @@ function Customers () {
         {customerList}
       </div>
       <div id="customerFunctions">
-        <button onClick={openCustomerInfoModal}>New Customer</button>
-        <button>View Appointments Report</button>
-        <button>Select</button>
+        <button onClick={()=> {customerDispatch({type: "clearSelected"}); openCustomerInfoModal();}}>New Customer</button>
+        <button disabled={customerState.selectedCustomer.id == 0 ? true : false}>View Appointments Report</button>
       </div>
 
       <Modal show={isCustomerInfoModalOpen} onClose={() => {closeCustomerInfoModal(); customerDispatch({type: "clearSelected"})}}>

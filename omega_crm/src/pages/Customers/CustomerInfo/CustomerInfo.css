@@ -2,5 +2,19 @@
   display: grid;
   grid-template-columns: 2fr 2fr 2fr 1.5fr 1fr;
   border-bottom: 1px solid white;
-  padding: 5px;
+  padding: 10px;
+}
+
+.customerInfo:hover {
+  cursor: pointer;
+
+  span {
+    color: gold;
+  }
+}
+
+.customerSelected {
+  span {
+    color: gold;
+  }
 }

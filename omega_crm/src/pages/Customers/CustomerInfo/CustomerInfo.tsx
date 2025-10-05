@@ -1,6 +1,5 @@
 import './CustomerInfo.css';
-import customerAPI from '../../../api/customerAPI';
-import { useCustomerDispatch } from '../../../reducers/customersReducer';
+import { useCustomers, useCustomerDispatch } from '../../../reducers/customersReducer';
 
 export interface Customer {
   id: number;
@@ -13,8 +12,10 @@ export interface Customer {
 function CustomerInfo ({ customerObj,  openCustomerInfoModal }: { customerObj: Customer, openCustomerInfoModal: ()=> void}) {
 
   const customerDispatch = useCustomerDispatch();
+  const customerState = useCustomers();
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     customerDispatch({
       type: "selected",
       customer: customerObj
@@ -22,8 +23,17 @@ function CustomerInfo ({ customerObj,  openCustomerInfoModal }: { customerObj: C
     openCustomerInfoModal();
   }
 
+  const handleSelect = (e: React.MouseEvent<HTMLDivElement>) => {
+    customerDispatch({
+      type: "selected",
+      customer: customerObj
+    });
+  }
+  
+  const classes = customerObj.id == customerState.selectedCustomer.id ? "customerInfo customerSelected" : "customerInfo";
+
   return (
-    <div className="customerInfo">
+    <div className={classes} onClick={handleSelect}>
       <span>{customerObj.firstname}</span>
       <span>{customerObj.lastname}</span>
       <span>{customerObj.phone}</span>
