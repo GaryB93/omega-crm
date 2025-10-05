@@ -10,7 +10,7 @@ export interface Customer {
   firstname: string;
   lastname: string;
   phone: string;
-  textReminder: boolean;
+  textreminder: boolean;
 }
 
 export const initialCustomers: CustomerState = {
@@ -19,7 +19,7 @@ export const initialCustomers: CustomerState = {
     firstname: "",
     lastname: "",
     phone: "",
-    textReminder: false
+    textreminder: false
   },
   customers: []
 }
@@ -44,15 +44,24 @@ export function customerReducer(customerState: CustomerState,
             firstname: "",
             lastname: "",
             phone: "",
-            textReminder: false
+            textreminder: false
           },
           customers: [...customerState.customers]
         }
       }
-      case 'added': {
+      case 'saved': {
+        const editedCustomer = customerState.customers.findIndex((customer)=> customer.id == action.customer!.id)
+        if (editedCustomer == -1) {
+          return {
+            ...customerState,
+            customers: [action.customer, ...customerState.customers]
+          }
+        }
+        const customersCopy = [...customerState.customers];
+        customersCopy[editedCustomer] = action.customer!;
         return {
           ...customerState,
-          customers: [action.customer, ...customerState.customers]
+          customers: customersCopy
         }
       }
       case 'retrieved': {

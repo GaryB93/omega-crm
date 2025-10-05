@@ -1,13 +1,6 @@
 import './CustomerInfo.css';
 import { useCustomers, useCustomerDispatch } from '../../../reducers/customersReducer';
-
-export interface Customer {
-  id: number;
-  firstname: string;
-  lastname: string;
-  phone: string;
-  textReminder: boolean;
-}
+import type { Customer } from '../../../reducers/customersReducer';
 
 function CustomerInfo ({ customerObj,  openCustomerInfoModal }: { customerObj: Customer, openCustomerInfoModal: ()=> void}) {
 
@@ -24,10 +17,16 @@ function CustomerInfo ({ customerObj,  openCustomerInfoModal }: { customerObj: C
   }
 
   const handleSelect = (e: React.MouseEvent<HTMLDivElement>) => {
-    customerDispatch({
+    if (customerState.selectedCustomer.id == customerObj.id) {
+      customerDispatch({
+        type: "clearSelected"
+      })
+    } else {
+      customerDispatch({
       type: "selected",
       customer: customerObj
     });
+    }
   }
   
   const classes = customerObj.id == customerState.selectedCustomer.id ? "customerInfo customerSelected" : "customerInfo";
@@ -37,7 +36,7 @@ function CustomerInfo ({ customerObj,  openCustomerInfoModal }: { customerObj: C
       <span>{customerObj.firstname}</span>
       <span>{customerObj.lastname}</span>
       <span>{customerObj.phone}</span>
-      <span>{customerObj.textReminder ? "Yes" : "No"}</span>
+      <span>{customerObj.textreminder ? "Yes" : "No"}</span>
       <button onClick={handleClick}>Edit</button>
     </div>
   )

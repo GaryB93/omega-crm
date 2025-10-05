@@ -14,7 +14,7 @@ function Nav ({ setIsLoggedIn }: { setIsLoggedIn: React.Dispatch<React.SetStateA
         <div id="navLinks">
           <NavLink to="/schedule">Schedule</NavLink>
           <NavLink to="/customers">Customers</NavLink>
-          <NavLink to="/acctmgmt">Account Mangaement</NavLink>
+          <NavLink to="/acctmgmt">Account Management</NavLink>
         </div>
         <button id="logoutButton" onClick={handleClick}>Logout</button>
       </div>

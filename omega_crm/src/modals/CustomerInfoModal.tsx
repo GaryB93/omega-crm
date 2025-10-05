@@ -8,7 +8,7 @@ function CustomerInfoModal ({ customer }: { customer: Customer}) {
   const [ firstName, setFirstName ] = useState(customer.firstname);
   const [ lastName, setLastName ] = useState(customer.lastname);
   const [ phone, setPhone ] = useState(customer.phone);
-  const [ textReminder, setTextReminder ] = useState(customer.textReminder);
+  const [ textReminder, setTextReminder ] = useState(customer.textreminder);
 
   const customerDispatch = useCustomerDispatch();
 
@@ -17,7 +17,7 @@ function CustomerInfoModal ({ customer }: { customer: Customer}) {
     customerAPI.saveCustomer(customer.id, firstName, lastName, phone, textReminder)
     .then(response => {
       customerDispatch({
-        type: "added",
+        type: "saved",
         customer: response
       })
     })
@@ -40,7 +40,7 @@ function CustomerInfoModal ({ customer }: { customer: Customer}) {
         <input type="text" id="phone" value={phone} onChange={(e)=>setPhone(e.target.value)}/>
       </div>
       <div>
-        <input type="checkbox" id="textreminder" checked={textReminder} onChange={(e)=>setTextReminder(e.target.checked)}/>
+        <input type="checkbox" id="textreminder" checked={textReminder} onChange={()=>setTextReminder(!textReminder)}/>
         <label htmlFor="textreminder">Text Alert Reminder?</label>
       </div>
       <button type="submit">Save</button>
