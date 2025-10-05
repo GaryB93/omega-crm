@@ -58,19 +58,21 @@ userController.verifyUsername = (req, res, next) => {
 
 userController.createUser = (req, res, next) => {
   if (res.locals.status == "usernameExists") {
-    res.locals.message = "Username already exists.";
+    res.locals.message = {message: "Username already exists"};
     return next();
   }
   
   const params = [
-    req.body.firstName,
-    req.body.lastName,
+    req.body.firstname,
+    req.body.lastname,
     req.body.username,
     req.body.password,
     req.body.schedule,
     req.body.role,
     req.body.phone
   ];
+
+  console.log(params);
   
   const query = "INSERT INTO users (firstname, lastname, username, password, schedule, role, phone) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id, firstname, lastname, schedule, role, phone;";
 
@@ -92,16 +94,20 @@ userController.createUser = (req, res, next) => {
 
 userController.deleteUser = (req, res, next) => {
   const params = [ req.params.id ];
-  const query = "DELETE FROM users WHERE id = $1 RETURNING (firstname, lastname);";
+  const query = "DELETE FROM users WHERE id = $1 RETURNING *;";
 
   db.query(query, params)
     .then(data => {
       if (data.rows[0]) {
-        const userDeleted = data.rows[0].row;
-        res.locals.message = userDeleted;
+        const userDeleted = data.rows[0];
+        res.locals.deletedUser = {
+          id: userDeleted.id,
+          firstname: userDeleted.firstname,
+          lastname: userDeleted.lastname,
+        };
         return next();
       }
-      res.locals.message = "User not found, delete failed.";
+      res.locals.deletedUser = { message: "User not found, delete failed."};
       return next();
     })
     .catch((err) => {
@@ -116,8 +122,8 @@ userController.deleteUser = (req, res, next) => {
 
 userController.editUser = (req, res, next) => {
   const params = [
-    req.body.firstName,
-    req.body.lastName,
+    req.body.firstname,
+    req.body.lastname,
     req.body.schedule,
     req.body.role,
     req.body.phone,
@@ -150,7 +156,7 @@ userController.getUsers = (req, res, next) => {
 
   let query = "SELECT id, firstname, lastname, schedule, role, phone FROM users";
 
-  if (firstname != "" || lastname != "" || role != "") {
+  if (firstname != "" || lastname != "" || role != "all") {
     query += " WHERE ";
 
     if (firstname != "") {
@@ -163,7 +169,7 @@ userController.getUsers = (req, res, next) => {
       params.push(lastname);
     }
 
-    if (role != "") {
+    if (role != "all") {
       columns.push("role");
       params.push(role);
     }

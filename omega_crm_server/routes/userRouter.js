@@ -10,7 +10,7 @@ userRouter.post('/login',
   }
 )
 
-userRouter.post('/create',
+userRouter.post('/',
   userController.verifyUsername,
   userController.createUser,
   (req, res) => {
@@ -22,14 +22,14 @@ userRouter.post('/create',
   }
 )
 
-userRouter.delete('/delete/:id',
+userRouter.delete('/:id',
   userController.deleteUser,
   (req, res) => {
-    res.status(200).send(res.locals.message);
+    res.status(200).send(res.locals.deletedUser);
   }
 )
 
-userRouter.put('/edit',
+userRouter.put('/',
   userController.editUser,
   (req, res) => {
     res.status(200).send(res.locals.user);

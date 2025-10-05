@@ -1,4 +1,5 @@
 import type { SetStateAction } from 'react';
+import { useSchedules } from '../../../reducers/scheduleReducer';
 import './UserInfo.css';
 
 export interface User {
@@ -18,6 +19,7 @@ interface UserInfoProps {
 
 function UserInfo ({user, selectedUser, setSelectedUser}: UserInfoProps) {
 
+  const schedules = useSchedules().schedules;
 
   const handleSelect= () => {
     if (user.id == selectedUser.id) {
@@ -42,7 +44,7 @@ function UserInfo ({user, selectedUser, setSelectedUser}: UserInfoProps) {
       <span>{user.lastname}</span>
       <span>{user.phone}</span>
       <span>{user.role}</span>
-      <span>{user.schedule}</span>
+      <span>{schedules.find(schedule => schedule.id == user.schedule).name}</span>
     </div>
   )
 }
