@@ -2,13 +2,17 @@ import { useState, type SetStateAction } from "react";
 import type { User } from "../pages/AcctMgmt/UserInfo/UserInfo";
 import { useSchedules } from "../reducers/scheduleReducer";
 import userAPI from "../api/userAPI";
+import updateUsers from "../utils/updateUsers";
 
 interface UserInfoModalProps {
   selectedUser: User;
   resetSelectedUser: ()=>void;
+  setUsers: React.Dispatch<SetStateAction<Array<User>>>;
+  users: Array<User>;
+  closeUserInfoModal: ()=>void;
 }
 
-function UserInfoModal ({selectedUser, resetSelectedUser}: UserInfoModalProps) {
+function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, closeUserInfoModal}: UserInfoModalProps) {
   const [formState, setFormState] = useState({
     id: selectedUser.id,
     firstname: selectedUser.firstname,
@@ -35,12 +39,19 @@ function UserInfoModal ({selectedUser, resetSelectedUser}: UserInfoModalProps) {
     e.preventDefault();
     if (selectedUser.id == 0) {
       userAPI.addUser(formState)
-      .then(result => console.log(result));
+      .then(result => {
+        setUsers(updateUsers(users, result));
+        closeUserInfoModal();
+      })
+      .catch(err => console.error('Error:', err));
     } else {
       userAPI.saveUser(formState)
       .then(result => {
         resetSelectedUser();
-      });
+        setUsers(updateUsers(users, result));
+        closeUserInfoModal();
+      })
+      .catch(err => console.error('Error:', err));
     }
   }
 

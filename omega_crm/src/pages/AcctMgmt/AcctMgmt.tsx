@@ -100,11 +100,13 @@ function AcctMgmt () {
       </div>
 
       <Modal show={isUserInfoModalOpen} onClose={closeUserInfoModal}>
-        <UserInfoModal selectedUser={selectedUser} resetSelectedUser={resetSelectedUser}/>
+        <UserInfoModal selectedUser={selectedUser} resetSelectedUser={resetSelectedUser} users={users}
+          setUsers={setUsers} closeUserInfoModal={closeUserInfoModal}/>
       </Modal>
 
       <Modal show={isDeleteUserModalOpen} onClose={closeDeleteUserModal}>
-        <DeleteUserModal selectedUser={selectedUser} resetSelectedUser={resetSelectedUser}/>
+        <DeleteUserModal selectedUser={selectedUser} resetSelectedUser={resetSelectedUser} users={users}
+          setUsers={setUsers} closeDeleteUserModal={closeDeleteUserModal}/>
       </Modal>
     </div>
   )

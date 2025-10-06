@@ -1,18 +1,24 @@
 import type { User } from "../pages/AcctMgmt/UserInfo/UserInfo";
 import userAPI from "../api/userAPI";
+import removeUser from "../utils/removeUser";
+import type { SetStateAction } from "react";
 
 interface DeleteUserModalProps {
   selectedUser: User;
   resetSelectedUser: ()=>void;
+  closeDeleteUserModal: ()=>void;
+  users: Array<User>;
+  setUsers: React.Dispatch<SetStateAction<Array<User>>>;
 }
 
-function DeleteUserModal ({selectedUser, resetSelectedUser}: DeleteUserModalProps) {
+function DeleteUserModal ({selectedUser, resetSelectedUser, closeDeleteUserModal, users, setUsers}: DeleteUserModalProps) {
   
   const handleClick = () => {
     userAPI.deleteUser(selectedUser.id)
     .then(result => {
-      console.log(result);
       resetSelectedUser();
+      closeDeleteUserModal();
+      setUsers(removeUser(users, result));
     })
     .catch(error => console.error('Error:', error));
   }

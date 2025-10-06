@@ -71,14 +71,12 @@ userController.createUser = (req, res, next) => {
     req.body.role,
     req.body.phone
   ];
-
-  console.log(params);
   
   const query = "INSERT INTO users (firstname, lastname, username, password, schedule, role, phone) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id, firstname, lastname, schedule, role, phone;";
 
   db.query(query, params)
     .then(data => {
-      const [ userObj ] = data.rows;
+      const userObj = data.rows[0];
       res.locals.user = userObj;
       return next();
     })
