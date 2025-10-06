@@ -4,7 +4,12 @@ import { useState } from 'react';
 import type { Customer } from '../reducers/customersReducer';
 import { useCustomerDispatch } from '../reducers/customersReducer';
 
-function CustomerInfoModal ({ customer }: { customer: Customer}) {
+interface CustomerInfoModalProps {
+  customer: Customer;
+  closeCustomerInfoModal: ()=>void;
+}
+
+function CustomerInfoModal ({ customer, closeCustomerInfoModal }: CustomerInfoModalProps) {
   const [ firstName, setFirstName ] = useState(customer.firstname);
   const [ lastName, setLastName ] = useState(customer.lastname);
   const [ phone, setPhone ] = useState(customer.phone);
@@ -19,7 +24,8 @@ function CustomerInfoModal ({ customer }: { customer: Customer}) {
       customerDispatch({
         type: "saved",
         customer: response
-      })
+      });
+      closeCustomerInfoModal();
     })
     .catch(err => console.error('Error', err));
   }

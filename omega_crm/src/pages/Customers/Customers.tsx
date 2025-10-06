@@ -63,7 +63,7 @@ function Customers () {
       </div>
 
       <Modal show={isCustomerInfoModalOpen} onClose={() => {closeCustomerInfoModal(); customerDispatch({type: "clearSelected"})}}>
-        <CustomerInfoModal customer={customerState.selectedCustomer} />
+        <CustomerInfoModal customer={customerState.selectedCustomer} closeCustomerInfoModal={closeCustomerInfoModal}/>
       </Modal>
     </div>
   )
