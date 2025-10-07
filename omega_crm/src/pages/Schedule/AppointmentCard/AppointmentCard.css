@@ -1,0 +1,11 @@
+.appointmentCard {
+  background-color: rgb(237, 183, 45);
+  padding: 5px;
+  color: black;
+  font-size: small;
+  border-radius: 10px;
+
+  span, button {
+    display: block;
+  }
+}

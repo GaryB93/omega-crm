@@ -65,14 +65,14 @@ function NewApptModal ({closeAddApptModal}: {closeAddApptModal: ()=>void}) {
         <option value={"11:30"}>11:30am</option>
         <option value={"12:00"}>12:00pm</option>
         <option value={"12:30"}>12:30pm</option>
-        <option value={"01:00"}>1:00pm</option>
-        <option value={"01:30"}>1:30pm</option>
-        <option value={"02:00"}>2:00pm</option>
-        <option value={"02:30"}>2:30pm</option>
-        <option value={"03:00"}>3:00pm</option>
-        <option value={"03:30"}>3:30pm</option>
-        <option value={"04:00"}>4:00pm</option>
-        <option value={"04:30"}>4:30pm</option>
+        <option value={"13:00"}>1:00pm</option>
+        <option value={"13:30"}>1:30pm</option>
+        <option value={"14:00"}>2:00pm</option>
+        <option value={"14:30"}>2:30pm</option>
+        <option value={"15:00"}>3:00pm</option>
+        <option value={"15:30"}>3:30pm</option>
+        <option value={"16:00"}>4:00pm</option>
+        <option value={"16:30"}>4:30pm</option>
       </select>
 
       <label htmlFor="endTime">End Time:</label>
@@ -87,15 +87,15 @@ function NewApptModal ({closeAddApptModal}: {closeAddApptModal: ()=>void}) {
         <option value={"11:30"}>11:30am</option>
         <option value={"12:00"}>12:00pm</option>
         <option value={"12:30"}>12:30pm</option>
-        <option value={"01:00"}>1:00pm</option>
-        <option value={"01:30"}>1:30pm</option>
-        <option value={"02:00"}>2:00pm</option>
-        <option value={"02:30"}>2:30pm</option>
-        <option value={"03:00"}>3:00pm</option>
-        <option value={"03:30"}>3:30pm</option>
-        <option value={"04:00"}>4:00pm</option>
-        <option value={"04:30"}>4:30pm</option>
-        <option value={"05:00"}>5:00pm</option>
+        <option value={"13:00"}>1:00pm</option>
+        <option value={"13:30"}>1:30pm</option>
+        <option value={"14:00"}>2:00pm</option>
+        <option value={"14:30"}>2:30pm</option>
+        <option value={"15:00"}>3:00pm</option>
+        <option value={"15:30"}>3:30pm</option>
+        <option value={"16:00"}>4:00pm</option>
+        <option value={"16:30"}>4:30pm</option>
+        <option value={"17:00"}>5:00pm</option>
       </select>
 
       <label htmlFor="description">Description of Work:</label>

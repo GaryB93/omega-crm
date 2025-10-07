@@ -31,19 +31,19 @@ function ScheduleGrid ({ openAddSectionModal, openAddApptModal }: ScheduleGridPr
   });
 
   return (
-    <div id="scheduleGrid" style={{gridTemplateColumns: `repeat(${sections.length + 1}, 1fr)`}}>
+    <div id="scheduleGrid" style={{gridTemplateColumns: `1fr repeat(${sections.length}, 2fr)`}}>
       <h3>Schedule Name</h3>
       <h4>Day(Date)</h4>
-      <p id="eight" className="times">8:00AM</p>
-      <p id="nine" className="times">9:00AM</p>
-      <p id="ten" className="times">10:00AM</p>
-      <p id="eleven" className="times">11:00AM</p>
-      <p id="twelve" className="times">12:00AM</p>
-      <p id="one" className="times">1:00PM</p>
-      <p id="two" className="times">2:00PM</p>
-      <p id="three" className="times">3:00PM</p>
-      <p id="four" className="times">4:00PM</p>
-      <p id="five" className="times">5:00PM</p>
+      <p className="times eight">8:00AM</p>
+      <p className="times nine">9:00AM</p>
+      <p className="times ten">10:00AM</p>
+      <p className="times eleven">11:00AM</p>
+      <p className="times twelve">12:00AM</p>
+      <p className="times one">1:00PM</p>
+      <p className="times two">2:00PM</p>
+      <p className="times three">3:00PM</p>
+      <p className="times four">4:00PM</p>
+      <p className="times five">5:00PM</p>
       {sections}
       {appointments}
       <button id="addSectionBtn" onClick={openAddSectionModal} style={{gridColumn: `${sections.length}`}}>Add Section</button>
