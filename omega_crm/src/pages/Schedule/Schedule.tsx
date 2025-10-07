@@ -41,9 +41,6 @@ function Schedule () {
         appointments: result.appointments
       });
     })
-    .then(() => {
-      console.log(scheduleState);
-    })
     .catch(err => console.error(err));
   }, []);
 
@@ -72,7 +69,7 @@ function Schedule () {
       </Modal>
 
       <Modal show={isAddApptModalOpen} onClose={closeAddApptModal}>
-        <NewApptModal />
+        <NewApptModal closeAddApptModal={closeAddApptModal} />
       </Modal>
     </div>
   );

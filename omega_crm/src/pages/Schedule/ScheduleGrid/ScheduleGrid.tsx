@@ -1,5 +1,6 @@
 import { useSchedules } from '../../../reducers/scheduleReducer';
 import AppointmentCard from '../AppointmentCard/AppointmentCard';
+import { useCustomers } from '../../../reducers/customersReducer';
 import './ScheduleGrid.css';
 
 interface ScheduleGridProps {
@@ -10,6 +11,7 @@ interface ScheduleGridProps {
 function ScheduleGrid ({ openAddSectionModal, openAddApptModal }: ScheduleGridProps) {
 
   const schedules = useSchedules();
+  const customers = useCustomers();
   let appointments = [];
   
   let i = 0;
@@ -45,7 +47,8 @@ function ScheduleGrid ({ openAddSectionModal, openAddApptModal }: ScheduleGridPr
       {sections}
       {appointments}
       <button id="addSectionBtn" onClick={openAddSectionModal} style={{gridColumn: `${sections.length}`}}>Add Section</button>
-      <button id="createApptBtn" onClick={openAddApptModal} style={{gridColumn: `${sections.length + 1}`}}>Create Appt</button>
+      <button id="createApptBtn" onClick={openAddApptModal} style={{gridColumn: `${sections.length + 1}`}}
+        disabled={customers.selectedCustomer.id == 0}>Create Appt</button>
     </div>
   )
 }
