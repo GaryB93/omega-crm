@@ -53,6 +53,20 @@ const appointmentAPI = {
       .catch(err => console.error('Error:', err));
 
     return result;
+  },
+
+  deleteAppointment: async (appointmentId: number) => {
+    let result;
+
+    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/appointment?id=${appointmentId}`,
+      {
+        method: "DELETE",
+      })
+      .then(response => response.json())
+      .then(data => result = data)
+      .catch(err => console.error('Error:', err));
+      
+    return result;
   }
 }
 

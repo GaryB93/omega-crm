@@ -20,6 +20,7 @@ appointmentRouter.put('/',
 )
 
 appointmentRouter.delete('/',
+  appointmentController.deleteAppointmentEdits,
   appointmentController.deleteAppointment,
   (req, res) => {
     res.status(200).send(res.locals.deletedAppointment);

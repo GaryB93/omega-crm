@@ -86,7 +86,6 @@ appointmentController.deleteAppointment = (req, res, next) => {
   db.query(query, params)
     .then(data => {
       res.locals.deletedAppointment = data.rows[0];
-      console.log(res.locals.deletedAppointment);
       return next();
     })
     .catch((err) => {
@@ -117,6 +116,26 @@ appointmentController.addAppointmentEdit = (req, res, next) => {
         log: "appointmentController.addAppointmentEdit middleware error",
         status: 501,
         message: "Creation of appointment edit failed"
+      }
+      return next(errorObj);
+    });
+}
+
+appointmentController.deleteAppointmentEdits = (req, res, next) => {
+  const appointment = req.query.id;
+  const params = [appointment];
+  const query = `DELETE FROM appointmentEdits WHERE appointment = $1`;
+
+  db.query(query, params)
+    .then(data => {
+      console.log(data);
+      return next();
+    })
+    .catch((err) => {
+      const errorObj = {
+        log: "appointmentController.deleteAppointmentEdits middleware error",
+        status: 501,
+        message: "Deletion of appointment edits failed"
       }
       return next(errorObj);
     });

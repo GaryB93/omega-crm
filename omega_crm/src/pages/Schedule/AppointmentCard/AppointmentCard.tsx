@@ -4,12 +4,17 @@ import getRow from "../../../utils/getRowStartEnd";
 import { useState } from "react";
 import './AppointmentCard.css';
 import EditApptModal from "../../../modals/EditApptModal";
+import DeleteApptModal from "../../../modals/DeleteApptModal";
 
 function AppointmentCard ({ appointmentInfo, j }: { appointmentInfo: Appointment, j: number }) {
 
   const [isEditApptModalOpen, setIsEditApptModalOpen] = useState(false);
   const closeEditApptModal = () => setIsEditApptModalOpen(false);
   const openEditApptModal = () => setIsEditApptModalOpen(true);
+
+  const [isDeleteApptModalOpen, setIsDeleteApptModalOpen] = useState(false);
+  const closeDeleteApptModal = () => setIsDeleteApptModalOpen(false);
+  const openDeleteApptModal = () => setIsDeleteApptModalOpen(true);
 
   return (
     <div className="appointmentCard"
@@ -22,11 +27,15 @@ function AppointmentCard ({ appointmentInfo, j }: { appointmentInfo: Appointment
       <span>{appointmentInfo.phone}</span>
       <div id="buttonContainer">
         <button onClick={openEditApptModal}>Edit</button>
-        <button>Delete</button>
+        <button onClick={openDeleteApptModal}>Delete</button>
       </div>
 
       <Modal show={isEditApptModalOpen} onClose={closeEditApptModal}>
         <EditApptModal closeEditApptModal={closeEditApptModal} appointmentInfo={appointmentInfo}/>
+      </Modal>
+
+      <Modal show={isDeleteApptModalOpen} onClose={closeDeleteApptModal}>
+        <DeleteApptModal closeDeleteApptModal={closeDeleteApptModal} appointmentInfo={appointmentInfo}/>
       </Modal>
     </div>
   )
