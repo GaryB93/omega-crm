@@ -1,8 +1,7 @@
-export default function getCurrentDate() {
-  const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth() + 1;
-  const day = currentDate.getDate();
+export default function getCurrentDate(date = new Date()) {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
 
   return (year + "-" + prefixNum(month) + "-" + prefixNum(day));
 }

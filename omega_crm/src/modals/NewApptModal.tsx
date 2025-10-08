@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useUser } from "../pages/Dashboard/Dashboard";
 import { useCustomers } from "../reducers/customersReducer";
 import { useSchedules, useScheduleDispatch } from "../reducers/scheduleReducer";
 import appointmentAPI from "../api/appointmentAPI";
@@ -6,6 +7,7 @@ import './modals.css';
 import scheduleAPI from "../api/scheduleAPI";
 
 function NewApptModal ({closeAddApptModal}: {closeAddApptModal: ()=>void}) {
+  const [ user, setUser ] = useUser();
 
   const selectedCustomer = useCustomers().selectedCustomer;
   const scheduleState = useSchedules();
@@ -23,7 +25,7 @@ function NewApptModal ({closeAddApptModal}: {closeAddApptModal: ()=>void}) {
     e.preventDefault();
     const customerId = selectedCustomer.id;
     const date = scheduleState.date;
-    appointmentAPI.createAppointment(customerId, assignedSection, date, startTime, endTime, description)
+    appointmentAPI.createAppointment(user.id, customerId, assignedSection, date, startTime, endTime, description)
     .then(result => {
       scheduleAPI.getSchedules(scheduleState.selectedSchedule, scheduleState.date)
       .then(result2 => {

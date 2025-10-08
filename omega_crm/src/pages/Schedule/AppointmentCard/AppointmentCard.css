@@ -5,7 +5,13 @@
   font-size: small;
   border-radius: 10px;
 
-  span, button {
+  span {
     display: block;
+  }
+
+  #buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
   }
 }

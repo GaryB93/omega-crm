@@ -4,8 +4,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import LoginErrMsg from './LoginErrMsg';
 import userAPI from '../../api/userAPI';
+import type { User } from '../AcctMgmt/UserInfo/UserInfo';
 
-function Login({ setIsLoggedIn }: { setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>> }) {
+interface LoginProps {
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
+}
+
+function Login({ setIsLoggedIn, setUser }: LoginProps) {
   const navigate = useNavigate();
 
   const [loginFailed, setLoginFailed] = useState(false);
@@ -21,6 +27,7 @@ function Login({ setIsLoggedIn }: { setIsLoggedIn: React.Dispatch<React.SetState
           setLoginFailed(true);
         } else {
           setIsLoggedIn(true);
+          setUser(result);
           navigate("/schedule");
         }
       });

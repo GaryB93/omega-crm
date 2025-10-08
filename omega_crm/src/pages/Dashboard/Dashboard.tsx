@@ -1,25 +1,24 @@
-import { Outlet } from "react-router";
-import { useState } from "react";
+import { Outlet, useOutletContext } from "react-router";
 import './Dashboard.css';
 import Nav from "./Nav/Nav";
 import ScheduleProvider from "../../contextProviders/ScheduleProvider";
 import CustomerProvider from "../../contextProviders/CustomerProvider";
-import getCurrentDate from "../../utils/getCurrentDate";
+import type { User } from "../AcctMgmt/UserInfo/UserInfo";
 
 interface DashboardLayoutProps {
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  user: User;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
 }
 
-function DashboardLayout ({ setIsLoggedIn }: DashboardLayoutProps) {
-
-  const [ date, setDate ] = useState(getCurrentDate());
+function DashboardLayout ({ setIsLoggedIn, user, setUser }: DashboardLayoutProps) {
 
   return (
     <ScheduleProvider>
       <CustomerProvider>
         <div id="dashboardContainer">
           <Nav setIsLoggedIn={setIsLoggedIn} />
-          <Outlet context={[ date, setDate ]}/>
+          <Outlet context={[user, setUser]} />
         </div>
       </CustomerProvider>
     </ScheduleProvider>
@@ -27,3 +26,9 @@ function DashboardLayout ({ setIsLoggedIn }: DashboardLayoutProps) {
 }
 
 export default DashboardLayout;
+
+type ContextType = [ user: User, setUser: React.Dispatch<React.SetStateAction<User>>];
+
+export function useUser() {
+  return useOutletContext<ContextType>();
+}

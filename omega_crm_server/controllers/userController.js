@@ -17,6 +17,7 @@ userController.loginUser = (req, res, next) => {
           lastname: userFound.lastname,
           schedule: userFound.schedule,
           role: userFound.role,
+          phone: userFound.phone,
         }
         res.locals.user = user;
       } else {

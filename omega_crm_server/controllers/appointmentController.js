@@ -38,7 +38,7 @@ appointmentController.addAppointment = (req, res, next) => {
 
   db.query(query, params)
     .then(data => {
-      res.locals.newAppointment = data.rows[0];
+      res.locals.appointment = data.rows[0];
       return next();
     })
     .catch((err) => {
@@ -55,18 +55,17 @@ appointmentController.editAppointment = (req, res, next) => {
   const params = [
     req.body.id,
     req.body.section,
-    req.body.customer,
     req.body.date,
     req.body.startTime,
     req.body.endTime,
     req.body.description
   ];
 
-  const query = 'UPDATE appointments SET customer = $3, date = $4, "startTime" = $5, "endTime" = $6, description = $7, section = $2 WHERE id = $1 RETURNING *;';
+  const query = 'UPDATE appointments SET date = $3, "startTime" = $4, "endTime" = $5, description = $6, section = $2 WHERE id = $1 RETURNING *;';
 
   db.query(query, params)
     .then(data => {
-      res.locals.updatedAppointment = data.rows[0];
+      res.locals.appointment = data.rows[0];
       return next();
     })
     .catch((err) => {
@@ -95,6 +94,29 @@ appointmentController.deleteAppointment = (req, res, next) => {
         log: "appointmentController.deleteAppointment middleware error",
         status: 501,
         message: "Delete of appointment failed"
+      }
+      return next(errorObj);
+    });
+}
+
+appointmentController.addAppointmentEdit = (req, res, next) => {
+  const appointment = res.locals.appointment.id;
+  const user = req.body.user;
+  const timestamp = req.body.timestamp;
+  const params = [appointment, user, "Edit made", timestamp];
+
+  const query = 'INSERT INTO appointmentEdits (appointment, owner, previnfo, newinfo, timestamp) VALUES ($1, $2, $3, $3, $4) RETURNING *;';
+
+  db.query(query, params)
+    .then(data => {
+      console.log(data);
+      return next();
+    })
+    .catch((err) => {
+      const errorObj = {
+        log: "appointmentController.addAppointmentEdit middleware error",
+        status: 501,
+        message: "Creation of appointment edit failed"
       }
       return next(errorObj);
     });

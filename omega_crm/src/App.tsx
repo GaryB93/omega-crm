@@ -11,13 +11,21 @@ import ProtectedRoutes from './components/ProtectedRoutes';
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [ user, setUser ] = useState({
+    id: 0,
+    firstname: "",
+    lastname: "",
+    phone: "",
+    schedule: 0,
+    role: ""
+  });
 
   return (
     <Routes>
-      <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn}/>}/>
+      <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} setUser={setUser}/>}/>
       
       <Route element={<ProtectedRoutes isLoggedIn={isLoggedIn}/>} >
-        <Route element={<DashboardLayout setIsLoggedIn={setIsLoggedIn}/>} >
+        <Route element={<DashboardLayout setIsLoggedIn={setIsLoggedIn} user={user} setUser={setUser}/>} >
           <Route path="schedule" element={<Schedule />} />
           <Route path="customers" element={<Customers />} />
           <Route path="acctmgmt" element={<AcctMgmt />} />
