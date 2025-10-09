@@ -5,6 +5,7 @@ import { useState } from 'react';
 import customerAPI from '../../api/customerAPI';
 import Modal from '../../components/Modal/Modal';
 import CustomerInfoModal from '../../modals/CustomerInfoModal';
+import CustomerApptsModal from '../../modals/CustomerApptsModal';
 
 function Customers () {
 
@@ -19,6 +20,10 @@ function Customers () {
   const [isCustomerInfoModalOpen, setIsCustomerInfoModalOpen] = useState(false);
   const closeCustomerInfoModal = () => setIsCustomerInfoModalOpen(false);
   const openCustomerInfoModal = () => setIsCustomerInfoModalOpen(true);
+
+  const [isCustomerApptsModalOpen, setIsCustomerApptsModalOpen] = useState(false);
+  const closeCustomerApptsModal = () => setIsCustomerApptsModalOpen(false);
+  const openCustomerApptsModal = () => setIsCustomerApptsModalOpen(true);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,11 +64,15 @@ function Customers () {
       </div>
       <div id="customerFunctions">
         <button onClick={()=> {customerDispatch({type: "clearSelected"}); openCustomerInfoModal();}}>New Customer</button>
-        <button disabled={customerState.selectedCustomer.id == 0 ? true : false}>View Appointments Report</button>
+        <button disabled={customerState.selectedCustomer.id == 0 ? true : false} onClick={openCustomerApptsModal}>View Appointments Report</button>
       </div>
 
       <Modal show={isCustomerInfoModalOpen} onClose={() => {closeCustomerInfoModal(); customerDispatch({type: "clearSelected"})}}>
         <CustomerInfoModal customer={customerState.selectedCustomer} closeCustomerInfoModal={closeCustomerInfoModal}/>
+      </Modal>
+
+      <Modal show={isCustomerApptsModalOpen} onClose={closeCustomerApptsModal}>
+        <CustomerApptsModal customer={customerState.selectedCustomer} />
       </Modal>
     </div>
   )

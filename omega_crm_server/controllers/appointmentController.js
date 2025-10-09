@@ -141,4 +141,53 @@ appointmentController.deleteAppointmentEdits = (req, res, next) => {
     });
 }
 
+appointmentController.getCustomerAppointments = (req, res, next) => {
+  const customerId = req.query.customer;
+  const params = [ customerId ];
+  const query = 'SELECT * FROM appointments WHERE customer = $1;';
+
+  db.query(query, params)
+    .then(data => {
+      res.locals.appointments = data.rows;
+      return next();
+    })
+    .catch((err) => {
+      const errorObj = {
+        log: "appointmentController.getCustomerAppointments middleware error",
+        status: 501,
+        message: "Retrieval of customer's appointments failed"
+      }
+      return next(errorObj);
+    });
+}
+
+appointmentController.getAppointmentEdits = (req, res, next) => {
+  const appointmentIds = res.locals.appointments.map(appt => appt.id);
+  let query = 'SELECT * FROM appointmentEdits WHERE';
+
+  for (let i = 1; i <= appointmentIds.length; i++) {
+    query += ` id = $${i}`;
+
+    if (i != appointmentIds.length) {
+      query += ' OR'
+    }
+  }
+
+  query += ";";
+
+  db.query(query, appointmentIds)
+    .then(data => {
+      res.locals.appointmentEdits = data.rows;
+      return next();
+    })
+    .catch((err) => {
+      const errorObj = {
+        log: "appointmentController.getAppointmentEdits middleware error",
+        status: 501,
+        message: "Retrieval of customer's appointment edits failed"
+      }
+      return next(errorObj);
+    });
+}
+
 export default appointmentController;

@@ -37,8 +37,6 @@ customerController.getCustomers = (req, res, next) => {
   }
   
   query += ";"
-  console.log(query);
-
 
   db.query(query, params)
     .then(data => {

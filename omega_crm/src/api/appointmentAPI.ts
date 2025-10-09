@@ -42,7 +42,7 @@ const appointmentAPI = {
           startTime: startTime,
           endTime: endTime,
           description: description,
-          timeStamp: timestamp,
+          timestamp: timestamp,
         }),
         headers: {
           "Content-Type": "application/json"
@@ -66,6 +66,20 @@ const appointmentAPI = {
       .then(data => result = data)
       .catch(err => console.error('Error:', err));
       
+    return result;
+  },
+
+  getAppointmentsByCustomer: async (customerId: number) => {
+    let result;
+
+    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/appointment?customer=${customerId}`,
+      {
+        method: "GET",
+      })
+      .then(response => response.json())
+      .then(data => result = data)
+      .catch(err => console.error('Error:', err));
+
     return result;
   }
 }

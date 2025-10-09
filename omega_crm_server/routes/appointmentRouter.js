@@ -27,4 +27,15 @@ appointmentRouter.delete('/',
   }
 )
 
+appointmentRouter.get('/',
+  appointmentController.getCustomerAppointments,
+  appointmentController.getAppointmentEdits,
+  (req, res) => {
+    res.status(200).send({
+      appointments: res.locals.appointments,
+      appointmentEdits: res.locals.appointmentEdits,
+    });
+  }
+)
+
 export default appointmentRouter;

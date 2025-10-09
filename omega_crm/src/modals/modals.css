@@ -13,3 +13,30 @@
     margin-bottom: 20px;
   }
 }
+
+.appointments {
+  margin-bottom: 80px;
+}
+
+.appointmentsHeader {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid white;
+}
+
+.editsHeader {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-bottom: 1px solid white;
+}
+
+.apptInfo {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 10px;
+}
+
+.apptInfo:hover {
+  color: gold;
+  cursor: pointer;
+}
