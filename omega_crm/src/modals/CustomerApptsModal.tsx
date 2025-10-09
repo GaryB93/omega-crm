@@ -48,7 +48,7 @@ function CustomerApptsModal ({customer}: CustomerApptsModalProps) {
     .catch(err => console.error('Error:', err));
   }, []);
 
-  const appointmentList = appointments!.appointments.map((appt) => {
+  const appointmentList = appointments.appointments.map((appt) => {
     const classes = selectedAppointment == appt.id ? "apptSelected apptInfo" : "apptInfo";
     
     return (
@@ -60,6 +60,16 @@ function CustomerApptsModal ({customer}: CustomerApptsModalProps) {
       </div>
     )
   });
+
+  const appointmentEditsList = appointments.appointmentEdits.filter(apptEdit => apptEdit.appointment == selectedAppointment).map(apptEdit => {
+    return (
+      <div key={apptEdit.id} className="apptEdit">
+        <span>{apptEdit.timestamp}</span>
+        <span>{apptEdit.owner}</span>
+      </div>
+    )
+  });
+  
 
   return (
     <div>
@@ -79,6 +89,7 @@ function CustomerApptsModal ({customer}: CustomerApptsModalProps) {
           <span>Timestamp</span>
           <span>Edit made by</span>
         </div>
+        {appointmentEditsList}
       </div>
     </div>
   )

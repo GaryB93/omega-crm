@@ -85,6 +85,7 @@ function AcctMgmt () {
 
       <div id="searchResults">
         <div id="searchResultsHeader">
+          <span>ID</span>
           <span>First Name</span>
           <span>Last Name</span>
           <span>Phone Number</span>

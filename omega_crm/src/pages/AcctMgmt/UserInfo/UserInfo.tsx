@@ -40,6 +40,7 @@ function UserInfo ({user, selectedUser, setSelectedUser}: UserInfoProps) {
 
   return (
     <div className={classes} onClick={handleSelect}>
+      <span>{user.id}</span>
       <span>{user.firstname}</span>
       <span>{user.lastname}</span>
       <span>{user.phone}</span>

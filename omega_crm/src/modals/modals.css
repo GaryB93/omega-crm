@@ -40,3 +40,12 @@
   color: gold;
   cursor: pointer;
 }
+
+.apptSelected {
+  color: gold;
+}
+
+.apptEdit {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}

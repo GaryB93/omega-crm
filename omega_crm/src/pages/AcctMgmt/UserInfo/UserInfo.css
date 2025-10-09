@@ -1,6 +1,6 @@
 .userInfo {
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 1.5fr 1fr;
+  grid-template-columns: 1fr 2fr 2fr 2fr 1.5fr 1fr;
   border-bottom: 1px solid white;
   padding: 10px;
 }
