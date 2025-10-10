@@ -1,3 +1,5 @@
+import type Customer from "../classes/Customer";
+
 const customerAPI = {
   getCustomers: async (firstName: string, lastName: string, phone: string) => {
     let result;
@@ -13,26 +15,22 @@ const customerAPI = {
     return result;
   },
 
-  saveCustomer: async (id: number = 0, firstName: string, lastName: string, phone: string, textReminder: boolean) => {
-    let result;
+  saveCustomer: async ({id, firstname, lastname, phone, textreminder}: Customer) => {
     const method = id == 0 ? "POST" : "PUT";
 
-    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/customer`,
+    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/customer`,
       {
         method: method,
         body: JSON.stringify({
           id: id,
-          firstName: firstName,
-          lastName: lastName,
+          firstName: firstname,
+          lastName: lastname,
           phone: phone,
-          textReminder: textReminder
+          textReminder: textreminder
         }),
         headers: {"Content-Type": "application/json"}
       }
-    )
-    .then(response => response.json())
-    .then(data => result = data)
-    .catch(err => console.error('Error', err));
+    );
 
     return result;
   }

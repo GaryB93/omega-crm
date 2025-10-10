@@ -1,26 +1,21 @@
 import { createContext, useContext } from "react";
+import Customer from "../classes/Customer";
 
 export interface CustomerState {
   selectedCustomer: Customer;
   customers: Array<Customer>;
 }
 
-export interface Customer {
-  id: number;
-  firstname: string;
-  lastname: string;
-  phone: string;
-  textreminder: boolean;
-}
+// export interface Customer {
+//   id: number;
+//   firstname: string;
+//   lastname: string;
+//   phone: string;
+//   textreminder: boolean;
+// }
 
 export const initialCustomers: CustomerState = {
-  selectedCustomer: {
-    id: 0,
-    firstname: "",
-    lastname: "",
-    phone: "",
-    textreminder: false
-  },
+  selectedCustomer: new Customer(0,"","","", false),
   customers: []
 }
 

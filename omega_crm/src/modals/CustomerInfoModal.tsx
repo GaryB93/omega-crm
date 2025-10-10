@@ -1,8 +1,8 @@
 import customerAPI from '../api/customerAPI';
 import './modals.css';
 import { useState } from 'react';
-import type { Customer } from '../reducers/customersReducer';
 import { useCustomerDispatch } from '../reducers/customersReducer';
+import Customer from '../classes/Customer';
 
 interface CustomerInfoModalProps {
   customer: Customer;
@@ -14,37 +14,50 @@ function CustomerInfoModal ({ customer, closeCustomerInfoModal }: CustomerInfoMo
   const [ lastName, setLastName ] = useState(customer.lastname);
   const [ phone, setPhone ] = useState(customer.phone);
   const [ textReminder, setTextReminder ] = useState(customer.textreminder);
+  const [ isPhoneValid, setIsPhoneValid] = useState(true);
 
   const customerDispatch = useCustomerDispatch();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    customerAPI.saveCustomer(customer.id, firstName, lastName, phone, textReminder)
-    .then(response => {
-      customerDispatch({
-        type: "saved",
-        customer: response
-      });
-      closeCustomerInfoModal();
-    })
-    .catch(err => console.error('Error', err));
+    const customerInfo = new Customer(customer.id, firstName, lastName, phone, textReminder);
+
+    if (customerInfo.isPhoneValid(phone)) {
+      customerAPI.saveCustomer(customerInfo)
+      .then(response => response.json())
+      .then(data => {
+        customerDispatch({
+          type: "saved",
+          customer: data
+        });
+        closeCustomerInfoModal();
+      })
+      .catch(err => console.error('Error', err));
+    } else {
+      setIsPhoneValid(false);
+    }
   }
+
+  const errMsg = <div style={{color: "red"}}>
+                    <span role="alert">Please input a phone number using numbers only. No letters, dashes, or spaces.</span>
+                 </div>;
 
   return (
     <form className="formModal" onSubmit={handleSubmit}>
       <h3>Customer Info</h3>
       <div>
         <label htmlFor="firstname">First Name:</label>
-        <input type="text" id="firstname" value={firstName} onChange={(e)=>setFirstName(e.target.value)}/>
+        <input type="text" id="firstname" value={firstName} onChange={(e)=>setFirstName(e.target.value)} required/>
       </div>
       <div>
         <label htmlFor="lastname">Last Name:</label>
-        <input type="text" id="lastname" value={lastName} onChange={(e)=>setLastName(e.target.value)}/>
+        <input type="text" id="lastname" value={lastName} onChange={(e)=>setLastName(e.target.value)} required/>
       </div>
       <div>
         <label htmlFor="phone">Phone Number:</label>
-        <input type="text" id="phone" value={phone} onChange={(e)=>setPhone(e.target.value)}/>
+        <input type="text" id="phone" value={phone} onChange={(e)=> {setPhone(e.target.value)}} maxLength={10}/>
       </div>
+      {!isPhoneValid && errMsg}
       <div>
         <input type="checkbox" id="textreminder" checked={textReminder} onChange={()=>setTextReminder(!textReminder)}/>
         <label htmlFor="textreminder">Text Alert Reminder?</label>

@@ -10,14 +10,14 @@
   height: 100px;
 }
 
-#searchResultsHeader {
+#customerSearchResultsHeader {
   display: grid;
   grid-template-columns: 2fr 2fr 2fr 1.5fr 1fr;
   border-bottom: 1px solid white;
   margin-bottom: 20px;
 }
 
-#searchResults {
+#customerSearchResults {
   flex-grow: 1;
 }
 

@@ -46,44 +46,9 @@ export interface ScheduleState {
 export const initialSchedules = {
   selectedSchedule: 0,
   date: getCurrentDate(),
-  schedules: [
-    {
-      id: 1,
-      name: "Schedule 1"
-    },
-    {
-      id: 2,
-      name: "Schedule 2"
-    },
-    {
-      id: 3,
-      name: "Schedule 3"
-    }
-  ],
-  sections: [
-    {
-      id: 1,
-      name: "SectionName",
-    },
-    {
-      id: 2,
-      name: "SectionName2",
-    },
-  ],
-  appointments: [
-    {
-      id: 1,
-      date: "2025-10-02",
-      startTime: "08:00:00",
-      endTime: "09:00:00",
-      description: "some work done here",
-      section: 1,
-      firstname: "Johnny",
-      lastname: "Boy",
-      phone: "5552224444",
-      textreminder: true,
-    }
-  ]
+  schedules: [],
+  sections: [],
+  appointments: []
 }
 
 export const ScheduleContext = createContext(initialSchedules);

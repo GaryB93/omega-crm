@@ -38,7 +38,7 @@ function Customers () {
   }
 
   const customerList = customers.map(customer =>
-    <CustomerInfo key={customer.id} customerObj={customer} openCustomerInfoModal={openCustomerInfoModal} />
+    <CustomerInfo key={customer.id} customer={customer} openCustomerInfoModal={openCustomerInfoModal} />
   );
 
   return (
@@ -53,8 +53,8 @@ function Customers () {
         <input type="text" id="phone" value={phone} onChange={(e)=>setPhone(e.target.value)}></input>
         <button type="submit">Search</button>
       </form>
-      <div id="searchResults">
-        <div id="searchResultsHeader">
+      <div id="customerSearchResults">
+        <div id="customerSearchResultsHeader">
           <span>First Name</span>
           <span>Last Name</span>
           <span>Phone Number</span>
