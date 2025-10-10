@@ -50,7 +50,7 @@ function Login({ setIsLoggedIn, setUser }: LoginProps) {
           <input type='password' id='password' name="password" value={password}
             onChange={(e) => {setPassword(e.target.value)}} required />
         </div>
-        <button type='submit'>Login</button>
+        <button className="primaryBtn" type='submit'>Login</button>
       </form>
     </div>
   )

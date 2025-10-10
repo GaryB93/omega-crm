@@ -12,14 +12,15 @@
 }
 
 .loginForm {
-  /* background-color: #f0f0f0; */
+  background-color: rgb(230, 230, 230);
+  color: rgb(20, 20, 20);
   display: flex;
   align-items: center;
   flex-direction: column;
   min-width: 400px;
   min-height: 340px;
   border-radius: 10px;
-  border: 1px solid rgb(34, 34, 34);
+  border: 1px solid rgb(129, 129, 129);
 
   span {
     width: 200px;
@@ -41,5 +42,19 @@
   input {
     width: 100%;
     padding: 5px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .loginForm {
+    color: #ededed;
+    background-color: #363636;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .loginForm {
+    color: #1e1e1e;
+    background-color: #e0e0e0;
   }
 }

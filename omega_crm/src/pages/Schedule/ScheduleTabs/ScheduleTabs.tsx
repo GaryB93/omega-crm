@@ -22,7 +22,7 @@ function ScheduleTabs ({ schedules, selectedId, openAddScheduleModal }: Schedule
         {scheduleTabs}
       </div>
       <div id="addScheduleContainer">
-        <button onClick={openAddScheduleModal}>Add Schedule +</button>
+        <button id="addScheduleBtn" onClick={openAddScheduleModal}>Add Schedule +</button>
       </div>
     </div>
   );

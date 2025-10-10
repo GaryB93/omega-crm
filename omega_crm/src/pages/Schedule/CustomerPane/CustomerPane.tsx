@@ -23,7 +23,7 @@ function CustomerPane () {
         <span>Phone:</span>
         <span>{selectedCustomer ? selectedCustomer.phone : "..."}</span>
       </div>
-      <button id="clearBtn" onClick={handleClick}>Clear</button>
+      <button className="secondaryBtn" id="clearBtn" onClick={handleClick}>Clear</button>
     </div>
   )
 }

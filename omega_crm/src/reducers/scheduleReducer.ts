@@ -46,7 +46,7 @@ export interface ScheduleState {
 export const initialSchedules = {
   selectedSchedule: 0,
   date: getCurrentDate(),
-  schedules: [],
+  schedules: [{id: 0, name: ""}],
   sections: [],
   appointments: []
 }

@@ -11,13 +11,14 @@ interface ScheduleGridProps {
 function ScheduleGrid ({ openAddSectionModal, openAddApptModal }: ScheduleGridProps) {
 
   const schedules = useSchedules();
+  const currentSchedule = schedules.schedules.find(schedule => schedule.id == schedules.selectedSchedule);
   const customers = useCustomers();
   let appointments = [];
   
   let i = 0;
   const sections = schedules.sections.map(section => {
     i++;
-    return <h5 key={section.id} style={{gridColumn: `${i + 1} / ${i + 2}`}}>{section.name}</h5>
+    return <h4 key={section.id} style={{gridColumn: `${i + 1} / ${i + 2}`}}>{section.name}</h4>
   });
 
   let j = 0;
@@ -32,8 +33,7 @@ function ScheduleGrid ({ openAddSectionModal, openAddApptModal }: ScheduleGridPr
 
   return (
     <div id="scheduleGrid" style={{gridTemplateColumns: `1fr repeat(${sections.length}, 2fr)`}}>
-      <h3>Schedule Name</h3>
-      <h4>Day(Date)</h4>
+      <h3>{currentSchedule!.name}</h3>
       <p className="times eight">8:00AM</p>
       <p className="times nine">9:00AM</p>
       <p className="times ten">10:00AM</p>
@@ -46,9 +46,10 @@ function ScheduleGrid ({ openAddSectionModal, openAddApptModal }: ScheduleGridPr
       <p className="times five">5:00PM</p>
       {sections}
       {appointments}
-      <button id="addSectionBtn" onClick={openAddSectionModal} style={{gridColumn: `${sections.length}`}}>Add Section</button>
-      <button id="createApptBtn" onClick={openAddApptModal} style={{gridColumn: `${sections.length + 1}`}}
-        disabled={customers.selectedCustomer.id == 0}>Create Appt</button>
+      <div id="scheduleFunctions">
+        <button className="secondaryBtn" onClick={openAddSectionModal} style={{gridColumn: `${sections.length}`}}>Add Section</button>
+        <button className="primaryBtn" onClick={openAddApptModal} style={{gridColumn: `${sections.length + 1}`}} disabled={customers.selectedCustomer.id == 0}>Create Appt</button>
+      </div>
     </div>
   )
 }

@@ -4,7 +4,6 @@
   padding: 0px 20px;
   height: 100vh;
   text-align: center;
-  border-right: 1px solid white;
 }
 
 #container {
@@ -24,15 +23,30 @@
 }
 
 a {
-  color: white;
   text-decoration: none;
   padding: 20px 0;
 }
 
-a:visited {
-  color: white;
-}
-
 a.active {
   text-decoration: underline;
+}
+
+@media (prefers-color-scheme: dark) {
+  #nav {
+    border-right: 1px solid #ededed;
+
+    a, a:visited {
+      color: #ededed;
+    }
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  #nav {
+    border-right: 1px solid #1e1e1e;
+
+    a, a:visited {
+      color: #1e1e1e;
+    }
+  }
 }

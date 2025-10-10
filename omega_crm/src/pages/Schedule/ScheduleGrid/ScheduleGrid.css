@@ -15,15 +15,9 @@
 
   h4 {
     grid-row: 2 / 3;
-    grid-column: 1 / end;
     margin: 0;
     text-align: center;
-  }
-
-  h5 {
-    grid-row: 3 / 4;
-    text-align: center;
-    margin: 0;
+    align-self: end;
   }
 
   p {
@@ -79,10 +73,27 @@
   grid-row: 21 / 23;
 }
 
-#addSectionBtn {
-  grid-row: 24;
+#scheduleFunctions {
+  display: flex;
+  grid-row: 23 / 24;
+  grid-column: 1 / end;
+  justify-content: end;
+  column-gap: 20px;
+
+  .primaryBtn {
+    padding: 0px 15px;
+    width: 200px;
+  }
 }
 
-#createApptBtn {
-  grid-row: 24;
+@media (prefers-color-scheme: dark) {
+  h4 {
+    border-bottom: 1px solid #e0e0e0;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  h4 {
+    border-bottom: 1px solid #1e1e1e;
+  }
 }

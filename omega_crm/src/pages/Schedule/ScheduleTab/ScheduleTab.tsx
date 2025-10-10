@@ -31,7 +31,7 @@ function ScheduleTab({ schedule, selectedId }: ScheduleTabProps) {
   }
 
   return (
-    <button className={schedule.id == selectedId ? "selected" : "notSelected"}
+    <button className={schedule.id == selectedId ? "selectedTab scheduleTab" : "scheduleTab"}
       onClick={()=>handleClick(schedule.id)}>
         {schedule.name}
     </button>
