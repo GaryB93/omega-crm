@@ -1,9 +1,9 @@
+import type { NewUserInterface } from "../classes/NewUser";
+
 const userAPI = {
 
   login: async (username: string, password: string) => {
-    let result;
-    
-    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user/login`,
+    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user/login`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -13,95 +13,51 @@ const userAPI = {
         headers: {
           "Content-Type": "application/json",
         },
-        mode: "cors"
       })
-      .then(response => response.json())
-      .then(data => result = data)
-      .catch(error => console.error('Error:', error));
 
     return result;
   },
 
   getUsers: async (formState: {firstname: string; lastname: string; role: string;}) => {
-    let result;
-
-    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user?firstname=${formState.firstname}&lastname=${formState.lastname}&role=${formState.role}`,
+    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user?firstname=${formState.firstname}&lastname=${formState.lastname}&role=${formState.role}`,
       {
         method: "GET"
       })
-      .then(response => response.json())
-      .then(data => result = data)
-      .catch(error => console.error('Error:', error));
 
     return result;
   },
 
-  saveUser: async (formState: {
-    id: number;
-    firstname: string;
-    lastname: string;
-    phone: string;
-    schedule: number;
-    role: string;
-    username: string;
-    password: string;
-    confirmPassword: string;
-  }) => {
-    let result;
-
-    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user`,
+  saveUser: async (user: NewUserInterface) => {
+    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user`,
       {
         method: "PUT",
-        body: JSON.stringify(formState),
+        body: JSON.stringify(user),
         headers: {
           "Content-Type": "application/json"
         }
       })
-      .then(response => response.json())
-      .then(data => result = data)
-      .catch(error => console.error('Error:', error));
 
     return result;
   },
 
-  addUser: async (formState: {
-    id: number;
-    firstname: string;
-    lastname: string;
-    phone: string;
-    schedule: number;
-    role: string;
-    username: string;
-    password: string;
-    confirmPassword: string;
-  }) => {
-    let result;
-
-    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user`,
+  addUser: async (newUser: NewUserInterface) => {
+    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user`,
       {
         method: "POST",
-        body: JSON.stringify(formState),
+        body: JSON.stringify(newUser),
         headers: {
           "Content-Type": "application/json"
         }
       })
-      .then(response => response.json())
-      .then(data => result = data)
-      .catch(error => console.error('Error:', error));
 
     return result;
   },
 
   deleteUser: async (userID: number) => {
-    let result;
-    
-    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user/${userID}`,
+    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user/${userID}`,
       {
         method: "DELETE"
       })
-      .then(response => response.json())
-      .then(data => result = data)
-      .catch(error => console.error('Error:', error));
 
     return result;
   }

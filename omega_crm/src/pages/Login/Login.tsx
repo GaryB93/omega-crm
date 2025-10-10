@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import LoginErrMsg from './LoginErrMsg';
 import userAPI from '../../api/userAPI';
-import type { User } from '../AcctMgmt/UserInfo/UserInfo';
+import User from '../../classes/User';
 
 interface LoginProps {
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,6 +22,7 @@ function Login({ setIsLoggedIn, setUser }: LoginProps) {
     e.preventDefault();
 
     userAPI.login(username, password)
+      .then(response => response.json())
       .then(result => {
         if (result.message) {
           setLoginFailed(true);
@@ -30,7 +31,8 @@ function Login({ setIsLoggedIn, setUser }: LoginProps) {
           setUser(result);
           navigate("/schedule");
         }
-      });
+      })
+      .catch(err => console.error('Error:', err));
   }
 
   return (

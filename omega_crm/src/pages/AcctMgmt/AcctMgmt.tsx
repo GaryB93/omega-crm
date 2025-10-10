@@ -5,6 +5,7 @@ import UserInfo from './UserInfo/UserInfo';
 import Modal from '../../components/Modal/Modal';
 import UserInfoModal from '../../modals/UserInfoModal';
 import DeleteUserModal from '../../modals/DeleteUserModal';
+import User from '../../classes/User';
 
 function AcctMgmt () {
   const [formState, setFormState] = useState({
@@ -13,26 +14,10 @@ function AcctMgmt () {
     role: "all",
   });
 
-  const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState({
-        id: 0,
-        firstname: "",
-        lastname: "",
-        phone: "",
-        schedule: 0,
-        role: ""
-      });
+  const [users, setUsers] = useState<Array<User>>([new User(0, "", "", "", 0, "")]);
+  const [selectedUser, setSelectedUser] = useState(new User(0, "", "", "", 0, ""));
 
-  const resetSelectedUser = () => {
-    setSelectedUser({
-      id: 0,
-      firstname: "",
-      lastname: "",
-      phone: "",
-      schedule: 0,
-      role: ""
-    });
-  }
+  const resetSelectedUser = () => setSelectedUser(new User(0, "", "", "", 0, ""));
 
   const [isUserInfoModalOpen, setIsUserInfoModalOpen] = useState(false);
   const openUserInfoModal = () => setIsUserInfoModalOpen(true);
@@ -42,14 +27,13 @@ function AcctMgmt () {
   const openDeleteUserModal = () => setIsDeleteUserModalOpen(true);
   const closeDeleteUserModal = () => setIsDeleteUserModalOpen(false);
 
-  const userList = users.map(user => <UserInfo key={user.id} user={user} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>);
+  const userList = users[0] && users[0].id != 0 ? users.map(user => <UserInfo key={user.id} user={user} selectedUser={selectedUser} setSelectedUser={setSelectedUser} resetSelectedUser={resetSelectedUser} />): [];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     userAPI.getUsers(formState)
-    .then(result => {
-      setUsers(result);
-    })
+    .then(response => response.json())
+    .then(result => setUsers(result))
     .catch(err => console.error('Error:', err))
   }
 

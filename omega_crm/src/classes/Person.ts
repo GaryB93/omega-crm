@@ -1,22 +1,12 @@
 class Person {
-  #id = 0;
   #firstname = "";
   #lastname = "";
   #phone = "";
 
-  constructor(id: number = 0, firstname: string, lastname: string, phone: string) {
-    this.#id = id;
-    this.#firstname = firstname;
-    this.#lastname = lastname;
+  constructor(firstname: string, lastname: string, phone: string = "") {
+    this.#firstname = firstname.trim().toUpperCase();
+    this.#lastname = lastname.trim().toUpperCase();
     this.#phone = phone;
-  }
-
-  get id () {
-    return this.#id;
-  }
-
-  set id (id: number) {
-    this.#id = id;
   }
 
   set firstname (firstname) {

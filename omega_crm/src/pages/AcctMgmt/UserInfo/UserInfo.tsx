@@ -1,36 +1,22 @@
-import type { SetStateAction } from 'react';
 import { useSchedules } from '../../../reducers/scheduleReducer';
+import User from '../../../classes/User';
 import './UserInfo.css';
-
-export interface User {
-  id: number;
-  firstname: string;
-  lastname: string;
-  phone: string;
-  schedule: number;
-  role: string;
-}
 
 interface UserInfoProps {
   user: User;
   selectedUser: User;
-  setSelectedUser: React.Dispatch<SetStateAction<User>>;
+  setSelectedUser: React.Dispatch<React.SetStateAction<User>>;
+  resetSelectedUser: ()=>void;
 }
 
-function UserInfo ({user, selectedUser, setSelectedUser}: UserInfoProps) {
+function UserInfo ({user, selectedUser, setSelectedUser, resetSelectedUser}: UserInfoProps) {
 
   const schedules = useSchedules().schedules;
+  // const userInfo = new User(user.id, user.firstname, user.lastname, user.phone, user.schedule, user.role);
 
   const handleSelect= () => {
     if (user.id == selectedUser.id) {
-      setSelectedUser({
-        id: 0,
-        firstname: "",
-        lastname: "",
-        phone: "",
-        schedule: 0,
-        role: ""
-      })
+      resetSelectedUser();
     } else {
       setSelectedUser(user);
     }

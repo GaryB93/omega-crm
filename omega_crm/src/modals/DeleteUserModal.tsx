@@ -1,4 +1,4 @@
-import type { User } from "../pages/AcctMgmt/UserInfo/UserInfo";
+import User from "../classes/User";
 import userAPI from "../api/userAPI";
 import removeUser from "../utils/removeUser";
 import type { SetStateAction } from "react";
@@ -15,6 +15,7 @@ function DeleteUserModal ({selectedUser, resetSelectedUser, closeDeleteUserModal
   
   const handleClick = () => {
     userAPI.deleteUser(selectedUser.id)
+    .then(response => response.json())
     .then(result => {
       resetSelectedUser();
       closeDeleteUserModal();

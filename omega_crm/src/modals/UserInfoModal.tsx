@@ -1,8 +1,9 @@
 import { useState, type SetStateAction } from "react";
-import type { User } from "../pages/AcctMgmt/UserInfo/UserInfo";
 import { useSchedules } from "../reducers/scheduleReducer";
 import userAPI from "../api/userAPI";
 import updateUsers from "../utils/updateUsers";
+import User from "../classes/User";
+import NewUser from "../classes/NewUser";
 
 interface UserInfoModalProps {
   selectedUser: User;
@@ -23,7 +24,11 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
     username: "",
     password: "",
     confirmPassword: ""
-  })
+  });
+
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [scheduleSelected, setScheduleSelected] = useState(true);
+  const [roleSelected, setRoleSelected] = useState(true);
 
   const schedules = useSchedules().schedules;
   const scheduleOptions = schedules.map(schedule => {
@@ -33,25 +38,56 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
       </option>
     );
   });
-  scheduleOptions.unshift(<option key={0} value={0} selected disabled hidden>Choose schedule...</option>)
+  scheduleOptions.unshift(<option key={0} value={0} disabled hidden>Choose schedule...</option>)
+
+  const formIsValid = () => {
+    let formIsValid = true;
+    const newUser = new NewUser(formState);
+    if (newUser.schedule == 0) {
+      formIsValid = false;
+      setScheduleSelected(false);
+    } else {
+      setScheduleSelected(true);
+    }
+
+    if (newUser.role == "") {
+      formIsValid = false;
+      setRoleSelected(false);
+    } else {
+      setRoleSelected(true);
+    }
+
+    if (!newUser.passwordsMatch()) {
+      formIsValid = false;
+      setPasswordsMatch(false);
+    } else {
+      setPasswordsMatch(true);
+    }
+
+    return formIsValid;
+  }
 
   const handleSubmit = (e:React.FormEvent) => {
     e.preventDefault();
-    if (selectedUser.id == 0) {
-      userAPI.addUser(formState)
-      .then(result => {
-        setUsers(updateUsers(users, result));
-        closeUserInfoModal();
-      })
-      .catch(err => console.error('Error:', err));
-    } else {
-      userAPI.saveUser(formState)
-      .then(result => {
-        resetSelectedUser();
-        setUsers(updateUsers(users, result));
-        closeUserInfoModal();
-      })
-      .catch(err => console.error('Error:', err));
+    if (formIsValid()) {
+      if (selectedUser.id == 0) {
+        userAPI.addUser(formState)
+        .then(response => response.json())
+        .then(result => {
+          setUsers(updateUsers(users, result));
+          closeUserInfoModal();
+        })
+        .catch(err => console.error('Error:', err));
+      } else {
+        userAPI.saveUser(formState)
+        .then(response => response.json())
+        .then(result => {
+          resetSelectedUser();
+          setUsers(updateUsers(users, result));
+          closeUserInfoModal();
+        })
+        .catch(err => console.error('Error:', err));
+      }
     }
   }
 
@@ -60,12 +96,12 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
       <h3>User Info</h3>
       <div>
         <label htmlFor="firstname">First Name:</label>
-        <input type="text" id="firstname" value={formState.firstname} onChange={(e)=>setFormState({...formState, firstname: e.target.value})}/>
+        <input type="text" id="firstname" value={formState.firstname} onChange={(e)=>setFormState({...formState, firstname: e.target.value})} required/>
       </div>
 
       <div>
         <label htmlFor="lastname">Last Name:</label>
-        <input type="text" id="lastname" value={formState.lastname} onChange={(e)=>setFormState({...formState, lastname: e.target.value})}/>
+        <input type="text" id="lastname" value={formState.lastname} onChange={(e)=>setFormState({...formState, lastname: e.target.value})} required/>
       </div>
 
       <div>
@@ -79,6 +115,7 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
           {scheduleOptions}
         </select>
       </div>
+      {!scheduleSelected && <div><span style={{color: "red"}}>Please select a schedule.</span></div>}
 
       <fieldset>
         <legend>Role:</legend>
@@ -94,16 +131,24 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
           onChange={(e)=>setFormState({...formState, role: e.target.value})}/>
         <label htmlFor="managerRole">Manager</label>
       </fieldset>
+      {!roleSelected && <div><span style={{color: "red"}}>Please select a role.</span></div>}
 
       {selectedUser.id == 0 && <div>
         <label htmlFor="username">Username:</label>
-        <input type="text" id="username" value={formState.username} onChange={(e)=>setFormState({...formState, username: e.target.value})}/>
+        <input type="text" id="username" value={formState.username} onChange={(e)=>setFormState({...formState, username: e.target.value})} required/>
       </div>}
 
       {selectedUser.id == 0 && <div>
         <label htmlFor="password">Password:</label>
-        <input type="text" id="password" value={formState.password} onChange={(e)=>setFormState({...formState, password: e.target.value})}/>
+        <input type="password" id="password" value={formState.password} onChange={(e)=>setFormState({...formState, password: e.target.value})} required/>
       </div>}
+
+      {selectedUser.id == 0 && <div>
+        <label htmlFor="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" value={formState.confirmPassword} onChange={(e)=>setFormState({...formState, confirmPassword: e.target.value})} required/>
+      </div>}
+
+      {!passwordsMatch && <div><span style={{color: "red"}}>Passwords must match!</span></div>}
 
       <button type="submit">Save</button>
     </form>
