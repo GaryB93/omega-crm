@@ -108,7 +108,7 @@ function NewApptModal ({closeAddApptModal}: {closeAddApptModal: ()=>void}) {
         {sections}
       </select>
 
-      <button type="submit">Save</button>
+      <button className="submitBtn primaryBtn" type="submit">Save</button>
     </form>
   )
 }

@@ -26,7 +26,7 @@ function NewSectionModal () {
       <h3>Add Section</h3>
       <label htmlFor="sectionName">Section Name:</label>
       <input type="text" id="sectionName" value={name} onChange={(e)=>setName(e.target.value)}></input>
-      <button className="submitBtn" onClick={handleClick}>Add</button>
+      <button className="submitBtn primaryBtn" onClick={handleClick}>Add</button>
     </form>
   )
 }

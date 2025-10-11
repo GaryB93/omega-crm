@@ -8,7 +8,13 @@ function DateSelection () {
   
   const handleClick = () => {
     scheduleAPI.getSchedules(scheduleState.selectedSchedule, scheduleState.date)
-    .then(result => {
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      console.log(response);
+      throw new Error("Error retrieving schedule data after selecting date");
+    }).then(result => {
       dispatchSchedule({
         type: "selected",
         id: result.selectedSchedule,

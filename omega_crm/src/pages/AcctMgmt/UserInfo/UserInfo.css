@@ -7,14 +7,23 @@
 
 .userInfo:hover {
   cursor: pointer;
+}
 
-  span {
-    color: gold;
+@media (prefers-color-scheme: dark) {
+  .userInfo {
+    border-bottom: 1px dashed #e0e0e0;
+  }
+
+  .userSelected, .userInfo:hover {
+    background-color: #424242;
   }
 }
 
-.userSelected {
-  span {
-    color: gold;
+@media (prefers-color-scheme: light) {
+  .userInfo {
+    border-bottom: 1px dashed #1e1e1e;
+  }
+  .userSelected, .userInfo:hover {
+    background-color: #c6c6c6;
   }
 }

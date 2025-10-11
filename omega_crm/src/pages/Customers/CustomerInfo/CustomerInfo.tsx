@@ -43,7 +43,7 @@ function CustomerInfo ({ customer,  openCustomerInfoModal }: CustomerInfoProps) 
       <span>{customer.lastname}</span>
       <span>{customer.phone}</span>
       <span>{customer.textreminder ? "Yes" : "No"}</span>
-      <button onClick={handleClick}>Edit</button>
+      <button className="secondaryBtn" onClick={handleClick}>Edit</button>
     </div>
   )
 }

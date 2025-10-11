@@ -43,26 +43,25 @@ function CustomerInfoModal ({ customer, closeCustomerInfoModal }: CustomerInfoMo
                  </div>;
 
   return (
-    <form className="formModal" onSubmit={handleSubmit}>
+    <form className="formModal" id="customerInfoModal" onSubmit={handleSubmit}>
       <h3>Customer Info</h3>
-      <div>
+      
         <label htmlFor="firstname">First Name:</label>
         <input type="text" id="firstname" value={firstName} onChange={(e)=>setFirstName(e.target.value)} required/>
-      </div>
-      <div>
+      
+      
         <label htmlFor="lastname">Last Name:</label>
         <input type="text" id="lastname" value={lastName} onChange={(e)=>setLastName(e.target.value)} required/>
-      </div>
-      <div>
+      
         <label htmlFor="phone">Phone Number:</label>
         <input type="text" id="phone" value={phone} onChange={(e)=> {setPhone(e.target.value)}} maxLength={10}/>
-      </div>
+      
       {!isPhoneValid && errMsg}
       <div>
         <input type="checkbox" id="textreminder" checked={textReminder} onChange={()=>setTextReminder(!textReminder)}/>
         <label htmlFor="textreminder">Text Alert Reminder?</label>
       </div>
-      <button type="submit">Save</button>
+      <button className="primaryBtn submitBtn" type="submit">Save</button>
     </form>
   )
 }

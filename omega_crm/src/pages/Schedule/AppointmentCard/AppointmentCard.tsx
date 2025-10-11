@@ -23,11 +23,13 @@ function AppointmentCard ({ appointmentInfo, j }: { appointmentInfo: Appointment
           gridRow: `${getRow(appointmentInfo.startTime)} / ${getRow(appointmentInfo.endTime)}`
         }}
     >
-      <span>{appointmentInfo.firstname} {appointmentInfo.lastname}</span>
-      <span>{appointmentInfo.phone}</span>
+      <div id="appointmentInfoContainer">
+        <span>{appointmentInfo.firstname} {appointmentInfo.lastname}</span>
+        <span>{appointmentInfo.phone}</span>
+      </div>
       <div id="buttonContainer">
-        <button onClick={openEditApptModal}>Edit</button>
-        <button onClick={openDeleteApptModal}>Delete</button>
+        <button className="warningBtn" onClick={openDeleteApptModal}>Delete</button>
+        <button className="secondaryBtn" onClick={openEditApptModal}>Edit</button>
       </div>
 
       <Modal show={isEditApptModalOpen} onClose={closeEditApptModal}>

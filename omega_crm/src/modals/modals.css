@@ -49,3 +49,9 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
+
+#customerInfoModal {
+  input {
+    margin-bottom: 10px;
+  }
+}

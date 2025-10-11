@@ -45,13 +45,19 @@ function Customers () {
     <div id="customersContainer">
       <h2>Customer Search</h2>
       <form id="customerSearch" onSubmit={handleSubmit}>
-        <label htmlFor="firstName">First Name:</label>
-        <input type="text" id="firstName" value={firstName} onChange={(e)=>setFirstName(e.target.value)}></input>
-        <label htmlFor="lastName">Last Name:</label>
-        <input type="text" id="lastName" value={lastName} onChange={(e)=>setLastName(e.target.value)}></input>
-        <label htmlFor="phone">Phone Number:</label>
-        <input type="text" id="phone" value={phone} onChange={(e)=>setPhone(e.target.value)}></input>
-        <button type="submit">Search</button>
+        <div>
+          <label htmlFor="firstName">First Name:</label>
+          <input type="text" id="firstName" value={firstName} onChange={(e)=>setFirstName(e.target.value)}/>
+        </div>
+        <div>
+          <label htmlFor="lastName">Last Name:</label>
+          <input type="text" id="lastName" value={lastName} onChange={(e)=>setLastName(e.target.value)}/>
+        </div>
+        <div>
+          <label htmlFor="phone">Phone Number:</label>
+          <input type="text" id="phone" value={phone} onChange={(e)=>setPhone(e.target.value)}/>
+        </div>
+        <button className="primaryBtn" type="submit">Search</button>
       </form>
       <div id="customerSearchResults">
         <div id="customerSearchResultsHeader">
@@ -63,8 +69,8 @@ function Customers () {
         {customerList}
       </div>
       <div id="customerFunctions">
-        <button onClick={()=> {customerDispatch({type: "clearSelected"}); openCustomerInfoModal();}}>New Customer</button>
-        <button disabled={customerState.selectedCustomer.id == 0 ? true : false} onClick={openCustomerApptsModal}>View Appointments Report</button>
+        <button className="secondaryBtn" onClick={()=> {customerDispatch({type: "clearSelected"}); openCustomerInfoModal();}}>New Customer</button>
+        <button className="secondaryBtn" disabled={customerState.selectedCustomer.id == 0 ? true : false} onClick={openCustomerApptsModal}>View Appointments Report</button>
       </div>
 
       <Modal show={isCustomerInfoModalOpen} onClose={() => {closeCustomerInfoModal(); customerDispatch({type: "clearSelected"})}}>

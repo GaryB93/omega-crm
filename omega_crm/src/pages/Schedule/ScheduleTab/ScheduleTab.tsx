@@ -18,6 +18,7 @@ function ScheduleTab({ schedule, selectedId }: ScheduleTabProps) {
 
   const handleClick = (scheduleID: number) => {
     scheduleAPI.getSchedules(scheduleID, scheduleState.date)
+    .then(response => response.json())
     .then(result => {
       scheduleDispatch({
         type: "selected",

@@ -1,15 +1,9 @@
 const scheduleAPI = {
   getSchedules: async (scheduleID = 0, date: string) => {
-    let result;
-
-    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/schedule?schedule=${scheduleID}&date=${date}`,
+    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/schedule?schedule=${scheduleID}&date=${date}`,
       {
         method: "GET",
       })
-      .then(response => response.json())
-      .then(data => result = data)
-      .catch(error => console.error('Error:', error)
-    );
 
     return result;
   },
@@ -32,18 +26,19 @@ const scheduleAPI = {
   },
 
   addSection: async(sectionName: string, scheduleID: number) => {
-    let result;
-
-    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/schedule/section`,
+    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/schedule/section`,
       {
         method: "POST",
         body: JSON.stringify({ sectionName: sectionName, scheduleId: scheduleID}),
         headers: {"Content-Type": "application/json"},
       })
-      .then(response => response.json())
-      .then(data => result = data)
-      .catch(error => console.error('Error', error)
-    );
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        console.log(response);
+        throw new Error('Error adding section to schedule')
+      });
 
     return result;
   }

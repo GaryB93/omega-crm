@@ -41,12 +41,16 @@ function AcctMgmt () {
     <div id="accountsContainer">
       <h2>User Search</h2>
       <form id="userSearch" onSubmit={handleSubmit}>
-        <label htmlFor="firstName">First Name:</label>
-        <input type="text" id="firstName" value={formState.firstname}
+        <div>
+          <label htmlFor="firstName">First Name:</label>
+          <input type="text" id="firstName" value={formState.firstname}
           onChange={(e)=>setFormState({...formState, firstname: e.target.value})}/>
-        <label htmlFor="lastName">Last Name:</label>
-        <input type="text" id="lastName" value={formState.lastname}
+        </div>
+        <div>
+          <label htmlFor="lastName">Last Name:</label>
+          <input type="text" id="lastName" value={formState.lastname}
           onChange={(e)=>setFormState({...formState, lastname: e.target.value})}/>
+        </div>
 
         <fieldset>
           <legend>Roles:</legend>
@@ -64,7 +68,7 @@ function AcctMgmt () {
           <label htmlFor="manager">Manager</label>
         </fieldset>
 
-        <button type="submit">Search</button>
+        <button className="primaryBtn" type="submit">Search</button>
       </form>
 
       <div id="searchResults">

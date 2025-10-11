@@ -8,6 +8,16 @@
 
 #userSearch {
   height: 100px;
+  display: flex;
+  justify-content: space-around;
+
+  fieldset {
+    height: 40px;
+  }
+
+  .primaryBtn {
+    height: 40px;
+  }
 }
 
 #searchResultsHeader {
@@ -28,5 +38,17 @@
 
   button {
     width: 100px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  #searchResultsHeader{
+    border-bottom: 1px solid #e0e0e0;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  #searchResultsHeader{
+    border-bottom: 1px solid #1e1e1e;
   }
 }
