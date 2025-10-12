@@ -2,9 +2,9 @@ import './Login.css';
 import './LoginErrMsg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import LoginErrMsg from './LoginErrMsg';
 import userAPI from '../../api/userAPI';
 import User from '../../classes/User';
+import ErrMsg from '../../components/ErrMsg/ErrMsg';
 
 // This component serves as an industry-appropriate security feature and requires the user to login to access the application.
 
@@ -41,7 +41,7 @@ function Login({ setIsLoggedIn, setUser }: LoginProps) {
     <div id="loginContainer">
       <form className='loginForm' onSubmit={handleSubmit}>
         <h1>Omega CRM</h1>
-        {loginFailed && <LoginErrMsg/>}
+        {loginFailed && <ErrMsg message ='Incorrect username or password entered. Please try again.'/>}
         <div className='inputContainer'>
           <label htmlFor='username'>Username</label>
           <input type='text' id='username' name="username" value={username}
