@@ -21,13 +21,11 @@
 .appointmentsHeader {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border-bottom: 1px solid white;
 }
 
 .editsHeader {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  border-bottom: 1px solid white;
 }
 
 .apptInfo {
@@ -37,12 +35,7 @@
 }
 
 .apptInfo:hover {
-  color: gold;
   cursor: pointer;
-}
-
-.apptSelected {
-  color: gold;
 }
 
 .apptEdit {
@@ -53,5 +46,36 @@
 #customerInfoModal {
   input {
     margin-bottom: 10px;
+  }
+}
+
+.userInfoModal {
+  input, fieldset, select {
+    margin-bottom: 10px;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .appointmentsHeader, .editsHeader {
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .apptSelected, .apptInfo:hover {
+    background-color: #424242;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .appointmentsHeader, .editsHeader {
+    border-bottom: 1px solid #1e1e1e;
+  }
+
+  .apptSelected, .apptInfo:hover {
+    background-color: #c6c6c6;
   }
 }

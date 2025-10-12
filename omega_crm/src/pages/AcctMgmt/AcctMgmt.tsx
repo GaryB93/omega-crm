@@ -83,9 +83,9 @@ function AcctMgmt () {
         {userList}
       </div>
       <div id="userFunctions">
-        <button onClick={()=> {resetSelectedUser(); openUserInfoModal();}}>New User</button>
-        <button disabled={selectedUser.id == 0 ? true : false} onClick={openUserInfoModal}>Edit</button>
-        <button disabled={selectedUser.id == 0 ? true : false} onClick={openDeleteUserModal}>Delete</button>
+        <button className="primaryBtn" onClick={()=> {resetSelectedUser(); openUserInfoModal();}}>New User</button>
+        <button className="primaryBtn" disabled={selectedUser.id == 0 ? true : false} onClick={openUserInfoModal}>Edit</button>
+        <button className="warningBtn" disabled={selectedUser.id == 0 ? true : false} onClick={openDeleteUserModal}>Delete</button>
       </div>
 
       <Modal show={isUserInfoModalOpen} onClose={closeUserInfoModal}>

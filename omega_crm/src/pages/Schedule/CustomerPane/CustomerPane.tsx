@@ -1,4 +1,5 @@
 import { useCustomerDispatch, useCustomers } from '../../../reducers/customersReducer';
+import displayPhone from '../../../utils/displayPhone';
 import './CustomerPane.css';
 
 function CustomerPane () {
@@ -17,11 +18,11 @@ function CustomerPane () {
       <div id="customerInfo">
         <h3>Customer Selection</h3>
         <span>First Name:</span>
-        <span>{selectedCustomer ? selectedCustomer.firstname : "..."}</span>
+        <span>{selectedCustomer.id != 0 ? selectedCustomer.firstname : "..."}</span>
         <span>Last Name:</span>
-        <span>{selectedCustomer ? selectedCustomer.lastname : "..."}</span>
+        <span>{selectedCustomer.id != 0 ? selectedCustomer.lastname : "..."}</span>
         <span>Phone:</span>
-        <span>{selectedCustomer ? selectedCustomer.phone : "..."}</span>
+        <span>{selectedCustomer.id != 0 ? displayPhone(selectedCustomer.phone) : "..."}</span>
       </div>
       <button className="secondaryBtn" id="clearBtn" onClick={handleClick}>Clear</button>
     </div>

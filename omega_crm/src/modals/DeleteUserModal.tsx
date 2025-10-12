@@ -29,7 +29,7 @@ function DeleteUserModal ({selectedUser, resetSelectedUser, closeDeleteUserModal
       <h3>Delete User</h3>
       <p>Are you sure you want to delete this user?</p>
       <p>{selectedUser.firstname} {selectedUser.lastname}</p>
-      <button onClick={handleClick}>Yes</button>
+      <button className="warningBtn submitBtn" onClick={handleClick}>Delete</button>
     </div>
   )
 }

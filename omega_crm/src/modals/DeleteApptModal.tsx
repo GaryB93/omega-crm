@@ -36,7 +36,7 @@ function DeleteApptModal ({closeDeleteApptModal, appointmentInfo}: DeleteApptMod
     <div className="formModal">
       <h3>Delete Appointment</h3>
       <p style={{marginTop: "20px"}}>Are you sure you want to delete this appointment for {appointmentInfo.firstname} {appointmentInfo.lastname}?</p>
-      <button className="warningBtn submitBtn" onClick={handleClick}>Yes</button>
+      <button className="warningBtn submitBtn" onClick={handleClick}>Delete</button>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import './CustomerInfo.css';
 import { useCustomers, useCustomerDispatch } from '../../../reducers/customersReducer';
-// import type { Customer } from '../../../reducers/customersReducer';
+import displayPhone from '../../../utils/displayPhone';
 import Customer from '../../../classes/Customer';
 
 interface CustomerInfoProps {
@@ -41,7 +41,7 @@ function CustomerInfo ({ customer,  openCustomerInfoModal }: CustomerInfoProps) 
     <div className={classes} onClick={handleSelect}>
       <span>{customer.firstname}</span>
       <span>{customer.lastname}</span>
-      <span>{customer.phone}</span>
+      <span>{displayPhone(customer.phone)}</span>
       <span>{customer.textreminder ? "Yes" : "No"}</span>
       <button className="secondaryBtn" onClick={handleClick}>Edit</button>
     </div>

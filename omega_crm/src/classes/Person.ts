@@ -33,9 +33,8 @@ class Person {
     return this.#phone;
   }
 
-  isPhoneValid (phone: string) {
-    if (phone.match(/[0-9]{10}/)) {
-      this.#phone = phone;
+  isPhoneValid () {
+    if (this.#phone.match(/[0-9]{10}/)) {
       return true;
     }
     else {

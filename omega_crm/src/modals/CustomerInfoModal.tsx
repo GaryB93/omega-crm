@@ -3,6 +3,7 @@ import './modals.css';
 import { useState } from 'react';
 import { useCustomerDispatch } from '../reducers/customersReducer';
 import Customer from '../classes/Customer';
+import ErrMsg from '../components/ErrMsg/ErrMsg';
 
 interface CustomerInfoModalProps {
   customer: Customer;
@@ -22,7 +23,7 @@ function CustomerInfoModal ({ customer, closeCustomerInfoModal }: CustomerInfoMo
     e.preventDefault();
     const customerInfo = new Customer(customer.id, firstName, lastName, phone, textReminder);
 
-    if (customerInfo.isPhoneValid(phone)) {
+    if (customerInfo.isPhoneValid()) {
       customerAPI.saveCustomer(customerInfo)
       .then(response => response.json())
       .then(data => {
@@ -38,25 +39,23 @@ function CustomerInfoModal ({ customer, closeCustomerInfoModal }: CustomerInfoMo
     }
   }
 
-  const errMsg = <div style={{color: "red"}}>
-                    <span role="alert">Please input a phone number using numbers only. No letters, dashes, or spaces.</span>
-                 </div>;
+  const invalidPhoneFormatMsg = 'Please input a phone number using ten numbers. No letters, dashes, or spaces.';
 
   return (
     <form className="formModal" id="customerInfoModal" onSubmit={handleSubmit}>
       <h3>Customer Info</h3>
       
-        <label htmlFor="firstname">First Name:</label>
-        <input type="text" id="firstname" value={firstName} onChange={(e)=>setFirstName(e.target.value)} required/>
+      <label htmlFor="firstname">First Name:</label>
+      <input type="text" id="firstname" value={firstName} onChange={(e)=>setFirstName(e.target.value)} required autoComplete="false"/>
+          
+      <label htmlFor="lastname">Last Name:</label>
+      <input type="text" id="lastname" value={lastName} onChange={(e)=>setLastName(e.target.value)} required autoComplete="false"/>
       
+      <label htmlFor="phone">Phone Number:</label>
+      <input type="text" id="phone" value={phone} onChange={(e)=> {setPhone(e.target.value)}} maxLength={10}/>
       
-        <label htmlFor="lastname">Last Name:</label>
-        <input type="text" id="lastname" value={lastName} onChange={(e)=>setLastName(e.target.value)} required/>
-      
-        <label htmlFor="phone">Phone Number:</label>
-        <input type="text" id="phone" value={phone} onChange={(e)=> {setPhone(e.target.value)}} maxLength={10}/>
-      
-      {!isPhoneValid && errMsg}
+      {!isPhoneValid && <ErrMsg message={invalidPhoneFormatMsg} />}
+
       <div>
         <input type="checkbox" id="textreminder" checked={textReminder} onChange={()=>setTextReminder(!textReminder)}/>
         <label htmlFor="textreminder">Text Alert Reminder?</label>

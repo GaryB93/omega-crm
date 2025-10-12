@@ -1,6 +1,7 @@
 import { useSchedules } from '../../../reducers/scheduleReducer';
 import User from '../../../classes/User';
 import './UserInfo.css';
+import displayPhone from '../../../utils/displayPhone';
 
 interface UserInfoProps {
   user: User;
@@ -12,9 +13,10 @@ interface UserInfoProps {
 function UserInfo ({user, selectedUser, setSelectedUser, resetSelectedUser}: UserInfoProps) {
 
   const schedules = useSchedules().schedules;
-  // const userInfo = new User(user.id, user.firstname, user.lastname, user.phone, user.schedule, user.role);
+  const userInfo = new User(user.id, user.firstname, user.lastname, user.phone, user.schedule, user.role);
 
   const handleSelect= () => {
+    userInfo.displayInfo();
     if (user.id == selectedUser.id) {
       resetSelectedUser();
     } else {
@@ -29,7 +31,7 @@ function UserInfo ({user, selectedUser, setSelectedUser, resetSelectedUser}: Use
       <span>{user.id}</span>
       <span>{user.firstname}</span>
       <span>{user.lastname}</span>
-      <span>{user.phone}</span>
+      <span>{displayPhone(user.phone)}</span>
       <span>{user.role}</span>
       <span>{schedules.find(schedule => schedule.id == user.schedule).name}</span>
     </div>

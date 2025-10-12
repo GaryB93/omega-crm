@@ -4,6 +4,7 @@ import userAPI from "../api/userAPI";
 import updateUsers from "../utils/updateUsers";
 import User from "../classes/User";
 import NewUser from "../classes/NewUser";
+import ErrMsg from "../components/ErrMsg/ErrMsg";
 
 interface UserInfoModalProps {
   selectedUser: User;
@@ -29,6 +30,7 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [scheduleSelected, setScheduleSelected] = useState(true);
   const [roleSelected, setRoleSelected] = useState(true);
+  const [isPhoneValid, setIsPhoneValid] = useState(true);
 
   const schedules = useSchedules().schedules;
   const scheduleOptions = schedules.map(schedule => {
@@ -43,6 +45,13 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
   const formIsValid = () => {
     let formIsValid = true;
     const newUser = new NewUser(formState);
+    if (newUser.isPhoneValid()) {
+      setIsPhoneValid(true);
+    } else {
+      formIsValid = false;
+      setIsPhoneValid(false);
+    }
+
     if (newUser.schedule == 0) {
       formIsValid = false;
       setScheduleSelected(false);
@@ -92,30 +101,23 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
   }
 
   return (
-    <form className="formModal" onSubmit={handleSubmit}>
+    <form className="formModal userInfoModal" onSubmit={handleSubmit}>
       <h3>User Info</h3>
-      <div>
-        <label htmlFor="firstname">First Name:</label>
-        <input type="text" id="firstname" value={formState.firstname} onChange={(e)=>setFormState({...formState, firstname: e.target.value})} required/>
-      </div>
+      <label htmlFor="firstname">First Name:</label>
+      <input type="text" id="firstname" value={formState.firstname} onChange={(e)=>setFormState({...formState, firstname: e.target.value})} required/>
+      
+      <label htmlFor="lastname">Last Name:</label>
+      <input type="text" id="lastname" value={formState.lastname} onChange={(e)=>setFormState({...formState, lastname: e.target.value})} required/>
+    
+      <label htmlFor="phone">Phone Number:</label>
+      <input type="text" id="phone" value={formState.phone} onChange={(e)=>setFormState({...formState, phone: e.target.value})}/>
+      {!isPhoneValid && <ErrMsg message='Please input a phone number using ten numbers. No letters, dashes, or spaces.'/>}
 
-      <div>
-        <label htmlFor="lastname">Last Name:</label>
-        <input type="text" id="lastname" value={formState.lastname} onChange={(e)=>setFormState({...formState, lastname: e.target.value})} required/>
-      </div>
-
-      <div>
-        <label htmlFor="phone">Phone Number:</label>
-        <input type="text" id="phone" value={formState.phone} onChange={(e)=>setFormState({...formState, phone: e.target.value})}/>
-      </div>
-
-      <div>
-        <label htmlFor="schedule">Schedule:</label>
-        <select id="schedule" value={formState.schedule} onChange={(e)=>setFormState({...formState, schedule: Number(e.target.value)})}>
-          {scheduleOptions}
-        </select>
-      </div>
-      {!scheduleSelected && <div><span style={{color: "red"}}>Please select a schedule.</span></div>}
+      <label htmlFor="schedule">Schedule:</label>
+      <select id="schedule" value={formState.schedule} onChange={(e)=>setFormState({...formState, schedule: Number(e.target.value)})}>
+        {scheduleOptions}
+      </select>
+      {!scheduleSelected && <ErrMsg message='Please select a schedule.' />}
 
       <fieldset>
         <legend>Role:</legend>
@@ -148,9 +150,9 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
         <input type="password" id="confirmPassword" value={formState.confirmPassword} onChange={(e)=>setFormState({...formState, confirmPassword: e.target.value})} required/>
       </div>}
 
-      {!passwordsMatch && <div><span style={{color: "red"}}>Passwords must match!</span></div>}
+      {!passwordsMatch && <ErrMsg message='Passwords must match!'/>}
 
-      <button type="submit">Save</button>
+      <button className="primaryBtn submitBtn" type="submit">Save</button>
     </form>
   )
 }

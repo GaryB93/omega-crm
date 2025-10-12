@@ -1,7 +1,8 @@
 import appointmentAPI from "../api/appointmentAPI";
-import type { Customer } from "../reducers/customersReducer";
+// import type { Customer } from "../reducers/customersReducer";
 import { useState, useEffect } from "react";
 import getCurrentDate from "../utils/getCurrentDate";
+import Customer from "../classes/Customer";
 import './modals.css';
 
 interface CustomerApptsModalProps {

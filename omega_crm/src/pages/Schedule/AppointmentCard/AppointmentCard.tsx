@@ -5,6 +5,7 @@ import { useState } from "react";
 import './AppointmentCard.css';
 import EditApptModal from "../../../modals/EditApptModal";
 import DeleteApptModal from "../../../modals/DeleteApptModal";
+import displayPhone from "../../../utils/displayPhone";
 
 function AppointmentCard ({ appointmentInfo, j }: { appointmentInfo: Appointment, j: number }) {
 
@@ -24,11 +25,11 @@ function AppointmentCard ({ appointmentInfo, j }: { appointmentInfo: Appointment
         }}
     >
       <div id="appointmentInfoContainer">
-        <span>{appointmentInfo.firstname} {appointmentInfo.lastname}</span>
-        <span>{appointmentInfo.phone}</span>
+        <span>{appointmentInfo.firstname} {appointmentInfo.lastname} {displayPhone(appointmentInfo.phone)}</span>
+        <span>{appointmentInfo.description}</span>
       </div>
       <div id="buttonContainer">
-        <button className="warningBtn" onClick={openDeleteApptModal}>Delete</button>
+        <button className="secondaryBtn" onClick={openDeleteApptModal}>Delete</button>
         <button className="secondaryBtn" onClick={openEditApptModal}>Edit</button>
       </div>
 

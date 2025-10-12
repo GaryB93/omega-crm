@@ -6,6 +6,8 @@ import customerAPI from '../../api/customerAPI';
 import Modal from '../../components/Modal/Modal';
 import CustomerInfoModal from '../../modals/CustomerInfoModal';
 import CustomerApptsModal from '../../modals/CustomerApptsModal';
+import ErrMsg from '../../components/ErrMsg/ErrMsg';
+import Person from '../../classes/Person';
 
 function Customers () {
 
@@ -16,6 +18,7 @@ function Customers () {
   const [ firstName, setFirstName ] = useState("");
   const [ lastName, setLastName ] = useState("");
   const [ phone, setPhone ] = useState("");
+  const [ isPhoneValid, setIsPhoneValid ] = useState(true);
 
   const [isCustomerInfoModalOpen, setIsCustomerInfoModalOpen] = useState(false);
   const closeCustomerInfoModal = () => setIsCustomerInfoModalOpen(false);
@@ -27,7 +30,10 @@ function Customers () {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    customerAPI.getCustomers(firstName, lastName, phone)
+    const newPerson = new Person(firstName, lastName, phone);
+    if (phone == "" || newPerson.isPhoneValid()) {
+      setIsPhoneValid(true);
+      customerAPI.getCustomers(firstName, lastName, phone)
       .then(result => {
         customerDispatch({
           type: "retrieved",
@@ -35,11 +41,17 @@ function Customers () {
         })
       })
       .catch(err => console.error('Error', err));
+    }
+    else {
+      setIsPhoneValid(false);
+    }
   }
 
   const customerList = customers.map(customer =>
     <CustomerInfo key={customer.id} customer={customer} openCustomerInfoModal={openCustomerInfoModal} />
   );
+
+  const invalidPhoneFormatMsg = 'Please input a phone number using ten numbers. No letters, dashes, or spaces.';
 
   return (
     <div id="customersContainer">
@@ -56,6 +68,7 @@ function Customers () {
         <div>
           <label htmlFor="phone">Phone Number:</label>
           <input type="text" id="phone" value={phone} onChange={(e)=>setPhone(e.target.value)}/>
+          {!isPhoneValid && <ErrMsg message={invalidPhoneFormatMsg}/>}
         </div>
         <button className="primaryBtn" type="submit">Search</button>
       </form>

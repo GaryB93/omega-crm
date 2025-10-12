@@ -55,7 +55,7 @@ body {
   white-space: nowrap;
 }
 
-.primaryBtn:disabled, .secondaryBtn:disabled {
+.primaryBtn:disabled, .secondaryBtn:disabled, .warningBtn:disabled {
   cursor: default;
   opacity: .3;
 }
@@ -123,44 +123,34 @@ body {
 }
 
 .warningBtn {
-  background-image: linear-gradient(#f7f8fa ,#e7e9ec);
-  border: 1px solid #de0000;
-  border-radius: 3px;
-  box-shadow: rgba(255,255,255,.6) 0 1px 0 inset;
+  background-color: inherit;
+  border: 1px solid rgb(176, 0, 0);
+  border-radius: 4px;
   box-sizing: border-box;
-  color: #de0000;
+  color: rgb(176, 0, 0);
   cursor: pointer;
-  display: inline-block;
-  font-family: "Amazon Ember",Arial,sans-serif;
-  font-size: 14px;
-  height: 29px;
-  font-size: 13px;
-  outline: 0;
-  overflow: hidden;
-  padding: 0 11px;
+  direction: ltr;
+  display: block;
+  font-family: "SF Pro Text","SF Pro Icons","AOS Icons","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -.022em;
+  line-height: 1.47059;
+  min-width: 30px;
+  overflow: visible;
+  padding: 4px 15px;
   text-align: center;
-  text-decoration: none;
-  text-overflow: ellipsis;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
   white-space: nowrap;
 }
 
-.warningBtn:active {
-  border-bottom-color: #a2a6ac;
-}
-
-.warningBtn:active:hover {
-  border-bottom-color: #a2a6ac;
-}
-
 .warningBtn:hover {
-  text-decoration: underline;
+  background-color: rgb(254,144, 144);
 }
 
-.warningBtn:focus {
-  border-color: #e77600;
-  box-shadow: rgba(228, 121, 17, .5) 0 0 3px 2px;
-  outline: 0;
+.warningBtn:disabled:hover {
+  background-color: inherit;
+  cursor: default;
 }
