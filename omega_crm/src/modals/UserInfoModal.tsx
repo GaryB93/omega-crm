@@ -133,7 +133,7 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
           onChange={(e)=>setFormState({...formState, role: e.target.value})}/>
         <label htmlFor="managerRole">Manager</label>
       </fieldset>
-      {!roleSelected && <div><span style={{color: "red"}}>Please select a role.</span></div>}
+      {!roleSelected && <ErrMsg message='Please select a role.' />}
 
       {selectedUser.id == 0 && <div>
         <label htmlFor="username">Username:</label>
