@@ -7,5 +7,5 @@ export default function getCurrentDate(date = new Date()) {
 }
 
 export function prefixNum(num: number) {
-  return num < 10 ? "0" + num.toString() : num;
+  return num < 10 ? "0" + num.toString() : num.toString();
 }

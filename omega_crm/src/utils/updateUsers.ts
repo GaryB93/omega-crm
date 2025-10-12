@@ -1,4 +1,4 @@
-import type { User } from "../pages/AcctMgmt/UserInfo/UserInfo";
+import User from "../classes/User";
 
 function updateUsers (users: Array<User>, userToAddOrSave: User) {
   const clonedUsers = JSON.parse(JSON.stringify(users));
