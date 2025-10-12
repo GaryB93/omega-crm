@@ -6,6 +6,8 @@ import LoginErrMsg from './LoginErrMsg';
 import userAPI from '../../api/userAPI';
 import User from '../../classes/User';
 
+// This component serves as an industry-appropriate security feature and requires the user to login to access the application.
+
 interface LoginProps {
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   setUser: React.Dispatch<React.SetStateAction<User>>;

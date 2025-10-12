@@ -5,6 +5,7 @@ const userController = {};
 userController.loginUser = (req, res, next) => {
   const params = [ req.body.username, req.body.password ];
   const query = "SELECT * FROM users WHERE username = $1 AND password = $2";
+  // All database queries performed use the functionality of query parameters to prevent SQL Injection
 
   db.query(query, params)
     .then(data => {
