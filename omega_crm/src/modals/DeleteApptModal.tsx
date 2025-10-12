@@ -17,6 +17,7 @@ function DeleteApptModal ({closeDeleteApptModal, appointmentInfo}: DeleteApptMod
     appointmentAPI.deleteAppointment(appointmentInfo.id)
     .then(result => {
       scheduleAPI.getSchedules(scheduleState.selectedSchedule, scheduleState.date)
+      .then(response => response.json())
       .then(result2 => {
         scheduleDispatch({
           type: "selected",
