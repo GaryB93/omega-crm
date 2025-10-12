@@ -166,7 +166,7 @@ appointmentController.getAppointmentEdits = (req, res, next) => {
   let query = 'SELECT * FROM appointmentEdits WHERE';
 
   for (let i = 1; i <= appointmentIds.length; i++) {
-    query += ` id = $${i}`;
+    query += ` appointment = $${i}`;
 
     if (i != appointmentIds.length) {
       query += ' OR'

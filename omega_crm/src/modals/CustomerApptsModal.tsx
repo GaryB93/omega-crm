@@ -53,9 +53,10 @@ function CustomerApptsModal ({customer}: CustomerApptsModalProps) {
   });
 
   const appointmentEditsList = appointments.appointmentEdits.filter(apptEdit => apptEdit.appointment == selectedAppointment).map(apptEdit => {
+    const timestamp = new Date(apptEdit.timestamp);
     return (
       <div key={apptEdit.id} className="apptEdit">
-        <span>{apptEdit.timestamp}</span>
+        <span>{timestamp.toLocaleString()}</span>
         <span>{apptEdit.owner}</span>
       </div>
     )

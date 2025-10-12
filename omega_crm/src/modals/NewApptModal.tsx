@@ -28,6 +28,7 @@ function NewApptModal ({closeAddApptModal}: {closeAddApptModal: ()=>void}) {
     appointmentAPI.createAppointment(user.id, customerId, assignedSection, date, startTime, endTime, description)
     .then(result => {
       scheduleAPI.getSchedules(scheduleState.selectedSchedule, scheduleState.date)
+      .then(response => response.json())
       .then(result2 => {
         scheduleDispatch({
           type: "selected",

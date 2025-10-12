@@ -32,6 +32,7 @@ function EditApptModal ({closeEditApptModal, appointmentInfo}: {closeEditApptMod
     appointmentAPI.editAppointment(appointmentId, userId, assignedSection, date, startTime, endTime, description)
     .then(result => {
       scheduleAPI.getSchedules(scheduleState.selectedSchedule, scheduleState.date)
+      .then(response => response.json())
       .then(result2 => {
         scheduleDispatch({
           type: "selected",
@@ -112,7 +113,7 @@ function EditApptModal ({closeEditApptModal, appointmentInfo}: {closeEditApptMod
         {sections}
       </select>
 
-      <button type="submit">Save</button>
+      <button className="primaryBtn submitBtn" type="submit">Save</button>
     </form>
   )
 }
