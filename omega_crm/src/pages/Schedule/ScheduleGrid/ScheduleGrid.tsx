@@ -3,6 +3,10 @@ import AppointmentCard from '../AppointmentCard/AppointmentCard';
 import { useCustomers } from '../../../reducers/customersReducer';
 import './ScheduleGrid.css';
 
+// The schedulegrid component is one of the ways the application showcases a user-friendly, functional GUI.
+// The main purpose of this application is to provide users with an easy way to view appointments by date and when they are scheduled for.
+// The user can change what appointments are being shown by choosing the specific date or schedule.
+
 interface ScheduleGridProps {
   openAddSectionModal: () => void;
   openAddApptModal: () => void;
