@@ -5,6 +5,8 @@ import Customer from "../classes/Customer";
 import Appointment from "../classes/Appointment";
 import './modals.css';
 
+// This modal is used to generate reports based on the customer selected to show their appointments and appointment edits made by users, including a timestamp of when the edit was made and by whom.
+
 interface CustomerApptsModalProps {
   customer: Customer;
 }
