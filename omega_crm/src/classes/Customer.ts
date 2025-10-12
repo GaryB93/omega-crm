@@ -25,6 +25,14 @@ class Customer extends Person {
   get textreminder () {
     return this.#textreminder;
   }
+
+  displayInfo(): void {
+    console.log(`id: ${this.#id}\n
+                 firstname: ${this.firstname}\n
+                 lastname: ${this.lastname}\n
+                 phone: ${this.phone}\n
+                 textreminder: ${this.#textreminder}`);
+  }
 }
 
 export default Customer;

@@ -41,6 +41,13 @@ class Person {
       return false;
     }
   }
+
+  displayInfo() {
+    console.log(`firstname: ${this.firstname}\n
+                 lastname: ${this.lastname}\n
+                 phone: ${this.phone}\n
+    `);
+  }
 }
 
 export default Person;
