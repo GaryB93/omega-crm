@@ -56,6 +56,7 @@ function Customers () {
   return (
     <div id="customersContainer">
       <h2>Customer Search</h2>
+      {/* This form is used for the search functionality of finding customers based on the users input of either firstname, lastname, or phone number. */}
       <form id="customerSearch" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="firstName">First Name:</label>
