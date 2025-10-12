@@ -1,4 +1,5 @@
 import { Pool } from 'pg';
+// This model is a database component for the server to be able to communicate with the database and execute queries. The specific queries are described in the controllers to perform specific database operations.
 
 const pool = new Pool({
   user: 'postgres',
