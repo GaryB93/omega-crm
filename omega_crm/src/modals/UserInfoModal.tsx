@@ -42,6 +42,7 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
   });
   scheduleOptions.unshift(<option key={0} value={0} disabled hidden>Choose schedule...</option>)
 
+  // This function proves as one of the many validation techniques used for the information entered by the user to create or edit user information.
   const formIsValid = () => {
     let formIsValid = true;
     const newUser = new NewUser(formState);
