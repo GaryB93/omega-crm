@@ -1,5 +1,10 @@
 import Person from "./Person";
 
+// This code includes inheritance, polymorphism, and encapsulation in the following ways:
+// Inheritance - This class inherits properties from the Person class.
+// Polymorphism - This class defines its own displayInfo() method to replace the displayInfo() method from the Person class to display additional properties in the User class.
+// Encapsulation - All properties in the created classes, including this User class, are private properties and can only be accessed using the getter and setter functions.
+
 class User extends Person {
   #id: number = 0;
   #schedule: number;
