@@ -1,8 +1,8 @@
 import appointmentAPI from "../api/appointmentAPI";
-// import type { Customer } from "../reducers/customersReducer";
 import { useState, useEffect } from "react";
 import getCurrentDate from "../utils/getCurrentDate";
 import Customer from "../classes/Customer";
+import Appointment from "../classes/Appointment";
 import './modals.css';
 
 interface CustomerApptsModalProps {
@@ -12,16 +12,6 @@ interface CustomerApptsModalProps {
 interface Appointments {
   appointments: Array<Appointment>;
   appointmentEdits: Array<AppointmentEdits>;
-}
-
-interface Appointment {
-  customer: number;
-  date: string;
-  description: string;
-  endTime: string;
-  id: number;
-  section: number;
-  startTime: string;
 }
 
 interface AppointmentEdits {
