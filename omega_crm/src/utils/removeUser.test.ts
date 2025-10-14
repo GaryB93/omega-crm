@@ -1,4 +1,4 @@
-import { expect, test } from "vitest";
+import { expect, test } from 'vitest';
 import removeUser from "./removeUser";
 import User from "../classes/User";
 

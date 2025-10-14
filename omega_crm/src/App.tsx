@@ -7,18 +7,12 @@ import Schedule from './pages/Schedule/Schedule';
 import Customers from './pages/Customers/Customers';
 import AcctMgmt from './pages/AcctMgmt/AcctMgmt';
 import ProtectedRoutes from './components/ProtectedRoutes';
+import User from './classes/User';
 
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [ user, setUser ] = useState({
-    id: 0,
-    firstname: "",
-    lastname: "",
-    phone: "",
-    schedule: 0,
-    role: ""
-  });
+  const [ user, setUser ] = useState(new User(0, "", "", "", 0, ""));
 
   return (
     <Routes>

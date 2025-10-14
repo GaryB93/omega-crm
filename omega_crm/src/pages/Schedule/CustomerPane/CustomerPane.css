@@ -9,12 +9,13 @@
   margin-bottom: 20px;
 }
 
-#customerInfo span {
-  display: block;
-}
+#customerInfo {
+  display: flex;
+  flex-direction: column;
 
-#customerInfo span:nth-of-type(even) {
-  margin-bottom: 20px;
+  input {
+    margin-bottom: 20px;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

@@ -5,6 +5,7 @@ import { useSchedules, useScheduleDispatch } from "../reducers/scheduleReducer";
 import appointmentAPI from "../api/appointmentAPI";
 import './modals.css';
 import scheduleAPI from "../api/scheduleAPI";
+import ErrMsg from "../components/ErrMsg/ErrMsg";
 
 function NewApptModal ({closeAddApptModal}: {closeAddApptModal: ()=>void}) {
   const [ user, setUser ] = useUser();
@@ -18,36 +19,50 @@ function NewApptModal ({closeAddApptModal}: {closeAddApptModal: ()=>void}) {
   const [ description, setDescription ] = useState("");
   const [ assignedSection, setAssisgnedSection ] = useState(0);
 
+  const [ showStartTimeErr, setShowStartTimeErr ] = useState(false);
+  const [ formIsValid, setFormIsValid ] = useState(false);
+
   const sections = scheduleState.sections.map(section => <option key={section.id} value={section.id}>{section.name}</option>);
-  sections.unshift(<option key={0} value={0}>Choose section...</option>)
+  sections.unshift(<option key={0} value={0}>Choose section...</option>);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const customerId = selectedCustomer.id;
-    const date = scheduleState.date;
-    appointmentAPI.createAppointment(user.id, customerId, assignedSection, date, startTime, endTime, description)
-    .then(result => {
-      scheduleAPI.getSchedules(scheduleState.selectedSchedule, scheduleState.date)
-      .then(response => response.json())
-      .then(result2 => {
-        scheduleDispatch({
-          type: "selected",
-          id: result2.selectedSchedule,
-          schedules: result2.schedules,
-          sections: result2.sections,
-          appointments: result2.appointments
+    setFormIsValid(true);
+
+    if (startTime == "00:00") {
+      setShowStartTimeErr(true);
+      setFormIsValid(false);
+    } else {
+      setShowStartTimeErr(false);
+    }
+    
+    if (formIsValid) {
+      const customerId = selectedCustomer.id;
+      const date = scheduleState.date;
+      appointmentAPI.createAppointment(user.id, customerId, assignedSection, date, startTime, endTime, description)
+      .then(result => {
+        scheduleAPI.getSchedules(scheduleState.selectedSchedule, scheduleState.date)
+        .then(response => response.json())
+        .then(result2 => {
+          scheduleDispatch({
+            type: "selected",
+            id: result2.selectedSchedule,
+            schedules: result2.schedules,
+            sections: result2.sections,
+            appointments: result2.appointments
+          });
+          closeAddApptModal();
         });
-        closeAddApptModal();
       })
-    })
-    .catch(err => console.error('Error:', err));
+      .catch(err => console.error('Error:', err));
+    }
   }
 
   return (
-    <form className="formModal apptForm" onSubmit={handleSubmit}>
+    <form className="formModal apptForm" name="newApptForm" onSubmit={handleSubmit}>
       <h3>Appointment Details</h3>
       <label htmlFor="fullName">Customer:</label>
-      <input type="text" id="fullName" disabled value={selectedCustomer.firstname + " " + selectedCustomer.lastname} />
+      <input type="text" id="fullName" data-testid="fullName" disabled value={selectedCustomer.firstname + " " + selectedCustomer.lastname} />
 
       <label htmlFor="phoneNum">Phone:</label>
       <input type="text" id="phoneNum" disabled value={selectedCustomer.phone} />
@@ -77,6 +92,7 @@ function NewApptModal ({closeAddApptModal}: {closeAddApptModal: ()=>void}) {
         <option value={"16:00"}>4:00pm</option>
         <option value={"16:30"}>4:30pm</option>
       </select>
+      {showStartTimeErr && <ErrMsg message="Please choose a start time."/>}
 
       <label htmlFor="endTime">End Time:</label>
       <select id="endTime" value={endTime} onChange={(e)=>setEndTime(e.target.value)}>

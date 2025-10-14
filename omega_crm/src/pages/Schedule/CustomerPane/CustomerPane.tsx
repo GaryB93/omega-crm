@@ -1,28 +1,28 @@
-import { useCustomerDispatch, useCustomers } from '../../../reducers/customersReducer';
+import type Customer from '../../../classes/Customer';
 import displayPhone from '../../../utils/displayPhone';
 import './CustomerPane.css';
 
-function CustomerPane () {
+interface CustomerPaneProps {
+  customer: Customer;
+  customerDispatch: React.Dispatch<React.SetStateAction<Customer>>;
+}
 
-  const customerState = useCustomers();
-  const dispatch = useCustomerDispatch();
-
-  const selectedCustomer = customerState.selectedCustomer;
+function CustomerPane ({ customer, customerDispatch }: CustomerPaneProps) {
 
   const handleClick = () => {
-    dispatch({ type: "clearSelected"});
+    customerDispatch({ type: "clearSelected"});
   }
 
   return (
     <div id="customerPane">
       <div id="customerInfo">
         <h3>Customer Selection</h3>
-        <span>First Name:</span>
-        <span>{selectedCustomer.id != 0 ? selectedCustomer.firstname : "..."}</span>
-        <span>Last Name:</span>
-        <span>{selectedCustomer.id != 0 ? selectedCustomer.lastname : "..."}</span>
-        <span>Phone:</span>
-        <span>{selectedCustomer.id != 0 ? displayPhone(selectedCustomer.phone) : "..."}</span>
+        <label htmlFor="customerFirstName">First Name:</label>
+        <input type="text" id="customerFirstName" value={customer.id != 0 ? customer.firstname : "..."} disabled/>
+        <label htmlFor="customerLastName">Last Name:</label>
+        <input type="text" id="customerLastName" value={customer.id != 0 ? customer.lastname : "..."} disabled/>
+        <label htmlFor="customerPhone">Phone:</label>
+        <input type="text" id="customerPhone" value={customer.id != 0 ? displayPhone(customer.phone) : "..."} disabled/>
       </div>
       <button className="secondaryBtn" id="clearBtn" onClick={handleClick}>Clear</button>
     </div>

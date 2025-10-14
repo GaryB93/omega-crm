@@ -10,11 +10,15 @@ import NewScheduleModal from "../../modals/NewScheduleModal";
 import NewApptModal from "../../modals/NewApptModal";
 import scheduleAPI from "../../api/scheduleAPI";
 import './Schedule.css';
+import { useCustomerDispatch, useCustomers } from "../../reducers/customersReducer";
 
 function Schedule () {
   
   const scheduleState = useSchedules();
   const scheduleDispatch = useScheduleDispatch();
+  const customerState = useCustomers();
+  const customerDispatch = useCustomerDispatch();
+
   const schedules = scheduleState.schedules;
   const selectedScheduleId = scheduleState.selectedSchedule;
 
@@ -64,7 +68,7 @@ function Schedule () {
           openAddApptModal={openAddApptModal}
         />
       </div>
-      <CustomerPane />
+      <CustomerPane customer={customerState.selectedCustomer} customerDispatch={customerDispatch}/>
 
       <Modal show={isAddScheduleModalOpen} onClose={closeAddScheduleModal}>
         <NewScheduleModal />
