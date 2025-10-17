@@ -36,7 +36,10 @@ function CustomerInfo ({ customer,  openCustomerInfoModal }: CustomerInfoProps) 
   }
   
   const classes = customer.id == customerState.selectedCustomer.id ? "customerInfo customerSelected" : "customerInfo";
-
+  if (customer.id == 0) {
+    return null;
+  }
+  
   return (
     <div className={classes} onClick={handleSelect}>
       <span>{customer.firstname}</span>

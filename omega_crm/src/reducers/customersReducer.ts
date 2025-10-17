@@ -1,29 +1,34 @@
 import { createContext, useContext } from "react";
-import Customer from "../classes/Customer";
+// import Customer from "../classes/Customer";
 
 export interface CustomerState {
   selectedCustomer: Customer;
   customers: Array<Customer>;
 }
 
-// export interface Customer {
-//   id: number;
-//   firstname: string;
-//   lastname: string;
-//   phone: string;
-//   textreminder: boolean;
-// }
+export interface Customer {
+  id: number;
+  firstname: string;
+  lastname: string;
+  phone: string;
+  textreminder: boolean;
+}
 
 export const initialCustomers: CustomerState = {
-  selectedCustomer: new Customer(0,"","","", false),
-  customers: []
+  selectedCustomer: {id: 0, firstname: "", lastname: "", phone: "", textreminder: false},
+  customers: [{id: 0, firstname: "", lastname: "", phone: "", textreminder: false}]
 }
 
 export const CustomerContext = createContext(initialCustomers);
-export const CustomerDispatchContext = createContext();
+export const CustomerDispatchContext = createContext<React.ActionDispatch<[Action]>>(()=>{});
 
-export function customerReducer(customerState: CustomerState,
-  action: { type: string; id?: number; customer?: Customer; customers?: Array<Customer>}) {
+export type Action = 
+  | { type: 'selected', customer: Customer }
+  | { type: 'clearSelected' }
+  | { type: 'saved', customer: Customer }
+  | { type: 'retrieved', customers: Array<Customer> }
+
+export function customerReducer(customerState: CustomerState, action: Action) {
     switch (action.type) {
       case 'selected': {
         return {...customerState,
@@ -45,7 +50,7 @@ export function customerReducer(customerState: CustomerState,
         }
       }
       case 'saved': {
-        const editedCustomer = customerState.customers.findIndex((customer)=> customer.id == action.customer!.id)
+        const editedCustomer = customerState.customers.findIndex((customer)=> customer.id == action.customer.id)
         if (editedCustomer == -1) {
           return {
             ...customerState,
@@ -66,7 +71,7 @@ export function customerReducer(customerState: CustomerState,
         }
       }
       default: {
-        throw Error('Unknown action: ' + action.type);
+        throw Error('Unknown action in customersReducer');
       }
     }
 }

@@ -35,6 +35,7 @@ function CustomerApptsModal ({customer}: CustomerApptsModalProps) {
   useEffect(() => {
     appointmentAPI.getAppointmentsByCustomer(customer.id)
     .then(result => { // result is an object with properties: appointments and appointmentEdits
+      console.log(result);
       setAppointments(result);
       if (result.appointments[0]) {
         setSelectedAppointment(result.appointments[0].id);

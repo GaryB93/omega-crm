@@ -1,10 +1,11 @@
-import type Customer from '../../../classes/Customer';
+// import type Customer from '../../../classes/Customer';
 import displayPhone from '../../../utils/displayPhone';
+import type { Action, Customer } from '../../../reducers/customersReducer';
 import './CustomerPane.css';
 
 interface CustomerPaneProps {
   customer: Customer;
-  customerDispatch: React.Dispatch<React.SetStateAction<Customer>>;
+  customerDispatch: React.ActionDispatch<[Action]>;
 }
 
 function CustomerPane ({ customer, customerDispatch }: CustomerPaneProps) {
