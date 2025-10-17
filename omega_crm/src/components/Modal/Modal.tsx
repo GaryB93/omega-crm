@@ -1,6 +1,12 @@
 import './Modal.css';
 
-function Modal ({ show, onClose, children }) {
+interface ModalProps {
+  show: boolean;
+  onClose: ()=>void;
+  children: React.ReactNode;
+}
+
+function Modal ({ show, onClose, children }: ModalProps) {
   if (!show) {
     return null;
   }

@@ -20,23 +20,19 @@ function NewApptModal ({closeAddApptModal}: {closeAddApptModal: ()=>void}) {
   const [ assignedSection, setAssisgnedSection ] = useState(0);
 
   const [ showStartTimeErr, setShowStartTimeErr ] = useState(false);
-  const [ formIsValid, setFormIsValid ] = useState(false);
+  const [ showEndTimeErr, setShowEndTimeErr ] = useState(false);
+  const [ showSectionErr, setShowSectionErr ] = useState(false);
 
   const sections = scheduleState.sections.map(section => <option key={section.id} value={section.id}>{section.name}</option>);
   sections.unshift(<option key={0} value={0}>Choose section...</option>);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setFormIsValid(true);
-
-    if (startTime == "00:00") {
-      setShowStartTimeErr(true);
-      setFormIsValid(false);
-    } else {
-      setShowStartTimeErr(false);
-    }
+    setShowStartTimeErr(startTime == "00:00");
+    setShowEndTimeErr(endTime == "00:00");
+    setShowSectionErr(assignedSection == 0);
     
-    if (formIsValid) {
+    if (startTime != "00:00" && endTime != "00:00" && assignedSection != 0) {
       const customerId = selectedCustomer.id;
       const date = scheduleState.date;
       appointmentAPI.createAppointment(user.id, customerId, assignedSection, date, startTime, endTime, description)
@@ -116,6 +112,7 @@ function NewApptModal ({closeAddApptModal}: {closeAddApptModal: ()=>void}) {
         <option value={"16:30"}>4:30pm</option>
         <option value={"17:00"}>5:00pm</option>
       </select>
+      {showEndTimeErr && <ErrMsg message="Please choose an end time."/>}
 
       <label htmlFor="description">Description of Work:</label>
       <textarea id="description" value={description} required onChange={(e)=>setDescription(e.target.value)}/>
@@ -124,6 +121,7 @@ function NewApptModal ({closeAddApptModal}: {closeAddApptModal: ()=>void}) {
       <select id="assignedSection" value={assignedSection} onChange={(e)=>setAssisgnedSection(Number(e.target.value))}>
         {sections}
       </select>
+      {showSectionErr && <ErrMsg message="Please choose a section."/>}
 
       <button className="submitBtn primaryBtn" type="submit">Save</button>
     </form>

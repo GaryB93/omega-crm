@@ -40,7 +40,6 @@ function Schedule () {
       if (response.ok) {
         return response.json();
       }
-      console.log(response);
       throw new Error("Error retrieving schedule information");
     }).then(result => {
       scheduleDispatch({

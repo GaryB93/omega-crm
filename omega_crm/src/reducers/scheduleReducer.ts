@@ -24,16 +24,22 @@ export interface Appointment {
   textreminder: boolean;
 }
 
-export interface Action {
-  type: string;
-  id?: number;
-  name?: string;
-  date?: string;
-  scheduleName?: string;
-  schedules?: Array<Schedule>;
-  sections?: Array<Section>;
-  appointments?: Array<Appointment>;
-}
+// export interface Action {
+//   type: string;
+//   id?: number;
+//   name?: string;
+//   date?: string;
+//   scheduleName?: string;
+//   schedules?: Array<Schedule>;
+//   sections?: Array<Section>;
+//   appointments?: Array<Appointment>;
+// }
+
+type Action = 
+  | { type: 'added', id: number, name: string }
+  | { type: 'selected', id: number, schedules: Array<Schedule>, sections: Array<Section>, appointments: Array<Appointment> }
+  | { type: 'changedDate', date: string }
+  | { type: 'addedSection', id: number, name: string }
 
 export interface ScheduleState {
   selectedSchedule: number;
@@ -47,12 +53,23 @@ export const initialSchedules = {
   selectedSchedule: 0,
   date: getCurrentDate(),
   schedules: [{id: 0, name: ""}],
-  sections: [],
-  appointments: []
+  sections: [{id: 0, name: ""}],
+  appointments: [{
+    id: 0,
+    date: '',
+    startTime: '',
+    endTime: '',
+    description: '',
+    section: 0,
+    firstname: '',
+    lastname: '',
+    phone: '',
+    textreminder: false,
+  }]
 }
 
 export const ScheduleContext = createContext(initialSchedules);
-export const ScheduleDispatchContext = createContext();
+export const ScheduleDispatchContext = createContext<React.ActionDispatch<[Action]>>(()=>{});
 
 export function scheduleReducer(scheduleState: ScheduleState, 
   action: Action) {
@@ -62,7 +79,7 @@ export function scheduleReducer(scheduleState: ScheduleState,
           schedules: [...scheduleState.schedules,
             {
               id: action.id,
-              name: action.scheduleName!
+              name: action.name
             }
           ],
           sections: [...scheduleState.sections],
@@ -98,7 +115,7 @@ export function scheduleReducer(scheduleState: ScheduleState,
         }
       }
       default: {
-        throw Error('Unknown action: ' + action.type);
+        throw Error('Unknown action in scheduleReducer');
       }
     }
 }

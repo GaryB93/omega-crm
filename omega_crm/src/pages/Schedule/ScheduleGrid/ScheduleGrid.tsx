@@ -16,23 +16,28 @@ interface ScheduleGridProps {
 function ScheduleGrid ({ scheduleState, selectedCustomerId, openAddSectionModal, openAddApptModal }: ScheduleGridProps) {
 
   const currentSchedule = scheduleState.schedules.find(schedule => schedule.id == scheduleState.selectedSchedule);
-  let appointments = [];
+  const sectionIds: Array<number> = [];
   
   let i = 0;
   const sections = scheduleState.sections.map(section => {
     i++;
+    sectionIds.push(section.id);
     return <span className="sectionTitles" key={section.id} style={{gridColumn: `${i + 1} / ${i + 2}`}}>{section.name}</span>
   });
 
-  let j = 0;
-  scheduleState.sections.forEach(section => {
-    j++;
-    const filteredAppts = scheduleState.appointments.filter((appointment) => appointment.section == section.id);
-
-    appointments = appointments.concat(filteredAppts.map(appt => {
-      return <AppointmentCard key={appt.id} appointmentInfo={appt} j={j}/>
-    }))
+  const appointments = scheduleState.appointments.map(appointment => {
+    const column = sectionIds.findIndex(sectionId => sectionId == appointment.section);
+    return <AppointmentCard key={appointment.id} appointmentInfo={appointment} j={column + 1} />
   });
+
+  // scheduleState.sections.forEach(section => {
+  //   j++;
+  //   const filteredAppts = scheduleState.appointments.filter((appointment) => appointment.section == section.id);
+
+  //   appointments = appointments.concat(filteredAppts.map(appt => {
+  //     return <AppointmentCard key={appt.id} appointmentInfo={appt} j={j}/>
+  //   }))
+  // });
 
   return (
     <div id="scheduleGrid" style={{gridTemplateColumns: `1fr repeat(${sections.length}, 2fr)`}}>

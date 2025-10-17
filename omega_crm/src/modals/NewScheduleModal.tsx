@@ -15,7 +15,7 @@ function NewScheduleModal ({closeAddScheduleModal}: {closeAddScheduleModal: () =
       scheduleDispatch({
         type: "added",
         id: result.id,
-        scheduleName: result.name
+        name: result.name
       });
       closeAddScheduleModal();
     })

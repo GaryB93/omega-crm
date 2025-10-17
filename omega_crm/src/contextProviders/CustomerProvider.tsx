@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 import { customerReducer, initialCustomers, CustomerContext, CustomerDispatchContext,  } from "../reducers/customersReducer";
 
-function CustomerProvider({ children }) {
+function CustomerProvider({ children }: {children: React.ReactNode}) {
   const [customerState, dispatch] = useReducer(customerReducer, initialCustomers);
 
   return (
