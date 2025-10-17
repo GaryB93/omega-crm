@@ -33,7 +33,7 @@ function UserInfo ({user, selectedUser, setSelectedUser, resetSelectedUser}: Use
       <span>{user.lastname}</span>
       <span>{displayPhone(user.phone)}</span>
       <span>{user.role}</span>
-      <span>{schedules.find(schedule => schedule.id == user.schedule).name}</span>
+      <span>{user.schedule != null ? schedules.find(schedule => schedule.id == user.schedule).name : '---'}</span>
     </div>
   )
 }

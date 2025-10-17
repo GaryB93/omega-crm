@@ -3,7 +3,7 @@ import { useSchedules,useScheduleDispatch } from '../reducers/scheduleReducer';
 import { useState } from 'react';
 import scheduleAPI from '../api/scheduleAPI';
 
-function NewSectionModal () {
+function NewSectionModal ({closeAddSectionModal}: {closeAddSectionModal: () => void}) {
   const selectedScheduleID = useSchedules().selectedSchedule;
   const scheduleDispatch = useScheduleDispatch();
   const [ name, setName ] = useState("");
@@ -16,7 +16,8 @@ function NewSectionModal () {
         type: "addedSection",
         id: result.id,
         name: result.name
-      })
+      });
+      closeAddSectionModal();
     })
     .catch(err => console.error('Error', err));
   }

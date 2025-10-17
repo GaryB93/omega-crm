@@ -73,11 +73,11 @@ function Schedule () {
       <CustomerPane customer={customerState.selectedCustomer} customerDispatch={customerDispatch}/>
 
       <Modal show={isAddScheduleModalOpen} onClose={closeAddScheduleModal}>
-        <NewScheduleModal />
+        <NewScheduleModal closeAddScheduleModal={closeAddScheduleModal}/>
       </Modal>
 
       <Modal show={isAddSectionModallOpen} onClose={closeAddSectionModal}>
-        <NewSectionModal />
+        <NewSectionModal closeAddSectionModal={closeAddSectionModal}/>
       </Modal>
 
       <Modal show={isAddApptModalOpen} onClose={closeAddApptModal}>

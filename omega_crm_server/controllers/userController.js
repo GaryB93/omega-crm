@@ -44,8 +44,7 @@ userController.verifyUsername = (req, res, next) => {
 
   db.query(query, params)
     .then(data => {
-      const userFound = data.rows[0];
-      res.locals.status = userFound ? "usernameExists" : "validUsername";
+      res.locals.userFound = data.rows[0]
       return next();
     })
     .catch((err) => {
@@ -59,8 +58,7 @@ userController.verifyUsername = (req, res, next) => {
 }
 
 userController.createUser = (req, res, next) => {
-  if (res.locals.status == "usernameExists") {
-    res.locals.message = {message: "Username already exists"};
+  if (res.locals.userFound) {
     return next();
   }
   
@@ -69,7 +67,7 @@ userController.createUser = (req, res, next) => {
     req.body.lastname,
     req.body.username,
     req.body.password,
-    req.body.schedule,
+    req.body.schedule == 0 ? null : req.body.schedule,
     req.body.role,
     req.body.phone
   ];
@@ -78,6 +76,7 @@ userController.createUser = (req, res, next) => {
 
   db.query(query, params)
     .then(data => {
+      console.log(data);
       const userObj = data.rows[0];
       res.locals.user = userObj;
       return next();
@@ -124,7 +123,7 @@ userController.editUser = (req, res, next) => {
   const params = [
     req.body.firstname,
     req.body.lastname,
-    req.body.schedule,
+    req.body.schedule == 0 ? null : req.body.schedule,
     req.body.role,
     req.body.phone,
     req.body.id

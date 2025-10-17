@@ -36,7 +36,7 @@ function ScheduleGrid ({ scheduleState, selectedCustomerId, openAddSectionModal,
 
   return (
     <div id="scheduleGrid" style={{gridTemplateColumns: `1fr repeat(${sections.length}, 2fr)`}}>
-      <h2>{currentSchedule!.name}</h2>
+      <h2>{currentSchedule ? currentSchedule!.name : 'Schedule'}</h2>
       <p className="times eight">8:00AM</p>
       <p className="times nine">9:00AM</p>
       <p className="times ten">10:00AM</p>
@@ -51,7 +51,7 @@ function ScheduleGrid ({ scheduleState, selectedCustomerId, openAddSectionModal,
       {appointments}
       <div id="scheduleFunctions">
         <button className="secondaryBtn" onClick={openAddSectionModal} style={{gridColumn: `${sections.length}`}}>Add Section</button>
-        <button className="primaryBtn" onClick={openAddApptModal} style={{gridColumn: `${sections.length + 1}`}} disabled={selectedCustomerId == 0}>Create Appointment</button>
+        <button className="primaryBtn" onClick={openAddApptModal} style={{gridColumn: `${sections.length + 1}`}} disabled={selectedCustomerId == 0 || scheduleState.selectedSchedule == undefined}>Create Appointment</button>
       </div>
     </div>
   )

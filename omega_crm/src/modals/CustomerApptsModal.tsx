@@ -36,7 +36,9 @@ function CustomerApptsModal ({customer}: CustomerApptsModalProps) {
     appointmentAPI.getAppointmentsByCustomer(customer.id)
     .then(result => { // result is an object with properties: appointments and appointmentEdits
       setAppointments(result);
-      setSelectedAppointment(result.appointments[0].id);
+      if (result.appointments[0]) {
+        setSelectedAppointment(result.appointments[0].id);
+      }
     })
     .catch(err => console.error('Error:', err));
   }, []);

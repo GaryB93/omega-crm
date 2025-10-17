@@ -3,7 +3,7 @@ import scheduleAPI from "../api/scheduleAPI";
 import { useScheduleDispatch } from "../reducers/scheduleReducer";
 import './modals.css';
 
-function NewScheduleModal () {
+function NewScheduleModal ({closeAddScheduleModal}: {closeAddScheduleModal: () => void}) {
 
   const [name, setName] = useState("");
   const scheduleDispatch = useScheduleDispatch();
@@ -16,7 +16,8 @@ function NewScheduleModal () {
         type: "added",
         id: result.id,
         scheduleName: result.name
-      })
+      });
+      closeAddScheduleModal();
     })
     .catch(error => console.error('Error', error))
   }

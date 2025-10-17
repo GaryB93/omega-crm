@@ -20,7 +20,7 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
     firstname: selectedUser.firstname,
     lastname: selectedUser.lastname,
     phone: selectedUser.phone,
-    schedule: selectedUser.schedule,
+    schedule: selectedUser.schedule == null ? 0 : selectedUser.schedule,
     role: selectedUser.role,
     username: "",
     password: "",
@@ -28,9 +28,10 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
   });
 
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-  const [scheduleSelected, setScheduleSelected] = useState(true);
+  // const [scheduleSelected, setScheduleSelected] = useState(true);
   const [roleSelected, setRoleSelected] = useState(true);
   const [isPhoneValid, setIsPhoneValid] = useState(true);
+  const [usernameExists, setUsernameExists] = useState(false);
 
   const schedules = useSchedules().schedules;
   const scheduleOptions = schedules.map(schedule => {
@@ -53,12 +54,12 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
       setIsPhoneValid(false);
     }
 
-    if (newUser.schedule == 0) {
-      formIsValid = false;
-      setScheduleSelected(false);
-    } else {
-      setScheduleSelected(true);
-    }
+    // if (newUser.schedule == 0) {
+    //   formIsValid = false;
+    //   setScheduleSelected(false);
+    // } else {
+    //   setScheduleSelected(true);
+    // }
 
     if (newUser.role == "") {
       formIsValid = false;
@@ -84,8 +85,12 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
         userAPI.addUser(formState)
         .then(response => response.json())
         .then(result => {
-          setUsers(updateUsers(users, result));
-          closeUserInfoModal();
+          if (!result.message) {
+            setUsers(updateUsers(users, result));
+            closeUserInfoModal();
+          } else {
+            setUsernameExists(true);
+          }
         })
         .catch(err => console.error('Error:', err));
       } else {
@@ -118,7 +123,7 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
       <select id="schedule" value={formState.schedule} onChange={(e)=>setFormState({...formState, schedule: Number(e.target.value)})}>
         {scheduleOptions}
       </select>
-      {!scheduleSelected && <ErrMsg message='Please select a schedule.' />}
+      {/* {!scheduleSelected && <ErrMsg message='Please select a schedule.' />} */}
 
       <fieldset>
         <legend>Role:</legend>
@@ -140,6 +145,8 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
         <label htmlFor="username">Username:</label>
         <input type="text" id="username" value={formState.username} onChange={(e)=>setFormState({...formState, username: e.target.value})} required/>
       </div>}
+
+      {usernameExists && <ErrMsg message="Username already exists."/>}
 
       {selectedUser.id == 0 && <div>
         <label htmlFor="password">Password:</label>

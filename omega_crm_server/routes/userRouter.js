@@ -14,8 +14,8 @@ userRouter.post('/',
   userController.verifyUsername,
   userController.createUser,
   (req, res) => {
-    if (res.locals.message == "Username already exists.") {
-      res.status(200).send(res.locals.message);
+    if (res.locals.userFound) {
+      res.status(200).send({message: "Username already exists."});
     } else {
       res.status(200).send(res.locals.user);
     }

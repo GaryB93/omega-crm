@@ -163,6 +163,10 @@ appointmentController.getCustomerAppointments = (req, res, next) => {
 
 appointmentController.getAppointmentEdits = (req, res, next) => {
   const appointmentIds = res.locals.appointments.map(appt => appt.id);
+  if (appointmentIds.length == 0) {
+    res.locals.appointmentEdits = [];
+    return next();
+  }
   let query = 'SELECT * FROM appointmentEdits WHERE';
 
   for (let i = 1; i <= appointmentIds.length; i++) {
