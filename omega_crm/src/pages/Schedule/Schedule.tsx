@@ -63,7 +63,9 @@ function Schedule () {
           openAddScheduleModal={openAddScheduleModal}
         />
         <DateSelection />
-        <ScheduleGrid 
+        <ScheduleGrid
+          scheduleState={scheduleState}
+          selectedCustomerId={customerState.selectedCustomer.id}
           openAddSectionModal={openAddSectionModal}
           openAddApptModal={openAddApptModal}
         />

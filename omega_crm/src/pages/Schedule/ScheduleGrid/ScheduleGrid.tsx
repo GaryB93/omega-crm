@@ -1,6 +1,5 @@
-import { useSchedules } from '../../../reducers/scheduleReducer';
 import AppointmentCard from '../AppointmentCard/AppointmentCard';
-import { useCustomers } from '../../../reducers/customersReducer';
+import type { ScheduleState } from '../../../reducers/scheduleReducer';
 import './ScheduleGrid.css';
 
 // The schedulegrid component is one of the ways the application showcases a user-friendly, functional GUI.
@@ -8,27 +7,27 @@ import './ScheduleGrid.css';
 // The user can change what appointments are being shown by choosing the specific date or schedule.
 
 interface ScheduleGridProps {
+  scheduleState: ScheduleState;
+  selectedCustomerId: number;
   openAddSectionModal: () => void;
   openAddApptModal: () => void;
 }
 
-function ScheduleGrid ({ openAddSectionModal, openAddApptModal }: ScheduleGridProps) {
+function ScheduleGrid ({ scheduleState, selectedCustomerId, openAddSectionModal, openAddApptModal }: ScheduleGridProps) {
 
-  const schedules = useSchedules();
-  const currentSchedule = schedules.schedules.find(schedule => schedule.id == schedules.selectedSchedule);
-  const customers = useCustomers();
+  const currentSchedule = scheduleState.schedules.find(schedule => schedule.id == scheduleState.selectedSchedule);
   let appointments = [];
   
   let i = 0;
-  const sections = schedules.sections.map(section => {
+  const sections = scheduleState.sections.map(section => {
     i++;
-    return <h4 key={section.id} style={{gridColumn: `${i + 1} / ${i + 2}`}}>{section.name}</h4>
+    return <span className="sectionTitles" key={section.id} style={{gridColumn: `${i + 1} / ${i + 2}`}}>{section.name}</span>
   });
 
   let j = 0;
-  schedules.sections.forEach(section => {
+  scheduleState.sections.forEach(section => {
     j++;
-    const filteredAppts = schedules.appointments.filter((appointment) => appointment.section == section.id);
+    const filteredAppts = scheduleState.appointments.filter((appointment) => appointment.section == section.id);
 
     appointments = appointments.concat(filteredAppts.map(appt => {
       return <AppointmentCard key={appt.id} appointmentInfo={appt} j={j}/>
@@ -37,7 +36,7 @@ function ScheduleGrid ({ openAddSectionModal, openAddApptModal }: ScheduleGridPr
 
   return (
     <div id="scheduleGrid" style={{gridTemplateColumns: `1fr repeat(${sections.length}, 2fr)`}}>
-      <h3>{currentSchedule!.name}</h3>
+      <h2>{currentSchedule!.name}</h2>
       <p className="times eight">8:00AM</p>
       <p className="times nine">9:00AM</p>
       <p className="times ten">10:00AM</p>
@@ -52,7 +51,7 @@ function ScheduleGrid ({ openAddSectionModal, openAddApptModal }: ScheduleGridPr
       {appointments}
       <div id="scheduleFunctions">
         <button className="secondaryBtn" onClick={openAddSectionModal} style={{gridColumn: `${sections.length}`}}>Add Section</button>
-        <button className="primaryBtn" onClick={openAddApptModal} style={{gridColumn: `${sections.length + 1}`}} disabled={customers.selectedCustomer.id == 0}>Create Appt</button>
+        <button className="primaryBtn" onClick={openAddApptModal} style={{gridColumn: `${sections.length + 1}`}} disabled={selectedCustomerId == 0}>Create Appointment</button>
       </div>
     </div>
   )
