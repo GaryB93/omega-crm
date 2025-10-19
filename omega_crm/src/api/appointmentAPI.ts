@@ -3,7 +3,7 @@ const appointmentAPI = {
     let result;
     const timestamp = new Date();
 
-    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/appointment`, 
+    await fetch(`/api/appointment`, 
       {
         method: "POST",
         body: JSON.stringify({
@@ -31,7 +31,7 @@ const appointmentAPI = {
     let result;
     const timestamp = new Date();
 
-    await fetch (`${import.meta.env.VITE_SERVER_URL}/api/appointment`,
+    await fetch (`/api/appointment`,
       {
         method: "PUT",
         body: JSON.stringify({
@@ -58,7 +58,7 @@ const appointmentAPI = {
   deleteAppointment: async (appointmentId: number) => {
     let result;
 
-    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/appointment?id=${appointmentId}`,
+    await fetch(`/api/appointment?id=${appointmentId}`,
       {
         method: "DELETE",
       })
@@ -72,7 +72,7 @@ const appointmentAPI = {
   getAppointmentsByCustomer: async (customerId: number) => {
     let result;
 
-    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/appointment?customer=${customerId}`,
+    await fetch(`/api/appointment?customer=${customerId}`,
       {
         method: "GET",
       })

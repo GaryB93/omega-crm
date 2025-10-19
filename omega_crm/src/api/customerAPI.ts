@@ -4,7 +4,7 @@ const customerAPI = {
   getCustomers: async (firstName: string, lastName: string, phone: string) => {
     let result;
 
-    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/customer?firstName=${firstName}&lastName=${lastName}&phone=${phone}`,
+    await fetch(`/api/customer?firstName=${firstName}&lastName=${lastName}&phone=${phone}`,
       {
         method: "GET",
       }
@@ -18,7 +18,7 @@ const customerAPI = {
   saveCustomer: async ({id, firstname, lastname, phone, textreminder}: Customer) => {
     const method = id == 0 ? "POST" : "PUT";
 
-    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/customer`,
+    const result = await fetch(`/api/customer`,
       {
         method: method,
         body: JSON.stringify({

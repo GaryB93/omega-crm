@@ -3,7 +3,7 @@ import type { NewUserInterface } from "../classes/NewUser";
 const userAPI = {
 
   login: async (username: string, password: string) => {
-    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user/login`,
+    const result = await fetch(`/api/user/login`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -19,7 +19,7 @@ const userAPI = {
   },
 
   getUsers: async (formState: {firstname: string; lastname: string; role: string;}) => {
-    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user?firstname=${formState.firstname}&lastname=${formState.lastname}&role=${formState.role}`,
+    const result = await fetch(`/api/user?firstname=${formState.firstname}&lastname=${formState.lastname}&role=${formState.role}`,
       {
         method: "GET"
       })
@@ -28,7 +28,7 @@ const userAPI = {
   },
 
   saveUser: async (user: NewUserInterface) => {
-    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user`,
+    const result = await fetch(`/api/user`,
       {
         method: "PUT",
         body: JSON.stringify(user),
@@ -41,7 +41,7 @@ const userAPI = {
   },
 
   addUser: async (newUser: NewUserInterface) => {
-    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user`,
+    const result = await fetch(`/api/user`,
       {
         method: "POST",
         body: JSON.stringify(newUser),
@@ -54,7 +54,7 @@ const userAPI = {
   },
 
   deleteUser: async (userID: number) => {
-    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user/${userID}`,
+    const result = await fetch(`/api/user/${userID}`,
       {
         method: "DELETE"
       })
