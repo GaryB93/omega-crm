@@ -1,17 +1,19 @@
 import express from 'express';
-import cors from'cors';
+// import cors from'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import userRouter from './routes/userRouter.js';
 import customerRouter from './routes/customerRouter.js';
 import scheduleRouter from './routes/scheduleRouter.js';
 import appointmentRouter from './routes/appointmentRouter.js';
+import  dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-// REMOVE CORS BEFORE HOSTING
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
@@ -45,7 +47,7 @@ app.use((err, req, res, next) => {
     message: {err: "An error occurred"}
   }
   const errorObj = Object.assign({}, defaultErr, err);
-  res.status(errorObj.status).send(errorObj.message);
+  res.status(errorObj.status).send(errorObj);
 });
 
 app.listen(port, () => {
