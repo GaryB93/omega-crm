@@ -5,7 +5,8 @@ import appointmentAPI from "../api/appointmentAPI";
 import './modals.css';
 import scheduleAPI from "../api/scheduleAPI";
 import type { Appointment } from "../reducers/scheduleReducer";
-import getCurrentDate from "../utils/getCurrentDate";
+// import getCurrentDate from "../utils/getCurrentDate";
+import extractDate from "../utils/extractDate";
 
 function EditApptModal ({closeEditApptModal, appointmentInfo}: {closeEditApptModal: ()=>void, appointmentInfo: Appointment}) {
   const [ user, setUser ] = useUser();
@@ -17,9 +18,7 @@ function EditApptModal ({closeEditApptModal, appointmentInfo}: {closeEditApptMod
   const [ endTime, setEndTime ] = useState(appointmentInfo.endTime);
   const [ description, setDescription ] = useState(appointmentInfo.description);
   const [ assignedSection, setAssisgnedSection ] = useState(appointmentInfo.section);
-
-  const apptDate = new Date(appointmentInfo.date);
-  const [ date, setDate ] = useState(getCurrentDate(apptDate));
+  const [ date, setDate ] = useState(extractDate(appointmentInfo.date));
 
   const sections = scheduleState.sections.map(section => <option key={section.id} value={section.id}>{section.name}</option>);
   sections.unshift(<option key={0} value={0}>Choose section...</option>)

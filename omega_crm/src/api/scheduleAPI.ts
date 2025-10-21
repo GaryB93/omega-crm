@@ -1,6 +1,8 @@
+import { serverURL } from "../utils/constants";
+
 const scheduleAPI = {
   getSchedules: async (scheduleID = 0, date: string) => {
-    const result = await fetch(`/api/schedule?schedule=${scheduleID}&date=${date}`,
+    const result = await fetch(`${serverURL}/api/schedule?schedule=${scheduleID}&date=${date}`,
       {
         method: "GET",
       })
@@ -11,7 +13,7 @@ const scheduleAPI = {
   addSchedule: async (scheduleName: string) => {
     let result;
     
-    await fetch(`/api/schedule`,
+    await fetch(`${serverURL}/api/schedule`,
       {
         method: "POST",
         body: JSON.stringify({ name: scheduleName }),
@@ -26,7 +28,7 @@ const scheduleAPI = {
   },
 
   addSection: async(sectionName: string, scheduleID: number) => {
-    const result = await fetch(`/api/schedule/section`,
+    const result = await fetch(`${serverURL}/api/schedule/section`,
       {
         method: "POST",
         body: JSON.stringify({ sectionName: sectionName, scheduleId: scheduleID}),

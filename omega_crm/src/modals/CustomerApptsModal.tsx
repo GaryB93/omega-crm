@@ -1,6 +1,7 @@
 import appointmentAPI from "../api/appointmentAPI";
 import { useState, useEffect } from "react";
-import getCurrentDate from "../utils/getCurrentDate";
+// import getCurrentDate from "../utils/getCurrentDate";
+import extractDate from "../utils/extractDate";
 import Customer from "../classes/Customer";
 import Appointment from "../classes/Appointment";
 import './modals.css';
@@ -49,7 +50,7 @@ function CustomerApptsModal ({customer}: CustomerApptsModalProps) {
     
     return (
       <div key={appt.id} className={classes} onClick={()=>{setSelectedAppointment(appt.id)}}>
-        <span>{getCurrentDate(new Date(appt.date))}</span>
+        <span>{extractDate(appt.date)}</span>
         <span>{appt.startTime}</span>
         <span>{appt.endTime}</span>
         <span>{appt.description}</span>

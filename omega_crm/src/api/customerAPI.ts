@@ -1,10 +1,11 @@
 import type Customer from "../classes/Customer";
+import { serverURL } from "../utils/constants";
 
 const customerAPI = {
   getCustomers: async (firstName: string, lastName: string, phone: string) => {
     let result;
 
-    await fetch(`/api/customer?firstName=${firstName}&lastName=${lastName}&phone=${phone}`,
+    await fetch(`${serverURL}/api/customer?firstName=${firstName}&lastName=${lastName}&phone=${phone}`,
       {
         method: "GET",
       }
@@ -18,7 +19,7 @@ const customerAPI = {
   saveCustomer: async ({id, firstname, lastname, phone, textreminder}: Customer) => {
     const method = id == 0 ? "POST" : "PUT";
 
-    const result = await fetch(`/api/customer`,
+    const result = await fetch(`${serverURL}/api/customer`,
       {
         method: method,
         body: JSON.stringify({

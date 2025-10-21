@@ -17,6 +17,10 @@ function AppointmentCard ({ appointmentInfo, j }: { appointmentInfo: Appointment
   const closeDeleteApptModal = () => setIsDeleteApptModalOpen(false);
   const openDeleteApptModal = () => setIsDeleteApptModalOpen(true);
 
+  if (appointmentInfo.id == 0) {
+    return null;
+  }
+
   return (
     <div className="appointmentCard"
         style={{

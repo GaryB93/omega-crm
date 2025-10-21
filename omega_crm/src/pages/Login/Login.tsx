@@ -23,7 +23,13 @@ function Login({ setIsLoggedIn, setUser }: LoginProps) {
     e.preventDefault();
 
     userAPI.login(username, password)
-      .then(response => response.json())
+      .then(async response => {
+        if (!response.ok) {
+          const errorMessage = await response.text();
+          throw new Error(errorMessage);
+        } 
+        return response.json();
+      })
       .then(result => {
         if (result.message) {
           setLoginFailed(true);
@@ -33,14 +39,13 @@ function Login({ setIsLoggedIn, setUser }: LoginProps) {
           navigate("/schedule");
         }
       })
-      .catch(err => console.error('Error:', err));
+      .catch(err => console.error(err));
   }
 
   return (
     <div id="loginContainer">
       <form className='loginForm' onSubmit={handleSubmit}>
         <h1>Omega CRM</h1>
-        {loginFailed && <ErrMsg message ='Incorrect username or password entered. Please try again.'/>}
         <div className='inputContainer'>
           <label htmlFor='username'>Username</label>
           <input type='text' id='username' name="username" value={username}
@@ -51,6 +56,9 @@ function Login({ setIsLoggedIn, setUser }: LoginProps) {
           <input type='password' id='password' name="password" value={password}
             onChange={(e) => {setPassword(e.target.value)}} required />
         </div>
+
+        {loginFailed && <ErrMsg message ='Incorrect username or password entered. Please try again.'/>}
+        
         <button className="primaryBtn" type='submit'>Login</button>
       </form>
     </div>
