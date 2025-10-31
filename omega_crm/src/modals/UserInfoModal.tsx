@@ -2,8 +2,7 @@ import { useState, type SetStateAction } from "react";
 import { useSchedules } from "../reducers/scheduleReducer";
 import userAPI from "../api/userAPI";
 import updateUsers from "../utils/updateUsers";
-import User from "../classes/User";
-import NewUser from "../classes/NewUser";
+import type { User } from "../interfaces/User";
 import ErrMsg from "../components/ErrMsg/ErrMsg";
 
 interface UserInfoModalProps {
@@ -43,32 +42,24 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
   });
   scheduleOptions.unshift(<option key={0} value={0} disabled hidden>Choose schedule...</option>)
 
-  // This function proves as one of the many validation techniques used for the information entered by the user to create or edit user information.
   const formIsValid = () => {
     let formIsValid = true;
-    const newUser = new NewUser(formState);
-    if (newUser.isPhoneValid()) {
+  
+    if (formState.phone.match(/^[0-9]{10}$/)) {
       setIsPhoneValid(true);
     } else {
       formIsValid = false;
       setIsPhoneValid(false);
     }
 
-    // if (newUser.schedule == 0) {
-    //   formIsValid = false;
-    //   setScheduleSelected(false);
-    // } else {
-    //   setScheduleSelected(true);
-    // }
-
-    if (newUser.role == "") {
+    if (formState.role == "") {
       formIsValid = false;
       setRoleSelected(false);
     } else {
       setRoleSelected(true);
     }
 
-    if (!newUser.passwordsMatch()) {
+    if (formState.password != formState.confirmPassword) {
       formIsValid = false;
       setPasswordsMatch(false);
     } else {
@@ -85,7 +76,7 @@ function UserInfoModal ({selectedUser, resetSelectedUser, users, setUsers, close
         userAPI.addUser(formState)
         .then(response => response.json())
         .then(result => {
-          if (!result.message) {
+          if (!result.error) {
             setUsers(updateUsers(users, result));
             closeUserInfoModal();
           } else {

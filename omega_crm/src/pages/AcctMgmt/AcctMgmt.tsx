@@ -5,7 +5,7 @@ import UserInfo from './UserInfo/UserInfo';
 import Modal from '../../components/Modal/Modal';
 import UserInfoModal from '../../modals/UserInfoModal';
 import DeleteUserModal from '../../modals/DeleteUserModal';
-import User from '../../classes/User';
+import type { User } from '../../interfaces/User';
 
 function AcctMgmt () {
   const [formState, setFormState] = useState({
@@ -14,10 +14,10 @@ function AcctMgmt () {
     role: "all",
   });
 
-  const [users, setUsers] = useState<Array<User>>([new User(0, "", "", "", 0, "")]);
-  const [selectedUser, setSelectedUser] = useState(new User(0, "", "", "", 0, ""));
+  const [users, setUsers] = useState<Array<User>>([{id: 0, firstname: "", lastname: "", phone: "", schedule: 0, role: ""}]);
+  const [selectedUser, setSelectedUser] = useState({id: 0, firstname: "", lastname: "", phone: "", schedule: 0, role: ""});
 
-  const resetSelectedUser = () => setSelectedUser(new User(0, "", "", "", 0, ""));
+  const resetSelectedUser = () => setSelectedUser({id: 0, firstname: "", lastname: "", phone: "", schedule: 0, role: ""});
 
   const [isUserInfoModalOpen, setIsUserInfoModalOpen] = useState(false);
   const openUserInfoModal = () => setIsUserInfoModalOpen(true);

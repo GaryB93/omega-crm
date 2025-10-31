@@ -2,17 +2,14 @@ import './Login.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import userAPI from '../../api/userAPI';
-import User from '../../classes/User';
+import type { User } from '../../interfaces/User';
 import ErrMsg from '../../components/ErrMsg/ErrMsg';
 
-// This component serves as an industry-appropriate security feature and requires the user to login to access the application.
-
 interface LoginProps {
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   setUser: React.Dispatch<React.SetStateAction<User>>;
 }
 
-function Login({ setIsLoggedIn, setUser }: LoginProps) {
+function Login({ setUser }: LoginProps) {
   const navigate = useNavigate();
 
   const [loginFailed, setLoginFailed] = useState(false);
@@ -34,7 +31,6 @@ function Login({ setIsLoggedIn, setUser }: LoginProps) {
         if (result.message) {
           setLoginFailed(true);
         } else {
-          setIsLoggedIn(true);
           setUser(result);
           navigate("/schedule");
         }

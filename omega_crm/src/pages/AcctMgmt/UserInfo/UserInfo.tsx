@@ -1,5 +1,5 @@
 import { useSchedules } from '../../../reducers/scheduleReducer';
-import User from '../../../classes/User';
+import type { User } from '../../../interfaces/User';
 import './UserInfo.css';
 import displayPhone from '../../../utils/displayPhone';
 
@@ -13,10 +13,8 @@ interface UserInfoProps {
 function UserInfo ({user, selectedUser, setSelectedUser, resetSelectedUser}: UserInfoProps) {
 
   const schedules = useSchedules().schedules;
-  const userInfo = new User(user.id, user.firstname, user.lastname, user.phone, user.schedule, user.role);
 
   const handleSelect= () => {
-    userInfo.displayInfo();
     if (user.id == selectedUser.id) {
       resetSelectedUser();
     } else {

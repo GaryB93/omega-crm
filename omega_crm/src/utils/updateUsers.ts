@@ -1,4 +1,4 @@
-import User from "../classes/User";
+import type { User } from "../interfaces/User";
 
 function updateUsers (users: Array<User>, userToAddOrSave: User) {
   const clonedUsers = JSON.parse(JSON.stringify(users));

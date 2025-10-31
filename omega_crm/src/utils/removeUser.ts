@@ -1,4 +1,4 @@
-import User from "../classes/User";
+import type { User } from "../interfaces/User";
 
 function removeUser (users: Array<User>, removedUser: User) {
   const clonedUsers: Array<User> = JSON.parse(JSON.stringify(users));

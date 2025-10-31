@@ -7,19 +7,17 @@ import Schedule from './pages/Schedule/Schedule';
 import Customers from './pages/Customers/Customers';
 import AcctMgmt from './pages/AcctMgmt/AcctMgmt';
 import ProtectedRoutes from './components/ProtectedRoutes';
-import User from './classes/User';
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [ user, setUser ] = useState(new User(0, "", "", "", 0, ""));
+  const [ user, setUser ] = useState({id: 0, firstname: "test", lastname: "", phone: "", schedule: 0, role: ""});
 
   return (
     <Routes>
-      <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} setUser={setUser}/>}/>
+      <Route path="/" element={<Login setUser={setUser}/>}/>
       
-      <Route element={<ProtectedRoutes isLoggedIn={isLoggedIn}/>} >
-        <Route element={<DashboardLayout setIsLoggedIn={setIsLoggedIn} user={user} setUser={setUser}/>} >
+      <Route element={<ProtectedRoutes isLoggedIn={user.id != 0}/>} >
+        <Route element={<DashboardLayout user={user} setUser={setUser}/>} >
           <Route path="schedule" element={<Schedule />} />
           <Route path="customers" element={<Customers />} />
           <Route path="acctmgmt" element={<AcctMgmt />} />

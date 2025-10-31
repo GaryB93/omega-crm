@@ -1,7 +1,7 @@
-import User from "../classes/User";
 import userAPI from "../api/userAPI";
 import removeUser from "../utils/removeUser";
 import type { SetStateAction } from "react";
+import type { User } from "../interfaces/User";
 
 interface DeleteUserModalProps {
   selectedUser: User;
