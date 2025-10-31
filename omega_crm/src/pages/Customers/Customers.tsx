@@ -7,7 +7,6 @@ import Modal from '../../components/Modal/Modal';
 import CustomerInfoModal from '../../modals/CustomerInfoModal';
 import CustomerApptsModal from '../../modals/CustomerApptsModal';
 import ErrMsg from '../../components/ErrMsg/ErrMsg';
-import Person from '../../classes/Person';
 
 function Customers () {
 
@@ -30,8 +29,7 @@ function Customers () {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newPerson = new Person(firstName, lastName, phone);
-    if (phone == "" || newPerson.isPhoneValid()) {
+    if (phone == "" || phone.match(/^[0-9]{10}$/)) {
       setIsPhoneValid(true);
       customerAPI.getCustomers(firstName, lastName, phone)
       .then(result => {

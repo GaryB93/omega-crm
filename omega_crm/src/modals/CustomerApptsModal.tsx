@@ -1,8 +1,7 @@
 import appointmentAPI from "../api/appointmentAPI";
 import { useState, useEffect } from "react";
-// import getCurrentDate from "../utils/getCurrentDate";
+import type { Customer } from "../interfaces/Customer";
 import extractDate from "../utils/extractDate";
-import Customer from "../classes/Customer";
 import Appointment from "../classes/Appointment";
 import './modals.css';
 

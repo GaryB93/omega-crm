@@ -1,4 +1,4 @@
-import type Customer from "../classes/Customer";
+import type { Customer } from "../interfaces/Customer";
 import { serverURL } from "../utils/constants";
 
 const customerAPI = {

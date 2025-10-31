@@ -1,7 +1,7 @@
 import './CustomerInfo.css';
 import { useCustomers, useCustomerDispatch } from '../../../reducers/customersReducer';
 import displayPhone from '../../../utils/displayPhone';
-import Customer from '../../../classes/Customer';
+import type { Customer } from '../../../interfaces/Customer';
 
 interface CustomerInfoProps {
   customer: Customer;

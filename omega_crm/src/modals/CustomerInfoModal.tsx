@@ -2,7 +2,7 @@ import customerAPI from '../api/customerAPI';
 import './modals.css';
 import { useState } from 'react';
 import { useCustomerDispatch } from '../reducers/customersReducer';
-import Customer from '../classes/Customer';
+import type { Customer } from '../interfaces/Customer';
 import ErrMsg from '../components/ErrMsg/ErrMsg';
 
 interface CustomerInfoModalProps {
@@ -21,10 +21,15 @@ function CustomerInfoModal ({ customer, closeCustomerInfoModal }: CustomerInfoMo
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const customerInfo = new Customer(customer.id, firstName, lastName, phone, textReminder);
 
-    if (customerInfo.isPhoneValid()) {
-      customerAPI.saveCustomer(customerInfo)
+    if (phone.match(/^[0-9]{10}$/)) {
+      customerAPI.saveCustomer({
+        id: customer.id,
+        firstname: firstName.trim().toUpperCase(),
+        lastname: lastName.trim().toUpperCase(),
+        phone: phone,
+        textreminder: textReminder
+      })
       .then(response => response.json())
       .then(data => {
         customerDispatch({
@@ -39,8 +44,6 @@ function CustomerInfoModal ({ customer, closeCustomerInfoModal }: CustomerInfoMo
     }
   }
 
-  const invalidPhoneFormatMsg = 'Please input a phone number using ten numbers. No letters, dashes, or spaces.';
-
   return (
     <form className="formModal" id="customerInfoModal" onSubmit={handleSubmit}>
       <h3>Customer Info</h3>
@@ -54,7 +57,7 @@ function CustomerInfoModal ({ customer, closeCustomerInfoModal }: CustomerInfoMo
       <label htmlFor="phone">Phone Number:</label>
       <input type="text" id="phone" value={phone} onChange={(e)=> {setPhone(e.target.value)}} maxLength={10}/>
       
-      {!isPhoneValid && <ErrMsg message={invalidPhoneFormatMsg} />}
+      {!isPhoneValid && <ErrMsg message={"Please input a phone number using ten numbers. No letters, dashes, or spaces."} />}
 
       <div>
         <input type="checkbox" id="textreminder" checked={textReminder} onChange={()=>setTextReminder(!textReminder)}/>
