@@ -1,10 +1,16 @@
 import { NavLink } from "react-router";
+import type { User } from "../../../interfaces/User";
 import './Nav.css';
 
-function Nav ({ setIsLoggedIn }: { setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>> }) {
+interface NavProps {
+  user: User;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
+}
+
+function Nav ({ user, setUser }: NavProps) {
 
   const handleClick = () => {
-    setIsLoggedIn(false);
+    setUser({id: 0, firstname: "", lastname: "", phone: "", schedule: 0, role: ""});
   }
 
   return (
@@ -16,7 +22,10 @@ function Nav ({ setIsLoggedIn }: { setIsLoggedIn: React.Dispatch<React.SetStateA
           <NavLink to="/customers">Customers</NavLink>
           <NavLink to="/acctmgmt">Account Management</NavLink>
         </div>
-        <button className="secondaryBtn" id="logoutButton" onClick={handleClick}>Logout</button>
+        <div id="logoutSection">
+          <span>User: {user.firstname}</span>
+          <button className="secondaryBtn" onClick={handleClick}>Logout</button>
+        </div>
       </div>
     </div>
   )
