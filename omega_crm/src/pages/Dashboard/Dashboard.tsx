@@ -1,4 +1,4 @@
-import { Outlet, useOutletContext } from "react-router";
+import { Outlet } from "react-router";
 import './Dashboard.css';
 import Nav from "./Nav/Nav";
 import ScheduleProvider from "../../contextProviders/ScheduleProvider";
@@ -17,7 +17,7 @@ function DashboardLayout ({ user, setUser }: DashboardLayoutProps) {
       <CustomerProvider>
         <div id="dashboardContainer">
           <Nav user={user} setUser={setUser} />
-          <Outlet context={[user, setUser]} />
+          <Outlet context={user} />
         </div>
       </CustomerProvider>
     </ScheduleProvider>
@@ -25,9 +25,3 @@ function DashboardLayout ({ user, setUser }: DashboardLayoutProps) {
 }
 
 export default DashboardLayout;
-
-type ContextType = [ user: User, setUser: React.Dispatch<React.SetStateAction<User>>];
-
-export function useUser() {
-  return useOutletContext<ContextType>();
-}

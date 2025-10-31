@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { useUser } from "../pages/Dashboard/Dashboard";
 import { useCustomers } from "../reducers/customersReducer";
 import { useSchedules, useScheduleDispatch } from "../reducers/scheduleReducer";
 import appointmentAPI from "../api/appointmentAPI";
 import './modals.css';
 import scheduleAPI from "../api/scheduleAPI";
 import ErrMsg from "../components/ErrMsg/ErrMsg";
+import { useOutletContext } from "react-router";
+import type { User } from "../interfaces/User";
 
 function NewApptModal ({closeAddApptModal}: {closeAddApptModal: ()=>void}) {
-  const [ user, setUser ] = useUser();
+  const user = useOutletContext<User>();
 
   const selectedCustomer = useCustomers().selectedCustomer;
   const scheduleState = useSchedules();

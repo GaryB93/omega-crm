@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { useUser } from "../pages/Dashboard/Dashboard";
 import { useSchedules, useScheduleDispatch } from "../reducers/scheduleReducer";
 import appointmentAPI from "../api/appointmentAPI";
 import './modals.css';
 import scheduleAPI from "../api/scheduleAPI";
 import type { Appointment } from "../reducers/scheduleReducer";
-// import getCurrentDate from "../utils/getCurrentDate";
 import extractDate from "../utils/extractDate";
+import { useOutletContext } from "react-router";
+import type { User } from "../interfaces/User";
 
 function EditApptModal ({closeEditApptModal, appointmentInfo}: {closeEditApptModal: ()=>void, appointmentInfo: Appointment}) {
-  const [ user, setUser ] = useUser();
+  const user = useOutletContext<User>();
   
   const scheduleState = useSchedules();
   const scheduleDispatch = useScheduleDispatch();
