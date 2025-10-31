@@ -4,6 +4,7 @@ import userController from '../controllers/userController.js';
 const userRouter = express.Router();
 
 userRouter.post('/login',
+  userController.verifyUsername,
   userController.loginUser,
   (req, res) => {
     res.status(200).send(res.locals.user);
@@ -15,7 +16,7 @@ userRouter.post('/',
   userController.createUser,
   (req, res) => {
     if (res.locals.userFound) {
-      res.status(200).send({message: "Username already exists."});
+      res.status(200).send({error: "Username already exists."});
     } else {
       res.status(200).send(res.locals.user);
     }
