@@ -1,0 +1,33 @@
+.customerInfo {
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr 1.5fr 1fr;
+  border-bottom: 1px solid white;
+  padding: 10px;
+
+  .secondaryBtn {
+    height: 30px;
+  }
+}
+
+.customerInfo:hover {
+  cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+  .customerInfo {
+    border-bottom: 1px dashed #e0e0e0;
+  }
+
+  .customerSelected, .customerInfo:hover {
+    background-color: #424242;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .customerInfo {
+    border-bottom: 1px dashed #1e1e1e;
+  }
+  .customerSelected, .customerInfo:hover {
+    background-color: #c6c6c6;
+  }
+}

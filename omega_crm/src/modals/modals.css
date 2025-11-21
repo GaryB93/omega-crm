@@ -1,0 +1,82 @@
+.formModal {
+  display: flex;
+  flex-direction: column;
+}
+
+.submitBtn {
+  align-self: flex-end;
+  margin-top: 40px;
+}
+
+.apptForm {
+  input, textarea, select {
+    margin-bottom: 20px;
+  }
+}
+
+.appointments {
+  margin-bottom: 80px;
+}
+
+.appointmentsHeader {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.editsHeader {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.apptInfo {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 10px;
+}
+
+.apptInfo:hover {
+  cursor: pointer;
+}
+
+.apptEdit {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 10px;
+}
+
+#customerInfoModal {
+  input {
+    margin-bottom: 10px;
+  }
+}
+
+.userInfoModal {
+  input, fieldset, select {
+    margin-bottom: 10px;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .appointmentsHeader, .editsHeader {
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .apptSelected, .apptInfo:hover {
+    background-color: #424242;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .appointmentsHeader, .editsHeader {
+    border-bottom: 1px solid #1e1e1e;
+  }
+
+  .apptSelected, .apptInfo:hover {
+    background-color: #c6c6c6;
+  }
+}

@@ -1,0 +1,51 @@
+#scheduleTabsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 30px;
+
+  button {
+    height: 100%;
+    border-radius: 0;
+  }
+}
+
+#addScheduleBtn {
+  background-color: none;
+  text-decoration: underline;
+  border: none;
+}
+
+#addScheduleBtn:hover {
+  cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+  #scheduleTabsContainer {
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #1e1e1e;
+  }
+
+  #addScheduleBtn {
+    background-color: #1e1e1e;
+  }
+
+  #addScheduleBtn:hover {
+    color: rgb(255, 217, 111);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  #scheduleTabsContainer {
+    border-bottom: 1px solid #1e1e1e;
+    background-color: #ededed;
+  }
+
+  #addScheduleBtn {
+    background-color: #ededed;
+  }
+
+  #addScheduleBtn:hover {
+    color: rgb(191, 154, 51);
+  }
+}

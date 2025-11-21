@@ -1,0 +1,31 @@
+#customerPane {
+  padding: 0px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#clearBtn {
+  margin-bottom: 20px;
+}
+
+#customerInfo {
+  display: flex;
+  flex-direction: column;
+
+  input {
+    margin-bottom: 20px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  #customerPane {
+    border-left: 1px solid white;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  #customerPane {
+    border-left: 1px solid #1e1e1e;
+  }
+}

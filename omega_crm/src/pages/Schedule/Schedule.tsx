@@ -1,0 +1,89 @@
+import ScheduleTabs from "./ScheduleTabs/ScheduleTabs";
+import CustomerPane from "./CustomerPane/CustomerPane";
+import DateSelection from "./DateSelection/DateSelection";
+import ScheduleGrid from "./ScheduleGrid/ScheduleGrid";
+import { useSchedules, useScheduleDispatch } from "../../reducers/scheduleReducer";
+import Modal from "../../components/Modal/Modal";
+import { useState, useEffect } from "react";
+import NewSectionModal from "../../modals/NewSectionModal";
+import NewScheduleModal from "../../modals/NewScheduleModal";
+import NewApptModal from "../../modals/NewApptModal";
+import scheduleAPI from "../../api/scheduleAPI";
+import './Schedule.css';
+import { useCustomerDispatch, useCustomers } from "../../reducers/customersReducer";
+
+function Schedule () {
+  
+  const scheduleState = useSchedules();
+  const scheduleDispatch = useScheduleDispatch();
+  const customerState = useCustomers();
+  const customerDispatch = useCustomerDispatch();
+
+  const schedules = scheduleState.schedules;
+  const selectedScheduleId = scheduleState.selectedSchedule;
+
+  const [isAddScheduleModalOpen, setIsAddScheduleModalOpen] = useState(false);
+  const closeAddScheduleModal = () => setIsAddScheduleModalOpen(false);
+  const openAddScheduleModal = () => setIsAddScheduleModalOpen(true);
+  
+  const [isAddSectionModallOpen, setIsAddSectionModallOpen] = useState(false);
+  const closeAddSectionModal = () => setIsAddSectionModallOpen(false);
+  const openAddSectionModal = () => setIsAddSectionModallOpen(true);
+
+  const [isAddApptModalOpen, setIsAddApptModalOpen] = useState(false);
+  const closeAddApptModal = () => setIsAddApptModalOpen(false);
+  const openAddApptModal = () => setIsAddApptModalOpen(true);
+
+  useEffect(() => {
+    scheduleAPI.getSchedules(scheduleState.selectedSchedule, scheduleState.date)
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error("Error retrieving schedule information");
+    }).then(result => {
+      scheduleDispatch({
+        type: "selected",
+        id: result.selectedSchedule,
+        schedules: result.schedules,
+        sections: result.sections,
+        appointments: result.appointments
+      });
+    })
+    .catch(err => console.error(err));
+  }, []);
+
+  return (
+    <div id="scheduleMainContainer">
+      <div id="schedule">
+        <ScheduleTabs 
+          schedules={schedules}
+          selectedId={selectedScheduleId}
+          openAddScheduleModal={openAddScheduleModal}
+        />
+        <DateSelection />
+        <ScheduleGrid
+          scheduleState={scheduleState}
+          selectedCustomerId={customerState.selectedCustomer.id}
+          openAddSectionModal={openAddSectionModal}
+          openAddApptModal={openAddApptModal}
+        />
+      </div>
+      <CustomerPane customer={customerState.selectedCustomer} customerDispatch={customerDispatch}/>
+
+      <Modal show={isAddScheduleModalOpen} onClose={closeAddScheduleModal}>
+        <NewScheduleModal closeAddScheduleModal={closeAddScheduleModal}/>
+      </Modal>
+
+      <Modal show={isAddSectionModallOpen} onClose={closeAddSectionModal}>
+        <NewSectionModal closeAddSectionModal={closeAddSectionModal}/>
+      </Modal>
+
+      <Modal show={isAddApptModalOpen} onClose={closeAddApptModal}>
+        <NewApptModal closeAddApptModal={closeAddApptModal} />
+      </Modal>
+    </div>
+  );
+}
+
+export default Schedule;

@@ -1,0 +1,29 @@
+.userInfo {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 2fr 1.5fr 1fr;
+  border-bottom: 1px solid white;
+  padding: 10px;
+}
+
+.userInfo:hover {
+  cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+  .userInfo {
+    border-bottom: 1px dashed #e0e0e0;
+  }
+
+  .userSelected, .userInfo:hover {
+    background-color: #424242;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .userInfo {
+    border-bottom: 1px dashed #1e1e1e;
+  }
+  .userSelected, .userInfo:hover {
+    background-color: #c6c6c6;
+  }
+}
