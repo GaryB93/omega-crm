@@ -23,7 +23,7 @@ function Nav ({ user, setUser }: NavProps) {
           <NavLink to="/acctmgmt">Account Management</NavLink>
         </div>
         <div id="logoutSection">
-          <span>User: {user.firstname}</span>
+          <span>Logged in:<br/>{user.firstname} {user.lastname}</span>
           <button className="secondaryBtn" onClick={handleClick}>Logout</button>
         </div>
       </div>

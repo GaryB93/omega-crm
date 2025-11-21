@@ -26,8 +26,9 @@ body {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #1e1e1e;
-    background-color: #ededed;
+    color: #444444;
+    background-color: #f7f7f7;
+    --border-color: #818181;
   }
 }
 
