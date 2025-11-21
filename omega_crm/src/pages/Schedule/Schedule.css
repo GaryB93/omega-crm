@@ -9,14 +9,10 @@
   flex-grow: 1;
 }
 
-@media (prefers-color-scheme: dark) {
-  #schedule {
-    background-color: #2f2f2f;
-  }
+/* @media (prefers-color-scheme: dark) {
+
 }
 
 @media (prefers-color-scheme: light) {
-  #schedule {
-    background-color: #dedede;
-  }
-}
+
+} */

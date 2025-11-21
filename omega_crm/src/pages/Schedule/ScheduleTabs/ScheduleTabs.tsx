@@ -21,9 +21,7 @@ function ScheduleTabs ({ schedules, selectedId, openAddScheduleModal }: Schedule
       <div id="tabsContainer">
         {scheduleTabs}
       </div>
-      <div id="addScheduleContainer">
-        <button id="addScheduleBtn" onClick={openAddScheduleModal}>Add Schedule +</button>
-      </div>
+      <button id="addScheduleBtn" className="secondaryBtn" onClick={openAddScheduleModal}>Add Schedule +</button>
     </div>
   );
 }
