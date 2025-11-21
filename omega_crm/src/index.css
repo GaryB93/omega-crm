@@ -21,6 +21,8 @@ body {
   :root {
     color: #ededed;
     background-color: #1e1e1e;
+    --border-color: #828282;
+    /* --shadow-color: #8e8e8e; */
   }
 }
 
@@ -29,6 +31,7 @@ body {
     color: #444444;
     background-color: #f7f7f7;
     --border-color: #818181;
+    /* --shadow-color: #8e8e8e; */
   }
 }
 

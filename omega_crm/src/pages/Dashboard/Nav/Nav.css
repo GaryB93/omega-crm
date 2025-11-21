@@ -29,10 +29,6 @@
     padding: 10px 0;
     border-bottom: 1px solid #d1d1d1;
   }
-
-  a.active, a:hover {
-    background-color: #e0e0e0;
-  }
 }
 
 #logoutSection {
@@ -54,6 +50,10 @@
     a, a:visited {
       color: #ededed;
     }
+
+    a.active, a:hover {
+    background-color: #545454;
+  }
   }
 }
 
@@ -62,5 +62,9 @@
     a, a:visited {
       color: #444444;
     }
+
+    a.active, a:hover {
+    background-color: #e0e0e0;
+  }
   }
 }
