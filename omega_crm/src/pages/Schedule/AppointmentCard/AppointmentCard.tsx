@@ -33,8 +33,8 @@ function AppointmentCard ({ appointmentInfo, j }: { appointmentInfo: Appointment
         <span>{appointmentInfo.description}</span>
       </div>
       <div id="buttonContainer">
-        <button className="secondaryBtn" onClick={openDeleteApptModal}>Delete</button>
-        <button className="secondaryBtn" onClick={openEditApptModal}>Edit</button>
+        <button onClick={openDeleteApptModal}>Delete</button>
+        <button onClick={openEditApptModal}>Edit</button>
       </div>
 
       <Modal show={isEditApptModalOpen} onClose={closeEditApptModal}>

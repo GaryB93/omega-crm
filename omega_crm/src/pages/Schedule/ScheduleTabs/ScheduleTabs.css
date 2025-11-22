@@ -15,7 +15,7 @@
   cursor: pointer;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   #addScheduleBtn {
     background-color: #1e1e1e;
   }
@@ -25,4 +25,4 @@
   #addScheduleBtn {
     background-color: #ededed;
   }
-}
+} */

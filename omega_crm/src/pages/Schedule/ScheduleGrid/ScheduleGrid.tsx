@@ -1,10 +1,7 @@
+import { useScheduleDispatch } from '../../../reducers/scheduleReducer';
 import AppointmentCard from '../AppointmentCard/AppointmentCard';
 import type { ScheduleState } from '../../../reducers/scheduleReducer';
 import './ScheduleGrid.css';
-
-// The schedulegrid component is one of the ways the application showcases a user-friendly, functional GUI.
-// The main purpose of this application is to provide users with an easy way to view appointments by date and when they are scheduled for.
-// The user can change what appointments are being shown by choosing the specific date or schedule.
 
 interface ScheduleGridProps {
   scheduleState: ScheduleState;
@@ -15,6 +12,7 @@ interface ScheduleGridProps {
 
 function ScheduleGrid ({ scheduleState, selectedCustomerId, openAddSectionModal, openAddApptModal }: ScheduleGridProps) {
 
+  const scheduleDispatch = useScheduleDispatch();
   const currentSchedule = scheduleState.schedules.find(schedule => schedule.id == scheduleState.selectedSchedule);
   const sectionIds: Array<number> = [];
   
@@ -40,8 +38,11 @@ function ScheduleGrid ({ scheduleState, selectedCustomerId, openAddSectionModal,
   // });
 
   return (
-    <div id="scheduleGrid" style={{gridTemplateColumns: `1fr repeat(${sections.length}, 2fr)`}}>
-      <h2>{currentSchedule ? currentSchedule!.name : 'Schedule'}</h2>
+    <div id="scheduleGrid" style={{gridTemplateColumns: `100px repeat(${sections.length}, 1fr)`}}>
+      <div id="title">
+        <h2>{currentSchedule ? currentSchedule!.name : 'Schedule'}</h2>
+        <input type="date" id="datepicker" value={scheduleState.date} onChange={(e) => scheduleDispatch({type: "changedDate", date: e.target.value})}/>
+      </div>
       <p className="times eight">8:00AM</p>
       <p className="times nine">9:00AM</p>
       <p className="times ten">10:00AM</p>

@@ -1,6 +1,5 @@
 import ScheduleTabs from "./ScheduleTabs/ScheduleTabs";
 import CustomerPane from "./CustomerPane/CustomerPane";
-import DateSelection from "./DateSelection/DateSelection";
 import ScheduleGrid from "./ScheduleGrid/ScheduleGrid";
 import { useSchedules, useScheduleDispatch } from "../../reducers/scheduleReducer";
 import Modal from "../../components/Modal/Modal";
@@ -51,7 +50,7 @@ function Schedule () {
       });
     })
     .catch(err => console.error(err));
-  }, []);
+  }, [scheduleState.selectedSchedule, scheduleState.date, scheduleDispatch]);
 
   return (
     <div id="scheduleMainContainer">
@@ -61,7 +60,6 @@ function Schedule () {
           selectedId={selectedScheduleId}
           openAddScheduleModal={openAddScheduleModal}
         />
-        <DateSelection />
         <ScheduleGrid
           scheduleState={scheduleState}
           selectedCustomerId={customerState.selectedCustomer.id}
