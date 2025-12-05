@@ -6,7 +6,7 @@ import Modal from "../../components/Modal/Modal";
 import { useState, useEffect } from "react";
 import NewSectionModal from "../../modals/NewSectionModal";
 import NewScheduleModal from "../../modals/NewScheduleModal";
-import NewApptModal from "../../modals/NewApptModal";
+import CreateApptModal from "../../modals/CreateApptModal/CreateApptModal";
 import scheduleAPI from "../../api/scheduleAPI";
 import './Schedule.css';
 import { useCustomerDispatch, useCustomers } from "../../reducers/customersReducer";
@@ -78,7 +78,7 @@ function Schedule () {
       </Modal>
 
       <Modal show={isAddApptModalOpen} onClose={closeAddApptModal}>
-        <NewApptModal closeAddApptModal={closeAddApptModal} />
+        <CreateApptModal closeAddApptModal={closeAddApptModal} />
       </Modal>
     </div>
   );

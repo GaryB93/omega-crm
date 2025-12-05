@@ -1,0 +1,96 @@
+#create-appointment-modal {
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    text-align: center;
+    margin: 0px; 
+  }
+
+  h3 {
+    margin: 10px 0px 15px 0px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  #customer-search-form {
+    div {
+      width: 300px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    margin-bottom: 20px;
+   
+  }
+
+  #customer-search-results-header {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  #customer-search-results {
+    min-height: 120px;
+    margin-bottom: 20px;
+    overflow-y: auto;
+  }
+
+  #create-appt-form {
+    display: grid;
+    grid-template-columns: 300px 300px;
+    grid-template-rows: repeat(6, 30px);
+    column-gap: 40px;
+    row-gap: 10px;
+
+    div {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    #first-name-div {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+    }
+
+    #last-name-div {
+      grid-column: 1 / 2;
+      grid-row: 2 / 3;
+    }
+
+    #phone-div {
+      grid-column: 1 / 2;
+      grid-row: 3 / 4;
+    }
+
+    #date-div {
+      grid-column: 2 / end;
+      grid-row: 1 / 2;
+    }
+
+    #start-time-div {
+      grid-column: 2 / end;
+      grid-row: 2 / 3;
+    }
+
+    #end-time-div {
+      grid-column: 2 / end;
+      grid-row: 3 / 4;
+    }
+
+    #description-div {
+      grid-column: 2 / end;
+      grid-row: 4 / 5;
+    }
+
+    #assigned-section-div {
+      grid-column: 1 / 2;
+      grid-row: 4 / 5;
+    }
+
+    button {
+      grid-column: 2 / end;
+      grid-row: 6 / 7;
+    }
+  }
+}
